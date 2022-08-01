@@ -1,24 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PublicLayout from './shared/PublicLayout';
+import PrivateLayout from './shared/PrivateLayout';
+import Login from './components/Welcome/Login';
+import Register from './components/Welcome/Register';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  function toggleIsAuthenticated(){
+    setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      { !isAuthenticated &&
+        <Route element={<PublicLayout toggleAuthentication={toggleIsAuthenticated} />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      }
+      { isAuthenticated &&
+        <Route element={<PrivateLayout />}>
+
+        </Route>
+      }
+      </Routes>
+    </BrowserRouter>
   );
 }
 
