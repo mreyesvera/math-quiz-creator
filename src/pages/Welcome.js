@@ -5,31 +5,37 @@ import {
     Box,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { convertLength } from '@mui/material/styles/cssUtils';
 
 const classesFromTheme = (theme) => (
     {
         root: {
             //background: "#404040",
             backgroundImage: 'url("/images/colorful_background_rotated.png")',
+            backgroundPosition: 'center center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             height: '100vh',
+            minHeight: '550px',
+            minWidth: '300px',
         },
-        imageContainer: {
-            height: '100vh',
+        containersContainer: {
+            textAlign: 'center',
+            height: 4/5,
+            minHeight: '480px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5%',
             width: 1,
-            overflow: 'hidden',
-            textAlign: 'initial',
-            position: 'relative',
+            alignItems: 'stretch',
+            justifyContent: 'center',
         },
-        image: {
-            position: 'absolute',
+        titleContainerContainer: {
+            height: 1/5,
         },
         titleContainer: {
-            background: "hsl(0, 0%, 100%, 85%)",
+            background: "hsl(0, 0%, 100%, 80%)",
             mixBlendMode: 'screen',
-            textAlign: 'center',
+            //textAlign: 'center',
             // [theme.breakpoints.down('sm')]: {
             //     color: 'pink',
             // }
@@ -37,7 +43,24 @@ const classesFromTheme = (theme) => (
         title: {
             fontWeight: 200,
             fontSize: '80px',
-            margin: '10% 0' ,
+            //margin: 'min(100px, 10%) 0 5% 0' ,
+            margin: 0,
+        },
+        formContainer: {
+            //background: "hsl(0, 0%, 100%, 100%)",
+            //background: 'hsl(0, 0%, 12%, 80%)',
+            background: 'hsl(222, 64%, 19%, 80%)',
+            margin: 0,
+            //mixBlendMode: 'screen',
+            //mixBlendMode: 'overlay',
+            //mixBlendMode: 'hue',
+            //mixBlendMode: 'color-burn',
+            height: 4/5,
+            mixBlendMode: 'hard-light',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            justifyContent: 'center',
         }
     }
 );
@@ -46,71 +69,29 @@ const classesFromTheme = (theme) => (
 export default function Welcome(props){
     const theme = useTheme();
     const classes = classesFromTheme(theme);
-    const [imageHeightMode, setImageHeightMode] = React.useState(true)
-    const [imageStyles, setImageStyles] = React.useState({
-        height: '100%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-    });
-
-    React.useEffect(()=>{
-        function imageStyleChange(e){
-            console.log("function called");
-            const screenRatioFlag = (window.innerWidth/2)/window.innerHeight > (2/3);
-            if( screenRatioFlag && imageHeightMode){
-                console.log("change");
-                setImageStyles({
-                    width: '100%',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    height: 'auto',
-                    left: '0',
-                });
-                setImageHeightMode(false);
-            } else if (!screenRatioFlag && !imageHeightMode) {
-                console.log("change");
-                setImageStyles({
-                    height: '100%',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: 'auto',
-                    top: '0',
-                });
-                setImageHeightMode(true);
-            }
-        };
-
-        imageStyleChange();
-        window.addEventListener('resize', imageStyleChange);
-
-        return ()=> {
-            window.removeEventListener('resize', imageStyleChange);
-        }; 
-    }, [imageHeightMode]);
     
 
     return (
-        <Grid container sx={classes.root}>
-            <Grid item xs={12}>
-                <Box sx={classes.contentContainer}>
+        <Grid 
+            container 
+            sx={classes.root}
+            alignItems="center"
+            justifyContent="center"
+        >
+            <Grid 
+                item 
+                xs={12} 
+                sx={classes.containersContainer}
+            >
+                <Box sx={classes.titleContainerContainer}>
                     <Box sx={classes.titleContainer}>
                         <h1 style={classes.title}>MathVi</h1>
                     </Box>
-                    <Box sx={classes.formContainer}>
-                        {props.children}
-                    </Box>
+                </Box>
+                <Box sx={classes.formContainer}>
+                    {props.children}
                 </Box>
             </Grid>
-            {/* <Grid item xs={6} sx={classes.imageContainer}>
-                <img 
-                    src="/images/colorful_background.png" 
-                    alt="colorful background"
-                    style={{
-                        ...classes.image,
-                        ...imageStyles,
-                    }}
-                />
-            </Grid>  */}
         </Grid>
     );
 }
