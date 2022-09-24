@@ -7,8 +7,8 @@ import {
   
   const themeConfig = {
     palette: {
-      primary: colors.purple,
-      secondary: colors.purple,
+      primary: colors.blue,
+      secondary: colors.indigo,
     },
   }
   

@@ -15,7 +15,7 @@ const classesFromTheme = (theme) => (
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             height: '100vh',
-            minHeight: '550px',
+            minHeight: '600px',
             minWidth: '300px',
         },
         containersContainer: {
@@ -61,6 +61,7 @@ const classesFromTheme = (theme) => (
             flexDirection: 'column',
             alignItems: 'stretch',
             justifyContent: 'center',
+            padding: '10px',
         }
     }
 );
@@ -85,7 +86,7 @@ export default function Welcome(props){
             >
                 <Box sx={classes.titleContainerContainer}>
                     <Box sx={classes.titleContainer}>
-                        <h1 style={classes.title}>MathVi</h1>
+                        <h1 style={classes.title}>MathVI</h1>
                     </Box>
                 </Box>
                 <Box sx={classes.formContainer}>

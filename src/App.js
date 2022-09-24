@@ -5,6 +5,8 @@ import PublicLayout from './shared/PublicLayout';
 import PrivateLayout from './shared/PrivateLayout';
 import Login from './components/Welcome/Login';
 import Register from './components/Welcome/Register';
+import ForgotPassword from './components/Welcome/ForgotPassword';
+import ResetPassword from './components/Welcome/ResetPassword';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
 
@@ -30,6 +32,8 @@ function App() {
               <Route element={<PublicLayout toggleAuthentication={toggleIsAuthenticated} />}>
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgotPassword" element={<ForgotPassword />} />
+                <Route path="/resetPassword" element={<ResetPassword />} />
               </Route>
             }
             { isAuthenticated &&
