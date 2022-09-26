@@ -4,8 +4,11 @@ import {
 } from '@mui/material';
 import WelcomeForm from "./WelcomeForm";
 import WelcomeField from './WelcomeField';
+import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword(){
+    const navigate = useNavigate();
+
     return (
         <WelcomeForm title="Forgot Password">
             <WelcomeField fieldType="Text">
@@ -19,7 +22,11 @@ export default function ForgotPassword(){
                 <Box>
                     Remembered your password?
                 </Box>
-                <Link href="#" underline="none">
+                <Link 
+                    href="#" 
+                    underline="none"
+                    onClick={() => navigate("/")}
+                >
                     Log In!
                 </Link>
             </Box>

@@ -16,7 +16,8 @@ const classesFromTheme = (theme) => (
             backgroundSize: 'cover',
             height: '100vh',
             minHeight: '600px',
-            minWidth: '300px',
+            //minHeight: '680px',
+            minWidth: '345px',
         },
         containersContainer: {
             textAlign: 'center',
@@ -25,6 +26,7 @@ const classesFromTheme = (theme) => (
             display: 'flex',
             flexDirection: 'column',
             gap: '5%',
+            //gap: '12px',
             width: 1,
             alignItems: 'stretch',
             justifyContent: 'center',
@@ -56,6 +58,7 @@ const classesFromTheme = (theme) => (
             //mixBlendMode: 'hue',
             //mixBlendMode: 'color-burn',
             height: 4/5,
+            //height: '98%',
             mixBlendMode: 'hard-light',
             display: 'flex',
             flexDirection: 'column',
@@ -70,26 +73,49 @@ const classesFromTheme = (theme) => (
 export default function Welcome(props){
     const theme = useTheme();
     const classes = classesFromTheme(theme);
+    const [isRegister, setIsRegister] = React.useState(window.location.pathname.includes('/register'));
     
 
     return (
         <Grid 
             container 
-            sx={classes.root}
+            sx={
+                isRegister ?
+                {
+                    ...classes.root,
+                    minHeight: '680px',
+                }
+                : classes.root
+            }
             alignItems="center"
             justifyContent="center"
         >
             <Grid 
                 item 
                 xs={12} 
-                sx={classes.containersContainer}
+                sx={
+                    isRegister ?
+                    {
+                        ...classes.containersContainer,
+                        gap: '12px',
+                    }
+                    : classes.containersContainer
+                }
             >
                 <Box sx={classes.titleContainerContainer}>
                     <Box sx={classes.titleContainer}>
                         <h1 style={classes.title}>MathVI</h1>
                     </Box>
                 </Box>
-                <Box sx={classes.formContainer}>
+                <Box sx={
+                        isRegister ?
+                        {
+                            ...classes.formContainer,
+                            height: '98%',
+                        }
+                        : classes.formContainer
+                    }
+                >
                     {props.children}
                 </Box>
             </Grid>

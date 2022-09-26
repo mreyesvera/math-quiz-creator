@@ -2,6 +2,7 @@ import {
     TextField,
     Button,
     Box,
+    FormControl,
 } from '@mui/material';
 import WelcomeComponent from './WelcomeComponent';
 
@@ -17,6 +18,9 @@ const classes = {
         //marginTop: 'min(60px, 5%)',
         marginTop: '60px',
     },
+    text: {
+        margin: '0 auto',
+    },
 };
 
 export default function WelcomeField(props){
@@ -24,14 +28,16 @@ export default function WelcomeField(props){
         <WelcomeComponent>
             {
                 props.fieldType === "TextField" &&
-                <TextField 
-                    sx={classes.field} 
-                    id="outlined-basic" 
-                    label={props.label}
-                    variant="filled" 
-                    InputProps={ {sx: classes.formField} }
-                    InputLabelProps={ {sx: classes.formField}}
-                />
+                <FormControl sx={classes.field} >
+                    <TextField 
+                        id="outlined-basic" 
+                        label={props.label}
+                        variant="filled" 
+                        InputProps={ {sx: classes.formField} }
+                        InputLabelProps={ {sx: classes.formField}}
+                        type={props.type}
+                    />
+                </FormControl>
             }
             {
                 props.fieldType === "Button" &&
@@ -45,7 +51,7 @@ export default function WelcomeField(props){
             }
             {
                 props.fieldType === 'Text' &&
-                <Box sx={classes.field}>
+                <Box sx={{...classes.field, ...classes.text}}>
                    { props.children }
                 </Box>
             }
