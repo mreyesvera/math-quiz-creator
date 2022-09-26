@@ -7,6 +7,7 @@ import Login from './components/Welcome/Login';
 import Register from './components/Welcome/Register';
 import ForgotPassword from './components/Welcome/ForgotPassword';
 import ResetPassword from './components/Welcome/ResetPassword';
+import Home from './pages/Home';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
 
@@ -17,7 +18,7 @@ const classes = {
 };
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
 
   function toggleIsAuthenticated(){
     setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
@@ -38,7 +39,7 @@ function App() {
             }
             { isAuthenticated &&
               <Route element={<PrivateLayout />}>
-
+                <Route path="/home" element={<Home />} />
               </Route>
             }
           </Routes>

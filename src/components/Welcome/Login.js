@@ -22,7 +22,11 @@ export default function Login(){
                     Forgot your password?
                 </Link>
             </Box>
-            <WelcomeField label="LOG IN" fieldType="Button"/>
+            <WelcomeField 
+                label="LOG IN" 
+                fieldType="Button" 
+                onClick={() => navigate("/home")}
+            />
             <Box>
                 <Box>
                     Don't have an account?

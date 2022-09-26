@@ -45,6 +45,7 @@ export default function WelcomeField(props){
                     sx={{...classes.field, ...classes.button}}
                     color="secondary" 
                     variant="contained"
+                    onClick={props.onClick}
                 >
                     { props.label }
                 </Button>

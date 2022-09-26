@@ -73,7 +73,7 @@ const classesFromTheme = (theme) => (
 export default function Welcome(props){
     const theme = useTheme();
     const classes = classesFromTheme(theme);
-    const [isRegister, setIsRegister] = React.useState(window.location.pathname.includes('/register'));
+    const [isRegister] = React.useState(window.location.pathname.includes('/register'));
     
 
     return (
