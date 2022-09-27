@@ -1,15 +1,12 @@
 import {
     Box,
     Divider, 
-    Drawer, 
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
+    Drawer,
     Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import * as React from 'react';
+import NavTopicsList from './NavTopicsList';
 
 const createClasses = (theme) => ({
     navBackground: {
@@ -22,6 +19,7 @@ const createClasses = (theme) => ({
     },
     navContentBackground: {
         background: theme.palette.darBackgroundOpaque,
+        mixBlendMode: 'hard-light',
         //height: 'calc(100% - 32px)',
         height: 1,
         textAlign: 'center',
@@ -30,8 +28,8 @@ const createClasses = (theme) => ({
     navContent: {
         //padding: 2,
         //height: 9/10,
-        padding: '20px',
-        minWidth: '300px',
+        py: '20px',
+        minWidth: '340px',
     },
     navTitle: {
         p: 2,
@@ -41,8 +39,6 @@ const createClasses = (theme) => ({
 export default function NavDrawer(props){
     const theme = useTheme();
     const classes = createClasses(theme);
-
-    const navItems = ['STATISTICS', 'PROBABILITY', 'LINEAR ALGEBRA'];
     
     return (
         <Box component="nav">
@@ -58,15 +54,7 @@ export default function NavDrawer(props){
                                 MathVI
                             </Typography>
                             <Divider />
-                            <List>
-                                {navItems.map((item) => (
-                                <ListItem key={item} disablePadding>
-                                    <ListItemButton sx={{ textAlign: 'center' }}>
-                                    <ListItemText primary={item} />
-                                    </ListItemButton>
-                                </ListItem>
-                                ))}
-                            </List>
+                            <NavTopicsList />
                         </Box>
                     </Box>
                 </Box>

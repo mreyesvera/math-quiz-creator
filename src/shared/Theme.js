@@ -10,7 +10,7 @@ import {
       primary: colors.blue,
       secondary: colors.indigo,
       darkBackground: colors.grey[900],
-      darBackgroundOpaque: 'rgba(33, 33, 33, 80%)',
+      darBackgroundOpaque: 'rgba(33, 33, 33, 100%)',
     },
     typography: {
       "fontFamily": 'Poppins',

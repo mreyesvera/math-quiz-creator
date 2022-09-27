@@ -17,12 +17,16 @@ const classes = {
   }
 };
 
+/**
+ * TO DO: Modify the passing of the authentication functions once full authentication
+ * is incorporated.
+ */
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
-  function toggleIsAuthenticated(){
-    setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
-  }
+  // function toggleIsAuthenticated(){
+  //   setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
+  // }
 
   return (
     <Box sx={classes.root}>
@@ -30,15 +34,15 @@ function App() {
         <ThemeProvider>
           <Routes>
             { !isAuthenticated &&
-              <Route element={<PublicLayout toggleAuthentication={toggleIsAuthenticated} />}>
-                <Route path="/" element={<Login />} />
+              <Route element={<PublicLayout />}>
+                <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/resetPassword" element={<ResetPassword />} />
               </Route>
             }
             { isAuthenticated &&
-              <Route element={<PrivateLayout />}>
+              <Route element={<PrivateLayout setIsAuthenticated={setIsAuthenticated} />}>
                 <Route path="/home" element={<Home />} />
               </Route>
             }

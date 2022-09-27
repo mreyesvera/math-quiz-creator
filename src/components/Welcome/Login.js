@@ -6,7 +6,7 @@ import WelcomeForm from "./WelcomeForm";
 import WelcomeField from './WelcomeField';
 import { useNavigate } from "react-router-dom";
 
-export default function Login(){
+export default function Login(props){
     const navigate = useNavigate();
 
     return (
@@ -25,7 +25,10 @@ export default function Login(){
             <WelcomeField 
                 label="LOG IN" 
                 fieldType="Button" 
-                onClick={() => navigate("/home")}
+                onClick={() => {
+                    props.setIsAuthenticated(true);
+                    navigate("/home");
+                }}
             />
             <Box>
                 <Box>

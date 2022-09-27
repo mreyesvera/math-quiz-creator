@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useNavigate } from "react-router-dom";
 
 const classes = {
   root: {
@@ -19,6 +20,7 @@ const classes = {
 };
 
 export default function MenuAppBar(props) {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -76,8 +78,14 @@ export default function MenuAppBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>My Account</MenuItem>
+              <MenuItem 
+                onClick={() => {
+                  handleClose();
+                  props.setIsAuthenticated(false);
+                  navigate("/");
+                }}
+              >Log Out</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
