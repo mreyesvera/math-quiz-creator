@@ -9,6 +9,11 @@ import {
     palette: {
       primary: colors.blue,
       secondary: colors.indigo,
+      darkBackground: colors.grey[900],
+      darBackgroundOpaque: 'rgba(33, 33, 33, 80%)',
+    },
+    typography: {
+      "fontFamily": 'Poppins',
     },
   }
   

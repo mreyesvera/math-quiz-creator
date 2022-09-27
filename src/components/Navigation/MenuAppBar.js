@@ -9,6 +9,15 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
+const classes = {
+  root: {
+    backgroundImage: 'url("/images/colorful_background_rotated.png")',
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }
+};
+
 export default function MenuAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -22,29 +31,21 @@ export default function MenuAppBar(props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar component="nav">
+      <AppBar component="nav" sx={classes.root}>
         <Toolbar>
-          {
-            //props.drawerOpened && 
-            true &&
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={props.openDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-          }
-          {
-            //props.drawerOpened && 
-            true &&
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MathVI
-            </Typography>
-          }
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={props.openDrawer}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            MathVI
+          </Typography>
           <Box
             sx={{
               textAlign: 'right',

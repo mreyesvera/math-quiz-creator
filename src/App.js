@@ -13,7 +13,7 @@ import { Box } from '@mui/material';
 
 const classes = {
   root: {
-    fontFamily: 'Poppins'
+    fontFamily: 'Poppins',
   }
 };
 

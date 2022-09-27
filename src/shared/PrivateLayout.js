@@ -20,19 +20,18 @@ export default function PrivateLayout() {
 
     return (
         <Box sx={{ display: 'flex' }}>
-        <MenuAppBar 
-            drawerOpened={open}
-            openDrawer={handleDrawerOpen}
-        />
-        <NavDrawer
-            open={open}
-            handleOpen={handleDrawerOpen}
-            handleClose={handleDrawerClose}
-        />
-        <Box component="main" sx={{ p: 3 }}>
-            <Toolbar />
-            <Outlet />
-        </Box>
+            <MenuAppBar 
+                openDrawer={handleDrawerOpen}
+            />
+            <NavDrawer
+                open={open}
+                handleOpen={handleDrawerOpen}
+                handleClose={handleDrawerClose}
+            />
+            <Box component="main" sx={{ p: 3 }}>
+                <Toolbar />
+                <Outlet />
+            </Box>
         </Box>
     );
 }
