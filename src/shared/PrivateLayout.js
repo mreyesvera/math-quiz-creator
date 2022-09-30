@@ -19,10 +19,11 @@ export default function PrivateLayout(props) {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box>
             <MenuAppBar 
                 openDrawer={handleDrawerOpen}
                 setIsAuthenticated={props.setIsAuthenticated}
+                toggleIsCreator={props.toggleIsCreator}
             />
             <NavDrawer
                 open={open}

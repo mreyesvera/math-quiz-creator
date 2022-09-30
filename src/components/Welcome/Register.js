@@ -42,7 +42,7 @@ export default function Register(props){
     return (
         <WelcomeForm title="Register">
             <FormControl sx={classes.roleFormControl}>
-                <FormLabel sx={classes.roleFormLabel} id="role-label" className={classes.roleFormLabel}>ROLE:</FormLabel>
+                <FormLabel sx={classes.roleFormLabel} id="role-label">ROLE:</FormLabel>
                 <RadioGroup
                     row
                     aria-labelledby="role-label"

@@ -86,6 +86,7 @@ export default function MenuAppBar(props) {
                   navigate("/");
                 }}
               >Log Out</MenuItem>
+              <MenuItem onClick={props.toggleIsCreator}>Switch Role</MenuItem>
             </Menu>
           </Box>
         </Toolbar>

@@ -11,6 +11,8 @@ import {
       secondary: colors.indigo,
       darkBackground: colors.grey[900],
       darBackgroundOpaque: 'rgba(33, 33, 33, 100%)',
+      existingQuiz: '#f7c965',
+      nonExistantElement: '#559194',
     },
     typography: {
       "fontFamily": 'Poppins',

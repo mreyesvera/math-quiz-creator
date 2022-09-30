@@ -4,10 +4,14 @@ import {
     Grid,
     Box,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+//import { useTheme } from '@mui/material/styles';
 
-const classesFromTheme = (theme) => (
-    {
+const classesFromTheme = (isRegister) => {
+    const rootMinHeight = isRegister ? '680px' : '600px';
+    const containersContainerGap = isRegister ? '12px' : '5%';
+    const formContainerHeight = isRegister ? '98%' : 4/5;
+
+    return {
         root: {
             //background: "#404040",
             backgroundImage: 'url("/images/colorful_background_rotated.png")',
@@ -15,7 +19,7 @@ const classesFromTheme = (theme) => (
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             height: '100vh',
-            minHeight: '600px',
+            minHeight: rootMinHeight,
             //minHeight: '680px',
             minWidth: '345px',
         },
@@ -25,7 +29,7 @@ const classesFromTheme = (theme) => (
             minHeight: '480px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '5%',
+            gap: containersContainerGap,
             //gap: '12px',
             width: 1,
             alignItems: 'stretch',
@@ -57,7 +61,7 @@ const classesFromTheme = (theme) => (
             //mixBlendMode: 'overlay',
             //mixBlendMode: 'hue',
             //mixBlendMode: 'color-burn',
-            height: 4/5,
+            height: formContainerHeight,
             //height: '98%',
             mixBlendMode: 'hard-light',
             display: 'flex',
@@ -67,25 +71,26 @@ const classesFromTheme = (theme) => (
             padding: '10px',
         }
     }
-);
+};
 
 
 export default function Welcome(props){
-    const theme = useTheme();
-    const classes = classesFromTheme(theme);
+    //const theme = useTheme();
     const [isRegister] = React.useState(window.location.pathname.includes('/register'));
-    
+    const classes = classesFromTheme(isRegister);
+    console.log(classes);
 
     return (
         <Grid 
             container 
             sx={
-                isRegister ?
-                {
-                    ...classes.root,
-                    minHeight: '680px',
-                }
-                : classes.root
+                // isRegister ?
+                // {
+                //     ...classes.root,
+                //     minHeight: '680px',
+                // }
+                // : 
+                classes.root
             }
             alignItems="center"
             justifyContent="center"
@@ -94,12 +99,13 @@ export default function Welcome(props){
                 item 
                 xs={12} 
                 sx={
-                    isRegister ?
-                    {
-                        ...classes.containersContainer,
-                        gap: '12px',
-                    }
-                    : classes.containersContainer
+                    // isRegister ?
+                    // {
+                    //     ...classes.containersContainer,
+                    //     gap: '12px',
+                    // }
+                    // : 
+                    classes.containersContainer
                 }
             >
                 <Box sx={classes.titleContainerContainer}>

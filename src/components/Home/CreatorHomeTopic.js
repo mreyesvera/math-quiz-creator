@@ -1,23 +1,33 @@
 import {
     //Box, 
-    List,
+    //List,
     ListItem,
     ListItemButton,
     ListItemText,
     Grid,
 } from '@mui/material';
-import { quizzes } from '../sample_data';
 import * as React from 'react';
+import { quizzes } from '../sample_data';
+import CreatorContentTable from './CreatorContentTable';
 
 const classes = {
     listItemButton: {
-        textAlign: 'center'
+        //textAlign: 'center'
+        background: '#5c3189',
+        color: 'white',
+        my: 1,
+        '&:hover': {
+            color: '#5c3189',
+        }
     },
 };
 
-export default function NavTopicList({topic}){
+const quizzesHeaders = ["Title", "Public", "UM", "Last Modified", "Actions"];
+const questionsHeaders = ["Title", "Assigned Quizzes", "Last Modified", "Actions"];
+
+export default function CreatorHomeTopic(props){
     const [isOpen, setIsOpen] = React.useState(false);
-    const topicQuizzes = React.useRef(quizzes[topic.topicId]);
+    const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);
 
     function toggleIsOpen(){
         setIsOpen((oldIsOpen) => {
@@ -41,13 +51,13 @@ export default function NavTopicList({topic}){
                         sx={classes.listItemButton}
                         onClick={openTopicList}
                     >
-                        <ListItemText primary={topic.title} />
+                        <ListItemText primary={props.topic.title} />
                     </ListItemButton>
                 </Grid>
             {
                 isOpen &&
                 <Grid item>
-                    <List>
+                    {/* <List>
                         {
                             topicQuizzes.current.map(
                                 (quiz) => (
@@ -59,7 +69,9 @@ export default function NavTopicList({topic}){
                                 )
                             )
                         }
-                    </List>
+                    </List> */}
+                    <CreatorContentTable title="Quizzes" headers={quizzesHeaders} content={topicQuizzes.current}/>
+                    <CreatorContentTable title="Questions" headers={questionsHeaders} content={[]}/>
                 </Grid>
             }
             </Grid>

@@ -23,6 +23,11 @@ const classes = {
  */
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isCreator, setIsCreator] = React.useState(true);
+
+  function toggleIsCreator() {
+    setIsCreator((oldIsCreator => !oldIsCreator));
+  }
 
   // function toggleIsAuthenticated(){
   //   setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
@@ -33,7 +38,7 @@ function App() {
       <BrowserRouter>
         <ThemeProvider>
           <Routes>
-            { !isAuthenticated &&
+            { //!isAuthenticated &&
               <Route element={<PublicLayout />}>
                 <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
                 <Route path="/register" element={<Register />} />
@@ -41,9 +46,9 @@ function App() {
                 <Route path="/resetPassword" element={<ResetPassword />} />
               </Route>
             }
-            { isAuthenticated &&
-              <Route element={<PrivateLayout setIsAuthenticated={setIsAuthenticated} />}>
-                <Route path="/home" element={<Home />} />
+            { //isAuthenticated &&
+              <Route element={<PrivateLayout setIsAuthenticated={setIsAuthenticated} toggleIsCreator={toggleIsCreator}/>}>
+                <Route path="/home" element={<Home title="Hello user!" isCreator={isCreator}/>} />
               </Route>
             }
           </Routes>

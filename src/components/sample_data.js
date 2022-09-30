@@ -77,8 +77,26 @@ const quizzes = [
     ]
 ];
 
+const solvedQuizzes = [
+    [
+        {
+            solvedQuizId: 1,
+            title: "stats quiz 1",
+            score: 0.9,
+        },
+        {
+            solvedQuizId: 2,
+            title: "stats quiz 2",
+            score: 0.7,
+        },
+    ],
+    [],
+    [],
+];
+
 export {
     topics,
     quizzes,
+    solvedQuizzes,
 }
 ;
