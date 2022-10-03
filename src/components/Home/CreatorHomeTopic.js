@@ -7,7 +7,7 @@ import {
     Grid,
 } from '@mui/material';
 import * as React from 'react';
-import { quizzes } from '../sample_data';
+import { quizzes, questions } from '../sample_data';
 import CreatorContentTable from './CreatorContentTable';
 
 const classes = {
@@ -23,11 +23,14 @@ const classes = {
 };
 
 const quizzesHeaders = ["Title", "Public", "UM", "Last Modified", "Actions"];
+const quizzesProperties = ["title", "isPublic", "hasUnlimitedMode", "lastModifiedTime"];
 const questionsHeaders = ["Title", "Assigned Quizzes", "Last Modified", "Actions"];
+const questionsProperties = ["title", "quizQuestions.title", "lastModifiedTime"];
 
 export default function CreatorHomeTopic(props){
     const [isOpen, setIsOpen] = React.useState(false);
     const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);
+    const topicQuestions = React.useRef(questions[props.topic.topicId]);
 
     function toggleIsOpen(){
         setIsOpen((oldIsOpen) => {
@@ -61,7 +64,7 @@ export default function CreatorHomeTopic(props){
                         {
                             topicQuizzes.current.map(
                                 (quiz) => (
-                                    <ListItem key={quiz.quizzId}>
+                                    <ListItem key={quiz.quizId}>
                                         <ListItemButton>
                                             <ListItemText primary={quiz.title}/>
                                         </ListItemButton>
@@ -70,8 +73,18 @@ export default function CreatorHomeTopic(props){
                             )
                         }
                     </List> */}
-                    <CreatorContentTable title="Quizzes" headers={quizzesHeaders} content={topicQuizzes.current}/>
-                    <CreatorContentTable title="Questions" headers={questionsHeaders} content={[]}/>
+                    <CreatorContentTable 
+                        title="Quizzes" 
+                        headers={quizzesHeaders} 
+                        content={topicQuizzes.current}
+                        properties={quizzesProperties}
+                    />
+                    <CreatorContentTable 
+                        title="Questions" 
+                        headers={questionsHeaders} 
+                        content={topicQuestions.current}
+                        properties={questionsProperties}
+                    />
                 </Grid>
             }
             </Grid>

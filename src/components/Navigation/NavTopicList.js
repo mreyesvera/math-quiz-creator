@@ -51,7 +51,7 @@ export default function NavTopicList({topic}){
                         {
                             topicQuizzes.current.map(
                                 (quiz) => (
-                                    <ListItem key={quiz.quizzId}>
+                                    <ListItem key={quiz.quizId}>
                                         <ListItemButton>
                                             <ListItemText primary={quiz.title}/>
                                         </ListItemButton>
