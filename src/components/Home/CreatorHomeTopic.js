@@ -20,7 +20,8 @@ const classes = {
         my: 1,
         '&:hover': {
             color: '#5c3189',
-        }
+        },
+        borderRadius: '4px',
     },
 };
 
@@ -178,12 +179,16 @@ export default function CreatorHomeTopic(props){
                         columns={quizzesColumns}
                         data={topicQuizzes.current}
                         getRowId={getQuizRowId}
+                        titleSectionActions={questionsTitleActions}
+                        titleBackgroundColor='#70a489'
                     />
                     <CreatorContentGrid 
                         title="Questions" 
                         columns={questionsColumns}
                         data={topicQuestions.current}
                         getRowId={getQuestionRowId}
+                        titleSectionActions={questionsTitleActions}
+                        titleBackgroundColor='#1e839c'
                     />
                 </Grid>
             }

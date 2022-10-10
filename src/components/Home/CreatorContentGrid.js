@@ -2,38 +2,59 @@ import {
     Box, 
     Grid,
     Button,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
 } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getValueFromProperty } from '../../utils/ProcessProperties';
 import * as React from 'react';
 
-const classes = {
-    titleSection: {
+const createClasses = (props) => ({
+    containerGrid: {
+        marginBottom: 3,
+    },
+    title: {
         display: 'flex',
+        alignItems: 'center',
+        paddingLeft: 4,
+    },
+    titleSection: {
+        color: 'white',
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: 1,
+        borderRadius: '4px',
+        backgroundColor: props.titleBackgroundColor,
+        //backgroundColor: '#1e839c',
+        //backgroundColor: '#70a489',
     },
     gridSection: {
         height: '350px',
+    },
+    button: {
+        boxShadow: 'none'
     }
-};
+});
 
 export default function CreatorContentGrid(props) {
-    
+    const classes = createClasses(props);
     console.log(props);
 
     return (
-        <Grid container direction='column'>
+        <Grid 
+            container 
+            direction='column'
+            sx={classes.containerGrid}
+        >
             <Grid item sx={classes.titleSection}>
-                <Box>{props.title}</Box>
+                <Box sx={classes.title}>{props.title}</Box>
                 {
                     props.titleSectionActions && props.titleSectionActions.length &&
-                    props.titleSectionActions.map((action) => (
+                    props.titleSectionActions.map((action, index) => (
                         <Button
+                            key={index}
                             onClick={action.onClick}
+                            variant="contained"
+                            sx={classes.button}
+                            color="secondary"
                         >
                             {action.title}
                         </Button>

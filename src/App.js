@@ -8,6 +8,7 @@ import Register from './components/Welcome/Register';
 import ForgotPassword from './components/Welcome/ForgotPassword';
 import ResetPassword from './components/Welcome/ResetPassword';
 import Home from './pages/Home';
+import Quiz from './pages/Quiz';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
 
@@ -49,6 +50,7 @@ function App() {
             { //isAuthenticated &&
               <Route element={<PrivateLayout setIsAuthenticated={setIsAuthenticated} toggleIsCreator={toggleIsCreator}/>}>
                 <Route path="/home" element={<Home title="Hello user!" isCreator={isCreator}/>} />
+                <Route path="/quiz/:id" element={<Quiz isCreator={isCreator}/>} />
               </Route>
             }
           </Routes>
