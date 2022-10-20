@@ -30,7 +30,8 @@ const createClasses = (props) => ({
         height: '350px',
     },
     button: {
-        boxShadow: 'none'
+        boxShadow: 'none',
+        marginLeft: '5px',
     }
 });
 
@@ -46,6 +47,7 @@ export default function CreatorContentGrid(props) {
         >
             <Grid item sx={classes.titleSection}>
                 <Box sx={classes.title}>{props.title}</Box>
+                <Box>
                 {
                     props.titleSectionActions && props.titleSectionActions.length &&
                     props.titleSectionActions.map((action, index) => (
@@ -60,6 +62,7 @@ export default function CreatorContentGrid(props) {
                         </Button>
                     ))
                 }
+                </Box>
             </Grid>
             <Grid item  sx={classes.gridSection}>
                 <DataGrid 

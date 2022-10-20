@@ -181,7 +181,8 @@ const questions = [
                     quizId: 2,
                     title: "stats quiz 3"
                 }
-            ]
+            ],
+            order: 1,
         },
         {
             questionId: 1, 
@@ -196,7 +197,8 @@ const questions = [
                     quizId: 2,
                     title: "stats quiz 3"
                 }
-            ]
+            ],
+            order: 2,
         },
         {
             questionId: 2, 
@@ -207,7 +209,8 @@ const questions = [
                     quizId: 2,
                     title: "stats quiz 3"
                 }
-            ]
+            ],
+            order: 3,
         }
     ],
     [],

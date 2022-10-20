@@ -6,11 +6,12 @@ import {
 } from "react-router-dom";
 import * as React from 'react';
 import { sampleQuiz } from '../components/sample_data';
-import QuizDetails from '../components/Quiz/QuizDetails';
+import { Outlet } from 'react-router-dom';
+import { quizzes, questions } from '../components/sample_data';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import QuizAdd from './QuizAdd';
 import QuizEdit from '../components/Quiz/QuizEdit';
-import QuizAggregates from '../components/Quiz/QuizAggregates';
-import SolvedQuizzesGrid from '../components/Quiz/SolvedQuizzesGrid';
-import { solvedQuizzes2 } from '../components/sample_data';
+import QuizDetails from '../components/Quiz/QuizDetails';
 
 const classes = {
     root: {
@@ -20,68 +21,26 @@ const classes = {
 };
 
 
-
-const solvedQuizzesColumns = [
-    {
-        field: 'creationTime',
-        headerName: 'Date Taken',
-        flex: 1,
-    },
-    {
-        field: 'correctResponses',
-        headerName: 'Correct',
-        flex: 1,
-    },
-    {
-        field: 'incorrectResponses',
-        headerName: 'Incorrect',
-        flex: 1,
-    },
-    {
-        field: 'totalNumberOfQuestions',
-        headerName: 'Total',
-        flex: 1,
-    },
-    {
-        field: 'score',
-        headerName: 'Score',
-        flex: 1,
-    },
-];
-
-function addTotalScore(solvedQuizzes){
-    return solvedQuizzes.map((solvedQuiz) => {
-        return {
-            ...solvedQuiz,
-            totalNumberOfQuestions: solvedQuiz.correctResponses + solvedQuiz.incorrectResponses
-        };
-    });
-};
-
-function getSolvedQuizRowId(solvedQuiz){
-    return solvedQuiz.solvedQuizId;
-}
-
 export default function Quiz(props){
     const { id } = useParams();
+    console.log(questions);
+    const currentQuiz = quizzes[0][0];
+    const currentQuestions = questions[0];
+    const contextValue = {
+        quiz: currentQuiz,
+        questions: currentQuestions,
+    };
 
     return (
         <Box sx={classes.root}>
             <h1>{sampleQuiz.topic.title}</h1>
             <Box>
-                <QuizDetails quiz={sampleQuiz} isCreator={props.isCreator}/>
-            </Box>
-            <Box>
-                {
-                    props.isCreator ?
-                    <QuizAggregates/>
-                    :
-                    <SolvedQuizzesGrid 
-                        data={addTotalScore(solvedQuizzes2)}
-                        columns={solvedQuizzesColumns}
-                        getRowId={getSolvedQuizRowId}
-                    />
-                }
+                <Outlet context={contextValue}/>
+                {/* <Routes>
+                    <Route path="/quiz/:id/details" element={<QuizDetails isCreator={props.isCreator}/>} />
+                    <Route path="/quiz/:id/edit" element={<QuizEdit isCreator={props.isCreator}/>} />
+                    <Route path="/quiz/:id/add" element={<QuizAdd isCreator={props.isCreator}/>} />
+                </Routes> */}
             </Box>
         </Box>
     );

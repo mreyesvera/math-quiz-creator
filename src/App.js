@@ -9,8 +9,12 @@ import ForgotPassword from './components/Welcome/ForgotPassword';
 import ResetPassword from './components/Welcome/ResetPassword';
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
+import QuizDetails from './components/Quiz/QuizDetails';
+import QuizEdit from './components/Quiz/QuizEdit';
+import QuizAdd from './pages/QuizAdd';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
+import { sampleQuiz, questions } from './components/sample_data';
 
 const classes = {
   root: {
@@ -29,6 +33,10 @@ function App() {
   function toggleIsCreator() {
     setIsCreator((oldIsCreator => !oldIsCreator));
   }
+
+  
+  const currentQuiz = sampleQuiz;
+  const currentQuestions = questions[0];
 
   // function toggleIsAuthenticated(){
   //   setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
@@ -50,7 +58,12 @@ function App() {
             { //isAuthenticated &&
               <Route element={<PrivateLayout setIsAuthenticated={setIsAuthenticated} toggleIsCreator={toggleIsCreator}/>}>
                 <Route path="/home" element={<Home title="Hello user!" isCreator={isCreator}/>} />
-                <Route path="/quiz/:id" element={<Quiz isCreator={isCreator}/>} />
+                {/* <Route path="/quiz/:id/*" element={<Quiz isCreator={isCreator}/>} /> */}
+                <Route path="/quiz/:id" element={<Quiz isCreator={isCreator}/>} >
+                  <Route path="/quiz/:id/details" element={<QuizDetails isCreator={isCreator}/>} />
+                  <Route path="/quiz/:id/edit" element={<QuizEdit isCreator={isCreator} />} />
+                </Route>
+                <Route path="/quiz/add" element={<QuizAdd isCreator={isCreator}/>} />
               </Route>
             }
           </Routes>

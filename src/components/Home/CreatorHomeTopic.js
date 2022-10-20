@@ -99,6 +99,10 @@ const questionsColumns = [
                 console.log(params);
             };
 
+            const onEdit = (e) => {
+                
+            }
+
             return (
             <Box>
                 <Button onClick={onClick}>Edit</Button>

@@ -1,75 +1,79 @@
 import {
     Box, 
-    Button,
 } from '@mui/material';
+import {
+    useParams,
+} from "react-router-dom";
 import * as React from 'react';
+import { sampleQuiz } from '../../components/sample_data';
+import QuizInformation from './QuizInformation';
+import QuizEdit from './QuizEdit';
+import QuizAggregates from './QuizAggregates';
+import SolvedQuizzesGrid from './SolvedQuizzesGrid';
+import { solvedQuizzes2 } from '../../components/sample_data';
 
-const classes = {
-    root: {
-        marginBottom: '50px',
-        marginLeft: '20px',
+
+const solvedQuizzesColumns = [
+    {
+        field: 'creationTime',
+        headerName: 'Date Taken',
+        flex: 1,
     },
-    titleContainer: {
-        display: 'flex',
-        justifyContent: 'space-between'
+    {
+        field: 'correctResponses',
+        headerName: 'Correct',
+        flex: 1,
     },
-    title: {
-        margin: 0,
+    {
+        field: 'incorrectResponses',
+        headerName: 'Incorrect',
+        flex: 1,
     },
-    editingDetails: {
-        marginTop: '20px',
-        marginBottom: '20px',
+    {
+        field: 'totalNumberOfQuestions',
+        headerName: 'Total',
+        flex: 1,
     },
-    description: {
-        marginLeft: '20px',
-        marginTop: '20px',
-        marginBottom: '20px',
+    {
+        field: 'score',
+        headerName: 'Score',
+        flex: 1,
     },
-    practiceButton: {
-    },
+];
+
+function addTotalScore(solvedQuizzes){
+    return solvedQuizzes.map((solvedQuiz) => {
+        return {
+            ...solvedQuiz,
+            totalNumberOfQuestions: solvedQuiz.correctResponses + solvedQuiz.incorrectResponses
+        };
+    });
 };
 
-export default function QuizDetails(props){
-    const quiz = props.quiz;
+function getSolvedQuizRowId(solvedQuiz){
+    return solvedQuiz.solvedQuizId;
+}
+
+export default function Quiz(props){
+    const { id } = useParams();
 
     return (
-        <Box sx={classes.root}>
-            <Box sx={classes.titleContainer}>
-                <h1 style={classes.title}>{quiz.title}</h1>
+        <Box>
+            <Box>
+                <QuizInformation quiz={sampleQuiz} isCreator={props.isCreator}/>
+            </Box>
+            <Box>
                 {
-                    !props.isCreator &&
-                    <Button
-                        variant="contained"
-                    >
-                        Take Quiz
-                    </Button>
+                    props.isCreator ?
+                    <QuizAggregates/>
+                    :
+                    <SolvedQuizzesGrid 
+                        data={addTotalScore(solvedQuizzes2)}
+                        columns={solvedQuizzesColumns}
+                        getRowId={getSolvedQuizRowId}
+                    />
                 }
             </Box>
-            <Box style={classes.description}>
-                {quiz.description}
-            </Box>
-            <Box sx={classes.editingDetails}>
-                <Box>
-                    Created By: {quiz.creator}
-                </Box>
-                <Box>
-                    Last Modified: {quiz.lastModifiedTime}
-                </Box>
-                <Box>
-                    Creation: {quiz.creationTime}
-                </Box>
-            </Box>
-            {
-                !props.isCreator &&
-                <Box>
-                    <Button
-                        variant="contained"
-                        sx={classes.practiceButton}
-                    >
-                        Practice in Unlimited Mode
-                    </Button>
-                </Box>
-            }
         </Box>
     );
 }
