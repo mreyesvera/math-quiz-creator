@@ -6,7 +6,6 @@ import {
 import { sampleQuiz } from '../components/sample_data';
 import QuizEdit from '../components/Quiz/QuizEdit';
 import * as React from 'react';
-import axios from 'axios';
 
 const classes = {
     root: {

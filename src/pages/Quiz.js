@@ -31,6 +31,8 @@ export default function Quiz(props){
         questions: currentQuestions,
     };
 
+    
+
     return (
         <Box sx={classes.root}>
             <h1>{sampleQuiz.topic.title}</h1>

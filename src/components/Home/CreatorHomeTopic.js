@@ -8,9 +8,13 @@ import {
     Button,
 } from '@mui/material';
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import { quizzes, questions } from '../sample_data';
+import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import appConfig from '../config/appConfig.json';
 import CreatorContentTable from './CreatorContentTable';
 import CreatorContentGrid from './CreatorContentGrid';
+import DataGridCellClickable from './DataGridCellClickable';
 
 const classes = {
     listItemButton: {
@@ -35,7 +39,13 @@ const quizzesColumns = [
         field: 'title',
         headerName: 'Title',
         flex: 2,
-    }, 
+        renderCell: (cellValues) => {
+            return <DataGridCellClickable 
+                        text={cellValues.row.title}
+                        navigateUrl={`/quiz/${cellValues.row.quizId}/details`}
+                    />;
+        }
+    },
     {
         field: 'isPublic',
         headerName:'Public',
@@ -123,10 +133,19 @@ function getQuestionRowId(row){
     return row.questionId;
 }
 
-export default function CreatorHomeTopic(props){
+function onClickQuizCell(row){
+    console.log(row);
+}
+
+function onClickQuestionCell(row){
+    console.log(row);
+}
+
+export default function CreatorHomeTopic({topic}){
     const [isOpen, setIsOpen] = React.useState(false);
-    const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);
-    const topicQuestions = React.useRef(questions[props.topic.topicId]);
+    const navigate = useNavigate();
+    //const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);
+    //const topicQuestions = React.useRef(questions[props.topic.topicId]);
 
     const quizzesTitleActions = [{
         title: 'CREATE NEW',
@@ -144,7 +163,7 @@ export default function CreatorHomeTopic(props){
 
     function openTopicList(){
         // later this might be a filter where it looks for the matching topicId
-        console.log(topicQuizzes.current);
+        //console.log(topicQuizzes.current);
         toggleIsOpen();
 
     }
@@ -157,7 +176,7 @@ export default function CreatorHomeTopic(props){
                         sx={classes.listItemButton}
                         onClick={openTopicList}
                     >
-                        <ListItemText primary={props.topic.title} />
+                        <ListItemText primary={topic.title} />
                     </ListItemButton>
                 </Grid>
             {
@@ -181,18 +200,20 @@ export default function CreatorHomeTopic(props){
                     <CreatorContentGrid 
                         title="Quizzes" 
                         columns={quizzesColumns}
-                        data={topicQuizzes.current}
+                        data={topic.quizzes}
                         getRowId={getQuizRowId}
-                        titleSectionActions={questionsTitleActions}
+                        titleSectionActions={quizzesTitleActions}
                         titleBackgroundColor='#70a489'
+                        onClickCell={() => console.log("clicked")}
                     />
                     <CreatorContentGrid 
                         title="Questions" 
                         columns={questionsColumns}
-                        data={topicQuestions.current}
+                        data={topic.questions}
                         getRowId={getQuestionRowId}
                         titleSectionActions={questionsTitleActions}
                         titleBackgroundColor='#1e839c'
+                        onClickCell={onClickQuestionCell}
                     />
                 </Grid>
             }
