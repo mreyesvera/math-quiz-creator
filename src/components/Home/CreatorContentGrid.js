@@ -37,7 +37,7 @@ const createClasses = (props) => ({
 
 export default function CreatorContentGrid(props) {
     const classes = createClasses(props);
-    console.log(props);
+    //console.log(props);
 
     return (
         <Grid 

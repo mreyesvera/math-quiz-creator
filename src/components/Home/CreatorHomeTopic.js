@@ -15,6 +15,7 @@ import appConfig from '../config/appConfig.json';
 import CreatorContentTable from './CreatorContentTable';
 import CreatorContentGrid from './CreatorContentGrid';
 import DataGridCellClickable from './DataGridCellClickable';
+import CreatorGridHomeActions from './CreatorGridHomeActions';
 
 const classes = {
     listItemButton: {
@@ -67,17 +68,7 @@ const quizzesColumns = [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            const onClick = (e) => {
-                console.log(params);
-            };
-
-            return (
-            <Box>
-                <Button onClick={onClick}>Edit</Button>
-                <Button onClick={onClick}>Delete</Button>
-                <Button onClick={onClick}>Preview</Button>
-            </Box>
-            )
+            return <CreatorGridHomeActions params={params} type="quiz" />;
         }
 
     }
@@ -105,21 +96,7 @@ const questionsColumns = [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            const onClick = (e) => {
-                console.log(params);
-            };
-
-            const onEdit = (e) => {
-                
-            }
-
-            return (
-            <Box>
-                <Button onClick={onClick}>Edit</Button>
-                <Button onClick={onClick}>Delete</Button>
-                <Button onClick={onClick}>Preview</Button>
-            </Box>
-            )
+            return <CreatorGridHomeActions params={params} type="question" />;
         }
 
     }
@@ -182,21 +159,6 @@ export default function CreatorHomeTopic({topic}){
             {
                 isOpen &&
                 <Grid item>
-                    {/* <CreatorContentTable 
-                        title="Quizzes" 
-                        headers={quizzesHeaders} 
-                        content={topicQuizzes.current}
-                        properties={quizzesProperties}
-                        titleSectionActions={quizzesTitleActions}
-                    />
-                    <CreatorContentTable 
-                        title="Questions" 
-                        headers={questionsHeaders} 
-                        content={topicQuestions.current}
-                        properties={questionsProperties}
-                        titleSectionActions={questionsTitleActions}
-                    /> */}
-
                     <CreatorContentGrid 
                         title="Quizzes" 
                         columns={quizzesColumns}

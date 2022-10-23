@@ -5,6 +5,7 @@ import {
     useParams,
 } from "react-router-dom";
 import * as React from 'react';
+import { useOutletContext } from "react-router-dom";
 import { sampleQuiz } from '../../components/sample_data';
 import QuizInformation from './QuizInformation';
 import QuizEdit from './QuizEdit';
@@ -55,12 +56,12 @@ function getSolvedQuizRowId(solvedQuiz){
 }
 
 export default function Quiz(props){
-    const { id } = useParams();
+  const contextValue = useOutletContext();
 
     return (
         <Box>
             <Box>
-                <QuizInformation quiz={sampleQuiz} isCreator={props.isCreator}/>
+                <QuizInformation quiz={contextValue.quiz} isCreator={props.isCreator}/>
             </Box>
             <Box>
                 {

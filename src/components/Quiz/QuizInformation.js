@@ -3,6 +3,7 @@ import {
     Button,
 } from '@mui/material';
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 
 const classes = {
     root: {
@@ -30,7 +31,12 @@ const classes = {
 };
 
 export default function QuizInformation(props){
+    const navigate = useNavigate();
     const quiz = props.quiz;
+
+    const onEdit = (e) => {
+        navigate(`/quiz/${quiz.quizId}/edit`);
+    }
 
     return (
         <Box sx={classes.root}>
@@ -44,13 +50,22 @@ export default function QuizInformation(props){
                         Take Quiz
                     </Button>
                 }
+                {
+                    props.isCreator &&
+                    <Button
+                        variant="contained"
+                        onClick={onEdit}
+                    >
+                        Edit Quiz
+                    </Button>
+                }
             </Box>
             <Box style={classes.description}>
                 {quiz.description}
             </Box>
             <Box sx={classes.editingDetails}>
                 <Box>
-                    Created By: {quiz.creator}
+                    Created By: {quiz.creator.username}
                 </Box>
                 <Box>
                     Last Modified: {quiz.lastModifiedTime}
