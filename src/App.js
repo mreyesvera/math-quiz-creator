@@ -14,7 +14,7 @@ import QuizEdit from './components/Quiz/QuizEdit';
 import QuizAdd from './pages/QuizAdd';
 import Question from './pages/Question';
 import QuestionEdit from './components/Question/QuestionEdit';
-import QuestionAdd from './components/Question/QuestionAdd';
+import QuestionAdd from './pages/QuestionAdd';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
 import { sampleQuiz, questions } from './components/sample_data';

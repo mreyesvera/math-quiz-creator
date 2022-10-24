@@ -19,7 +19,7 @@ import axios from 'axios';
 
 
 export default function QuizEdit(){
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const outletContext = useOutletContext();
 
     async function saveQuiz(quiz, formData, setErrors){
@@ -35,6 +35,7 @@ export default function QuizEdit(){
 
                     if(response.status === 204){
                         outletContext.setGetData(true);
+                        navigate(`/quiz/${quiz.quizId}/details`);
                     } else {
                         setErrors(["There was a problem saving the data."]);
                     }

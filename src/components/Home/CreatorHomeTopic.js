@@ -81,7 +81,7 @@ const questionsColumns = [
         flex: 2,
     }, 
     {
-        field: 'quizQuestions.title',
+        field: 'assignedQuizzes',
         headerName: 'Assigned Quizzes',
         flex: 2,
     },
@@ -119,6 +119,7 @@ function onClickQuestionCell(row){
 }
 
 export default function CreatorHomeTopic({topic}){
+    console.log(topic);
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
     //const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);
