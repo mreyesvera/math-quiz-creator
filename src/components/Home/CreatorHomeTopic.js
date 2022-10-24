@@ -126,9 +126,15 @@ export default function CreatorHomeTopic({topic}){
 
     const quizzesTitleActions = [{
         title: 'CREATE NEW',
+        onClick: () => {
+            navigate(`/quiz/${topic.topicId}/add`)
+        }
     }];
     const questionsTitleActions = [{
         title: 'CREATE NEW',
+        onClick: () => {
+            navigate(`/question/${topic.topicId}/add`)
+        }
     }];
 
     function toggleIsOpen(){

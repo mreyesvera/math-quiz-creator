@@ -21,8 +21,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DataObjectIcon from '@mui/icons-material/DataObject';
+import QuestionParametrization from './QuestionParametrization';
+import QuestionVisualizations from './QuestionVisualizations';
 
-const drawerWidth = 240;
+const drawerWidth = 450;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -105,25 +107,29 @@ const createClasses = (open) => ({
     mr: open ? 3 : 'auto',
     justifyContent: 'center',
   },
+  iconsContainer: {
+    width: '64px',
+  },
+  drawerContentContainer: {
+    width: 'calc(100% - 64px)',
+  },
 });
 
-export default function QuestionFeaturesDrawer(){
+export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, openParametrization, openVisualizations}){
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [selectedItem, setSelectedItem] = React.useState(0);
     const classes = createClasses(open);
 
-    const handleDrawerOpen = () => {
+    /*const handleDrawerOpen = () => {
         setOpen(true);
-      };
+      };*/
     
-      const handleDrawerClose = () => {
-        setOpen(false);
-      };
+    const handleDrawerClose = () => {
+      setOpen(false);
+    };
 
-      const handleDrawerToggle = () => {
-        setOpen(oldOpen => !oldOpen)
-      };
+    const handleDrawerToggle = () => {
+      setOpen(oldOpen => !oldOpen)
+    };
     
     return (
     <Drawer 
@@ -131,6 +137,9 @@ export default function QuestionFeaturesDrawer(){
       open={open}
       anchor="right"
       sx={classes.drawerPaper}
+      PaperProps={{
+        sx: { width: "50%" },
+      }}
     >
         <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
@@ -139,12 +148,15 @@ export default function QuestionFeaturesDrawer(){
         </DrawerHeader>
         <Divider />
         <Grid container>
-          <Grid item>
+          <Grid 
+            item
+            sx={classes.iconsContainer}
+          >
             <List>
               <ListItem disablePadding>
                 <ListItemButton
                   sx={classes.listItemButton}
-                  onClick={handleDrawerOpen}
+                  onClick={openVisualizations}
                 >
                   <ListItemIcon
                     sx={classes.listItemIcon}
@@ -156,7 +168,7 @@ export default function QuestionFeaturesDrawer(){
               <ListItem disablePadding>
                 <ListItemButton
                   sx={classes.listItemButton}
-                  onClick={handleDrawerOpen}
+                  onClick={openParametrization}
                 >
                   <ListItemIcon
                     sx={classes.listItemIcon}
@@ -167,8 +179,18 @@ export default function QuestionFeaturesDrawer(){
               </ListItem>
             </List>
           </Grid>
-          <Grid item>
-
+          <Grid 
+            item
+            sx={classes.drawerContentContainer}
+          >
+            { open && 
+              (
+                selectedItem === "Parametrization" ?
+                <QuestionParametrization />
+                :
+                <QuestionVisualizations />
+              )
+            }
           </Grid>
         </Grid>
 
