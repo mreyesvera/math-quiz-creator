@@ -17,26 +17,30 @@ const classes = {
 export default function CreatorHome(){
     const [topics, setTopics] = React.useState([]);
     const [error, setError] = React.useState([]);
+    const [resetTopic, setResetTopic] = React.useState(true);
 
     React.useEffect(() => {
-        async function getTopics(){
-            try {
-                await axios.get(`${mathQuizCreatorAPI.baseURL}Topics`).then(response => {
-                    console.log(response.data);
-                    if(response.data){
-                        setTopics(response.data);
-                        setError(null);
-                    } else {
-                        setError("There was a problem retrieving data.");
-                    }
-                });
-            } catch(error){
-                setError(error);
+        if(resetTopic){
+            async function getTopics(){
+                try {
+                    await axios.get(`${mathQuizCreatorAPI.baseURL}Topics`).then(response => {
+                        console.log(response.data);
+                        if(response.data){
+                            setTopics(response.data);
+                            setError(null);
+                        } else {
+                            setError("There was a problem retrieving data.");
+                        }
+                    });
+                } catch(error){
+                    setError(error);
+                }
             }
-        }
 
-        getTopics();
-    }, []);
+            setResetTopic(false);
+            getTopics();
+        }
+    }, [resetTopic]);
 
     return (
         <Box>
@@ -48,7 +52,7 @@ export default function CreatorHome(){
                 <List>
                 {
                     topics.map((topic) => (
-                        <CreatorHomeTopic key={topic.topicId} topic={topic}/>
+                        <CreatorHomeTopic key={topic.topicId} topic={topic} setResetTopic={setResetTopic}/>
                     ))
                 }
                 </List>

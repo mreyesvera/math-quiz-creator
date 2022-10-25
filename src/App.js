@@ -15,6 +15,7 @@ import QuizAdd from './pages/QuizAdd';
 import Question from './pages/Question';
 import QuestionEdit from './components/Question/QuestionEdit';
 import QuestionAdd from './pages/QuestionAdd';
+import SolveQuiz from './components/SolvedQuiz/SolveQuiz';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
 import { sampleQuiz, questions } from './components/sample_data';
@@ -71,6 +72,7 @@ function App() {
                   <Route path="/question/:id/edit" element={<QuestionEdit />} />
                 </Route>
                 <Route path="/question/:topicId/add" element={<QuestionAdd />} />
+                <Route path="/SolveQuiz" element={<SolveQuiz />}/>
               </Route>
             }
           </Routes>

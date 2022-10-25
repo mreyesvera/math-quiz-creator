@@ -118,7 +118,7 @@ function onClickQuestionCell(row){
     console.log(row);
 }
 
-export default function CreatorHomeTopic({topic}){
+export default function CreatorHomeTopic({topic, setResetTopic}){
     console.log(topic);
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
