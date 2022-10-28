@@ -49,7 +49,7 @@ export default function CreatorContentGrid(props) {
                 <Box sx={classes.title}>{props.title}</Box>
                 <Box>
                 {
-                    props.titleSectionActions && props.titleSectionActions.length &&
+                    (props.titleSectionActions && props.titleSectionActions.length &&
                     props.titleSectionActions.map((action, index) => (
                         <Button
                             key={index}
@@ -60,7 +60,7 @@ export default function CreatorContentGrid(props) {
                         >
                             {action.title}
                         </Button>
-                    ))
+                    ))) || ""
                 }
                 </Box>
             </Grid>
@@ -70,6 +70,7 @@ export default function CreatorContentGrid(props) {
                     columns={props.columns} 
                     getRowId={props.getRowId}
                     components={{ Toolbar: GridToolbar }}
+                    checkboxSelection={props.checkboxSelection}
                 />
             </Grid>
         </Grid>

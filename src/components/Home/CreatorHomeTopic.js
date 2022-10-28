@@ -119,7 +119,7 @@ function onClickQuestionCell(row){
 }
 
 export default function CreatorHomeTopic({topic, setResetTopic}){
-    console.log(topic);
+    //console.log(topic);
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
     //const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);

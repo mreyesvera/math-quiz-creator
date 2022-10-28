@@ -59,7 +59,7 @@ export default function Quiz(props){
     }, [id, getData]);
 
     
-
+    console.log(quiz);
     return (
         <Box sx={classes.root}>
             {

@@ -9,7 +9,7 @@ import LearnerHome from '../components/Home/LearnerHome';
 const classes = {
     root: {
         width: 1,
-        height: '100vh',
+        //height: '100vh',
     }
 };
 

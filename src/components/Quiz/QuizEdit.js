@@ -35,7 +35,8 @@ export default function QuizEdit(){
 
                     if(response.status === 204){
                         outletContext.setGetData(true);
-                        navigate(`/quiz/${quiz.quizId}/details`);
+                        //navigate(`/quiz/${quiz.quizId}/details`);
+                        navigate(-1);
                     } else {
                         setErrors(["There was a problem saving the data."]);
                     }
@@ -50,6 +51,7 @@ export default function QuizEdit(){
             <QuizForm 
                 quiz={outletContext.quiz}
                 onSubmit={saveQuiz}
+                topicId={outletContext.quiz.topic.topicId}
             />
         </Box>
     );

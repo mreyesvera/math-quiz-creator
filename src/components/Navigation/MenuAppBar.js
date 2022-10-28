@@ -83,14 +83,23 @@ export default function MenuAppBar(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>My Account</MenuItem>
+              <MenuItem 
+                onClick={() => {
+                  handleClose();
+                  navigate("/account");
+                }}
+              >
+                My Account
+              </MenuItem>
               <MenuItem 
                 onClick={() => {
                   handleClose();
                   props.setIsAuthenticated(false);
                   navigate("/");
                 }}
-              >Log Out</MenuItem>
+              >
+                Log Out
+              </MenuItem>
               <MenuItem onClick={props.toggleIsCreator}>Switch Role</MenuItem>
             </Menu>
           </Box>

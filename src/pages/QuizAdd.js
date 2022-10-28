@@ -92,6 +92,7 @@ export default function QuizAdd(){
                     <QuizForm 
                         quiz={quiz}
                         onSubmit={saveQuiz}
+                        topicId={topic.topicId}
                     />
                 </Box>
             }

@@ -2,6 +2,9 @@ import {
     Box, 
 } from '@mui/material';
 import * as React from 'react';
+import Errors from '../Shared/Errors';
+import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import axios from 'axios';
 
 const classes = {
     aggregates: {
@@ -9,21 +12,103 @@ const classes = {
     }
 };
 
-export default function QuizAggregates(){
+function getMinimum(solvedQuizzes){
+    if(!solvedQuizzes || !(solvedQuizzes.length > 0))
+        return "No data";
+
+    let minimum = 1;
+    solvedQuizzes.forEach(solvedQuiz => {
+        if(solvedQuiz.score < minimum){
+            minimum = solvedQuiz.score;
+        }
+    });
+
+    return minimum.toFixed(2);
+}
+
+function getMaximum(solvedQuizzes){
+    if(!solvedQuizzes || !(solvedQuizzes.length > 0))
+        return "No data";
+
+    let maximum = 0;
+    solvedQuizzes.forEach(solvedQuiz => {
+        if(solvedQuiz.score > maximum){
+            maximum = solvedQuiz.score;
+        }
+    });
+
+    return maximum.toFixed(2);
+
+}
+
+function getAverage(solvedQuizzes){
+    if(!solvedQuizzes || !(solvedQuizzes.length > 0))
+        return "No data";
+
+    let sum = 0;
+    solvedQuizzes.forEach((solvedQuiz) => {
+        sum += solvedQuiz.score;
+    })
+
+    //console.log(sum);
+    //console.log(solvedQuizzes.length);
+    return (sum / solvedQuizzes.length).toFixed(2);
+}
+
+export default function QuizAggregates({quizId}){
+    const [errors, setErrors] = React.useState([]);
+    const [solvedQuizzes, setSolvedQuizzes] = React.useState([]);
+
+    React.useEffect(() => {
+        async function getSolvedQuizzes(quizId){
+            try {
+                await axios.get(`${mathQuizCreatorAPI.baseURL}SolvedQuizzes?quizId=${quizId}`)
+                    .then(response => {
+                        //console.log(response);
+    
+                        if(response.status === 200){
+                            setSolvedQuizzes(response.data)
+                            console.log(response.data);
+
+                            //outletContext.setGetData(true);
+                            //navigate(`/quiz/${quiz.quizId}/details`);
+                        } else {
+                            setErrors(["There was a problem saving the data."]);
+                        }
+                    });
+            } catch(error){
+                setErrors(["There was a problem getting the data."]);
+            }
+        }
+
+        if(quizId){
+            getSolvedQuizzes(quizId);
+        } else {
+            
+            setErrors(["Quiz Id can't be empty."]);
+        }
+    }, []);
+
+    // ADD THE DISPLAY ERRORS 
     return (
         <Box sx={classes.aggregates}>
             <h3>Aggregate Results</h3>
-            <Box>
+            {
+                (errors && errors.length > 0) ?
+                <Errors errors={errors} />
+                :
                 <Box>
-                    Minimum: 5.0
+                    <Box>
+                        Minimum: {getMinimum(solvedQuizzes)}
+                    </Box>
+                    <Box>
+                        Maximum: {getMaximum(solvedQuizzes)}
+                    </Box>
+                    <Box>
+                        Average: {getAverage(solvedQuizzes)}
+                    </Box>
                 </Box>
-                <Box>
-                    Maximum: 10.0
-                </Box>
-                <Box>
-                    Average: 8.0
-                </Box>
-            </Box>
+            }
         </Box>
     );
 }

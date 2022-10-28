@@ -11,7 +11,9 @@ import * as React from 'react';
 import CreatorContentGrid from '../Home/CreatorContentGrid';
 import Errors from '../Shared/Errors';
 import { useNavigate } from "react-router-dom";
+import CreatorGridHomeActions from "../Home/CreatorGridHomeActions";
 import CreatorGridQuizEditActions from "../Home/CreatorGridQuizEditActions";
+import UpdateQuestions from './UpdateQuestions';
 import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
@@ -72,25 +74,27 @@ const questionsColumns = [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            return <CreatorGridQuizEditActions params={params} />
+            return <CreatorGridHomeActions params={params}  type="question"/>
         }
     }
 ]
 
-const questionsTitleActions = [
+const questionsTitleActions = (addQuestions, createNew) => ([
     {
-        title: 'ADD QUESTIONS',
+        title: 'UPDATE QUESTIONS',
+        onClick: addQuestions,
     },
     {
         title: 'CREATE NEW',
+        onClick: createNew,
     },
-];
+]);
 
 function getQuestionRowId(row){
     return row.questionId;
 }
 
-export default function QuizForm({quiz, onSubmit}){
+export default function QuizForm({topicId, quiz, onSubmit}){
     const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);
     const [save, setSave] = React.useState(false);
@@ -104,6 +108,8 @@ export default function QuizForm({quiz, onSubmit}){
     });
     const [questions, setQuestions] = React.useState([]);
     const [quizQuestionsData, setQuizQuestionsData] = React.useState([]);
+
+    const [openAddQuestions, setOpenAddQuestions] = React.useState(false);
 
     const navigateBack = (e) => {
         navigate(-1);
@@ -149,12 +155,13 @@ export default function QuizForm({quiz, onSubmit}){
             if(errors.length === 0){
                 setErrors([]);
                 //console.log(formData);
+                console.log(quizQuestionsData)
                 onSubmit(quiz, formData, setErrors);
             } else {
                 setErrors(errors);
             }
         }
-    }, [save, formData, quiz]);
+    }, [save, formData, quiz, quizQuestionsData, onSubmit]);
 
     React.useEffect(()=> {
         let changes = formData.title === quiz.title &&
@@ -186,7 +193,20 @@ export default function QuizForm({quiz, onSubmit}){
         setQuizQuestionsData(quizQuestions);
     }, [quiz]);
 
-    console.log(errors && errors.length);
+    function openAddQuestionsDialog(){
+        setOpenAddQuestions(true);
+    }
+
+    function createNewQuestion(){
+        console.log("Create new question");
+    }
+
+    function closeAddQuestions(){
+        setOpenAddQuestions(false);
+    }
+
+    //console.log(errors && errors.length);
+    //console.log(quiz);
     return (
         <Box>
             <Box sx={classes.saveChangesContainer}>
@@ -262,10 +282,19 @@ export default function QuizForm({quiz, onSubmit}){
                         questions
                     }
                     getRowId={getQuestionRowId}
-                    titleSectionActions={questionsTitleActions}
+                    titleSectionActions={questionsTitleActions(openAddQuestionsDialog, createNewQuestion)}
                     titleBackgroundColor='#1e839c'
                 />
             </Box>
+            { openAddQuestions && 
+                <UpdateQuestions 
+                    open={openAddQuestions} 
+                    handleClose={closeAddQuestions}
+                    quizQuestions={quizQuestionsData}
+                    setQuizQuestions={setQuizQuestionsData}
+                    topicId={topicId}
+                />  
+            }
         </Box>
     );
 }

@@ -66,7 +66,7 @@ export default function Quiz(props){
             <Box>
                 {
                     props.isCreator ?
-                    <QuizAggregates/>
+                    <QuizAggregates quizId={contextValue.quiz.quizId}/>
                     :
                     <SolvedQuizzesGrid 
                         data={addTotalScore(solvedQuizzes2)}
