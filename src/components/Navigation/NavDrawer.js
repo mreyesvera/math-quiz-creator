@@ -31,7 +31,7 @@ const createClasses = (theme) => ({
         //padding: 2,
         //height: 9/10,
         py: '20px',
-        minWidth: '340px',
+        minWidth: '400px',
     },
     navTitle: {
         p: 2,
@@ -56,7 +56,7 @@ export default function NavDrawer(props){
                                 MathVI
                             </Typography>
                             <Divider />
-                            <NavTopicsList />
+                            <NavTopicsList onItemSelected={props.handleClose}/>
                         </Box>
                     </Box>
                 </Box>

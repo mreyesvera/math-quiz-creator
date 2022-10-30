@@ -26,6 +26,7 @@ const classes = {
 
 export default function Quiz(props){
     const { id } = useParams();
+    const idRef = React.useRef(id);
     const [getData, setGetData] = React.useState(true);
     const [ quiz, setQuiz ] = React.useState({}); 
     const [error, setError] = React.useState([]);
@@ -36,7 +37,10 @@ export default function Quiz(props){
     };
 
     React.useEffect(()=>{
-        if(getData){
+        if(getData || id != idRef.current){
+            
+            idRef.current = id;
+
             async function getQuiz(id){
                 try {
                     await axios.get(`${mathQuizCreatorAPI.baseURL}Quizzes/${id}`).then(response => {

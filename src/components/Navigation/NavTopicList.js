@@ -7,6 +7,7 @@ import {
     Grid,
 } from '@mui/material';
 import { quizzes } from '../sample_data';
+import NavTopicQuizzesGrid from './NavTopicQuizzesGrid';
 import * as React from 'react';
 
 const classes = {
@@ -15,9 +16,9 @@ const classes = {
     },
 };
 
-export default function NavTopicList({topic}){
+export default function NavTopicList({topic, onItemSelected}){
+    console.log(topic);
     const [isOpen, setIsOpen] = React.useState(false);
-    const topicQuizzes = React.useRef(quizzes[topic.topicId]);
 
     function toggleIsOpen(){
         setIsOpen((oldIsOpen) => {
@@ -28,7 +29,6 @@ export default function NavTopicList({topic}){
 
     function openTopicList(){
         // later this might be a filter where it looks for the matching topicId
-        console.log(topicQuizzes.current);
         toggleIsOpen();
 
     }
@@ -47,7 +47,7 @@ export default function NavTopicList({topic}){
             {
                 isOpen &&
                 <Grid item>
-                    <List>
+                    {/* <List>
                         {
                             topicQuizzes.current.map(
                                 (quiz) => (
@@ -59,7 +59,11 @@ export default function NavTopicList({topic}){
                                 )
                             )
                         }
-                    </List>
+                    </List> */}
+                    <NavTopicQuizzesGrid 
+                        quizzes={topic.quizzes} 
+                        onItemSelected={onItemSelected}
+                    />
                 </Grid>
             }
             </Grid>
