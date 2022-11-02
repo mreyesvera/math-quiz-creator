@@ -34,7 +34,7 @@ export default function QuizAdd(){
     }); 
     const [error, setError] = React.useState([]);
 
-    async function saveQuiz(quiz, formData, setErrors){
+    async function saveQuiz(quiz, formData, quizQuestions, quizQuestionsData, setErrors){
         let newQuiz = {
             topicId: topic.topicId,
             creatorId: 'a6a1ff7a-9bdd-456a-90e7-08dab507521e',

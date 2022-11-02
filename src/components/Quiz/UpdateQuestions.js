@@ -29,7 +29,33 @@ const classes = {
     },
     arrowButton: {
         width: '49%'
-    }
+    },
+    verticalButton: {
+        padding: 0,
+        minWidth: '40px',
+        width: '40px',
+        height: 'calc(100% - 60px)',
+    },
+    savedQuestionsGridContainer: {
+        width: 'calc(100% - 50px)',
+    },
+    savedQuestionsGridButtons: {
+        marginTop: '30px',
+        paddingLeft: '10px',
+        width: '50px',
+        height: '350px',
+    },
+    savedQuestionsGridButtonContainer: {
+        height: 1,
+    },
+    topVerticalButton: {
+        display: 'flex',
+        paddingBottom: '8px',
+        alignItems: 'end',
+    },
+    bottomVerticalButton: {
+
+    },
 }
 
 const questionsColumns = [
@@ -59,12 +85,14 @@ function getQuestionRowId(row){
 }
 
 
-export default function UpdateQuestions({open, handleClose, topicId, quizQuestions}){
-    console.log(quizQuestions);
+export default function UpdateQuestions({open, handleClose, topicId, quizQuestions, quizId, 
+    setUpdatedQuestions, setQuizQuestions}){
+    //console.log(quizQuestions);
+    const [fetchQuestions, setFetchQuestions] = React.useState(true);
     const [errors, setErrors] = React.useState([]);
     const [questions, setQuestions] = React.useState([]);
 
-    const [newQuizQuestions, setNewQuizQuestions] = React.useState([]);
+    //const [newQuizQuestions, setNewQuizQuestions] = React.useState([]);
 
     const [savedQuestions, setSavedQuestions] = React.useState([]);
     const [remainingQuestions, setRemainingQuestions] = React.useState([]);
@@ -91,6 +119,7 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
                             setErrors(["There was a problem saving the data."]);
                         }
                     }).then((questions) => {
+                        console.log("setting values");
                         let savedQuestionsTemp = [];
                         let remainingQuestionsTemp = [];
 
@@ -104,8 +133,14 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
                             }
                         });
 
+                        console.log("quiz questions");
+                        console.log(quizQuestions);
+
+                        console.log("questions");
+                        console.log(questions);
+
+                        console.log("save temp questions");
                         console.log(savedQuestionsTemp);
-                        console.log(remainingQuestionsTemp);
 
                         setSavedQuestions(savedQuestionsTemp);
                         setRemainingQuestions(remainingQuestionsTemp);
@@ -115,40 +150,174 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
             }
         }
 
-        var errors = [];
+        if(fetchQuestions){
+            console.log("fetching questions");
+            setFetchQuestions(false);
+            var errors = [];
 
-        if(quizQuestions){
-            setNewQuizQuestions(quizQuestions);
-        } else {
-            errors.push("Quiz Questions can't be null.")
+            if(!quizQuestions){
+                errors.push("Quiz Questions can't be null.");
+            } 
+
+            if(topicId){
+                getQuestions(topicId);
+            } else {
+                errors.push(["Topic Id can't be null."]);
+            }
+
+            setErrors(errors);
         }
-
-        if(topicId){
-            getQuestions(topicId);
-        } else {
-            errors.push(["Topic Id can't be null."]);
-        }
-
-        setErrors(errors);
-    }, [topicId]);
+    }, [topicId, quizQuestions, fetchQuestions]);
 
     function passToRemainingQuestions(){
-        console.log("click");
+        const selectedSavedQuestions = questions.filter((question) => selectedSaved.includes(question.questionId));
+
+        //console.log(selectedSavedQuestions);
+
         setRemainingQuestions(oldRemainingQuestions => {
-            return oldRemainingQuestions.concat(selectedSaved)
+            return oldRemainingQuestions.concat(selectedSavedQuestions)
         });
+        setSavedQuestions(oldSavedQuestions => {
+            return oldSavedQuestions.filter((question) => !selectedSaved.includes(question.questionId));
+        });
+
         setSelectedSaved([]);
     }
 
     function passToSavedQuestions(){
-        console.log("click");
+        const selectedRemainingQuestions = questions.filter((question) => selectedRemaining.includes(question.questionId));
+
+        //console.log(selectedRemainingQuestions);
+
         setSavedQuestions(oldSavedQuestions => {
-            return oldSavedQuestions.concat(selectedRemaining);
-        })
+            return oldSavedQuestions.concat(selectedRemainingQuestions);
+        });
+        setRemainingQuestions(oldRemainingQuestions => {
+            return oldRemainingQuestions.filter((question) => !selectedRemaining.includes(question.questionId));
+        });
+
         setSelectedRemaining([]);
     }
 
+    function moveRowsUp(){
+        let newSavedQuestions = savedQuestions.slice();
 
+        for(let i=1; i<newSavedQuestions.length; i++){
+            if(selectedSaved.includes(newSavedQuestions[i].questionId) 
+                && !selectedSaved.includes(newSavedQuestions[i-1].questionId)){
+                let tempQuestion = newSavedQuestions[i-1];
+
+                newSavedQuestions[i-1] = newSavedQuestions[i];
+                newSavedQuestions[i] = tempQuestion; 
+            }
+        }
+
+        setSavedQuestions(newSavedQuestions);
+    }
+
+    function moveRowsDown(){
+        let newSavedQuestions = savedQuestions.slice();
+        
+        for(let i=newSavedQuestions.length-2; i>=0; i--){
+            //console.log(newSavedQuestions[i]);
+            //console.log(newSavedQuestions[i+1]);
+            if(selectedSaved.includes(newSavedQuestions[i].questionId)
+                && !selectedSaved.includes(newSavedQuestions[i+1].questionId)){
+                let tempQuestion = newSavedQuestions[i+1];
+
+                newSavedQuestions[i+1] = newSavedQuestions[i];
+                newSavedQuestions[i] = tempQuestion;
+            }
+        }
+
+        setSavedQuestions(newSavedQuestions);
+    }
+
+    function isInSavedQuestions(savedQuestions, quizQuestion){
+        let savedQuestion = savedQuestions.find((question) => question.questionId === quizQuestion.questionId);
+
+        if(savedQuestion){
+            return savedQuestion;
+        }
+
+        return false;
+    }
+
+    function isInQuizQuestions(savedQuestion, quizQuestions){
+        let quizQuestion = quizQuestions.find((quizQuestion) => quizQuestion.questionId === savedQuestion.questionId);
+
+        if(quizQuestion){
+            return quizQuestion;
+        }
+
+        return false
+    }
+
+    function createNewQuizQuestions(savedQuestions, quizQuestions){
+        let newQuizQuestions = savedQuestions.filter((question) => {
+            return !isInQuizQuestions(question, quizQuestions);
+        });
+
+        newQuizQuestions = newQuizQuestions.map((question) => {
+            return {
+                quizId: quizId, 
+                questionId: question.questionId,
+                question: question
+            }
+        });
+
+        return newQuizQuestions;
+    }
+
+    function setOrder(questions){
+        return questions.map((question, index) => {
+            return {
+                ...question,
+                order: index + 1
+            }
+        });
+    }
+
+    function submitQuestions(){
+        //console.log(quizQuestions);
+        //console.log(savedQuestions);
+
+        let updatedQuestions = setOrder(savedQuestions);
+        
+        let updatedQuizQuestions = quizQuestions.filter((quizQuestion) => {
+            return isInSavedQuestions(savedQuestions, quizQuestion);
+        });
+        //console.log(updatedQuizQuestions);
+
+        let addedQuizQuestions = createNewQuizQuestions(savedQuestions, quizQuestions);
+        //console.log(addedQuizQuestions);
+
+        let newQuizQuestions = updatedQuizQuestions.concat(addedQuizQuestions);
+
+        newQuizQuestions = newQuizQuestions.map((quizQuestion) => {
+            let question = updatedQuestions.find((question) => question.questionId === quizQuestion.questionId);
+
+            if(question){
+                //console.log(question.order);
+                return {
+                    ...quizQuestion,
+                    order: question.order
+                }
+            } else {
+                console.log("ERROR IN LOGIC");
+            }
+        });
+
+        //console.log(updatedQuestions);
+        //console.log(newQuizQuestions);
+
+
+        setUpdatedQuestions(updatedQuestions);
+        setQuizQuestions(newQuizQuestions);
+        handleClose();
+    }
+
+    //console.log(savedQuestions);
     return (
         <Dialog
             open={open}
@@ -159,37 +328,75 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
             maxWidth="lg"
             fullWidth
         >
-            <DialogTitle>{"Add Questions"}</DialogTitle>
+            <DialogTitle>Update Questions</DialogTitle>
             {
                 (errors && errors.length > 0) ??
                 <Errors errors={errors} />
             }
             <DialogContent>
-                <CreatorContentGrid 
-                    title="Saved Questions"
-                    columns={questionsColumns}
-                    data={savedQuestions}
-                    getRowId={getQuestionRowId}
-                    titleSectionActions={[]}
-                    titleBackgroundColor='#1e839c'
-                    checkboxSelection={true}
-                    selectionModel={selectedSaved}
-                    onSelectionModelChange={setSelectedSaved}
-                />
+                <Grid container>
+                    <Grid 
+                        item
+                        sx={classes.savedQuestionsGridContainer}
+                    >
+                        <CreatorContentGrid 
+                            title="Saved Questions"
+                            columns={questionsColumns}
+                            data={savedQuestions}
+                            getRowId={getQuestionRowId}
+                            titleSectionActions={[]}
+                            titleBackgroundColor='#1e839c'
+                            checkboxSelection={true}
+                            selectionModel={selectedSaved}
+                            onSelectionModelChange={setSelectedSaved}
+                        />
+                    </Grid>
+                    <Grid 
+                        item
+                        sx={classes.savedQuestionsGridButtons}
+                    >
+                        <Grid 
+                            container 
+                            direction="row"
+                            sx={classes.savedQuestionsGridButtonContainer}
+                        >
+                            <Grid item sx={classes.topVerticalButton}>
+                                <Button
+                                    variant="contained"
+                                    sx={{...classes.arrowButton, ...classes.verticalButton}}
+                                    onClick={moveRowsUp}
+                                >
+                                    <KeyboardArrowUpIcon />
+                                </Button>
+                            </Grid>
+                            <Grid item sx={classes.bottomVerticalButton}>
+                                <Button
+                                    variant="contained"
+                                    sx={{...classes.arrowButton, 
+                                        ...classes.verticalButton   
+                                    }}
+                                    onClick={moveRowsDown}
+                                >
+                                    <KeyboardArrowDownIcon />
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
                 <Box
                     sx={classes.arrowButtonsContainer}
                 >
                     <Button
                         variant="contained"
                         sx={classes.arrowButton}
-                        onClick={passToRemainingQuestions}
+                        onClick={passToSavedQuestions}
                     >
                         <KeyboardArrowUpIcon />
                     </Button>
                     <Button
                         variant="contained"
                         sx={classes.arrowButton}
-                        onClick={passToSavedQuestions}
+                        onClick={passToRemainingQuestions}
                     >
                         <KeyboardArrowDownIcon />
                     </Button>
@@ -208,7 +415,7 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button>Submit</Button>
+              <Button onClick={submitQuestions}>Submit</Button>
             </DialogActions>
         </Dialog>
     );

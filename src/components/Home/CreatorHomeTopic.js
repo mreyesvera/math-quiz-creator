@@ -174,6 +174,7 @@ export default function CreatorHomeTopic({topic, setResetTopic}){
                         titleSectionActions={quizzesTitleActions}
                         titleBackgroundColor='#70a489'
                         onClickCell={() => console.log("clicked")}
+                        toolbar={true}
                     />
                     <CreatorContentGrid 
                         title="Questions" 
@@ -183,6 +184,7 @@ export default function CreatorHomeTopic({topic, setResetTopic}){
                         titleSectionActions={questionsTitleActions}
                         titleBackgroundColor='#1e839c'
                         onClickCell={onClickQuestionCell}
+                        toolbar={true}
                     />
                 </Grid>
             }

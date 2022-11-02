@@ -37,7 +37,7 @@ export default function Quiz(props){
     };
 
     React.useEffect(()=>{
-        if(getData || id != idRef.current){
+        if(getData || id !== idRef.current){
             
             idRef.current = id;
 

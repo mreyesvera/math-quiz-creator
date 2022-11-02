@@ -4,7 +4,6 @@ import {
     Button,
 } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { getValueFromProperty } from '../../utils/ProcessProperties';
 import * as React from 'react';
 
 const createClasses = (props) => ({
@@ -69,8 +68,11 @@ export default function CreatorContentGrid(props) {
                     rows={props.data} 
                     columns={props.columns} 
                     getRowId={props.getRowId}
-                    components={{ Toolbar: GridToolbar }}
+                    components={props.toolbar ? { Toolbar: GridToolbar } : {}}
                     checkboxSelection={props.checkboxSelection}
+                    selectionModel={props.selectionModel}
+                    onSelectionModelChange={props.onSelectionModelChange}
+                    initialState={props.initialState}
                 />
             </Grid>
         </Grid>
