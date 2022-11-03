@@ -29,7 +29,7 @@ export default function Quiz(props){
     const idRef = React.useRef(id);
     const [getData, setGetData] = React.useState(true);
     const [ quiz, setQuiz ] = React.useState({}); 
-    const [error, setError] = React.useState([]);
+    const [error, setError] = React.useState();
 
     const contextValue = {
         quiz: quiz,
@@ -37,14 +37,16 @@ export default function Quiz(props){
     };
 
     React.useEffect(()=>{
+        console.log("test");
         if(getData || id !== idRef.current){
             
+        console.log("test 2");
             idRef.current = id;
 
             async function getQuiz(id){
                 try {
-                    await axios.get(`${mathQuizCreatorAPI.baseURL}Quizzes/${id}`).then(response => {
-                        //console.log(response.data);
+                    await axios.get(`${mathQuizCreatorAPI.baseURL}QuizzesLearner/${id}`).then(response => {
+                        console.log(response.data);
                         if(response.data){
                             setQuiz(response.data);
                             setError(null);
@@ -62,7 +64,7 @@ export default function Quiz(props){
         }
     }, [id, getData]);
 
-    
+    console.log(id);
     console.log(quiz);
     return (
         <Box sx={classes.root}>
@@ -71,8 +73,13 @@ export default function Quiz(props){
                 <Error error={error} />
                 :
                 <Box>
-                    <h1>{quiz.topic.title}</h1>
-                    <Outlet context={contextValue}/>
+                {
+                    (quiz && quiz.topic) &&
+                    <Box>
+                        <h1>{quiz.topic.title}</h1>
+                        <Outlet context={contextValue}/>
+                    </Box>
+                }
                 </Box>
             }
         </Box>

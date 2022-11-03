@@ -38,6 +38,10 @@ export default function QuizInformation(props){
         navigate(`/quiz/${quiz.quizId}/edit`);
     }
 
+    const onTakeQuiz = (e) => {
+        navigate(`/quiz/${quiz.quizId}/solve`);
+    }
+
     return (
         <Box sx={classes.root}>
             <Box sx={classes.titleContainer}>
@@ -46,6 +50,7 @@ export default function QuizInformation(props){
                     !props.isCreator &&
                     <Button
                         variant="contained"
+                        onClick={onTakeQuiz}
                     >
                         Take Quiz
                     </Button>

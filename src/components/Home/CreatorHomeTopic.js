@@ -16,6 +16,7 @@ import CreatorContentTable from './CreatorContentTable';
 import CreatorContentGrid from './CreatorContentGrid';
 import DataGridCellClickable from './DataGridCellClickable';
 import CreatorGridHomeActions from './CreatorGridHomeActions';
+import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
 
 const classes = {
     listItemButton: {
@@ -84,6 +85,9 @@ const questionsColumns = [
         field: 'assignedQuizzes',
         headerName: 'Assigned Quizzes',
         flex: 2,
+        renderCell: (cellValues) => {
+            return <AssignedQuizzesCell assignedQuizzes={cellValues.row.assignedQuizzes}/>
+        }
     },
     {
         field: 'lastModifiedTime',

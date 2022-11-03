@@ -72,26 +72,16 @@ export default function QuestionAnswerable({question, userAnswer, onChange, canG
                                 onChange={onChange}
                             />
                         </FormControl>
-                        <Box
-                            sx={classes.answerActions}
-                        >
-                            <Button>Reset</Button>
-                            <Button>Grade</Button>
-                        </Box>
-                    </Box>
-                {
-                    (canGrade || canReset) &&
-                    <Box>
                         {
-                            canReset &&
-                            <Button>Reset</Button>
-                        }
-                        {
-                            canGrade &&
-                            <Button>Grade</Button>
+                            (canGrade || canReset) &&
+                            <Box
+                                sx={classes.answerActions}
+                            >
+                                <Button>Reset</Button>
+                                <Button>Grade</Button>
+                            </Box>
                         }
                     </Box>
-                }
                 </Box>
             </Box>
         </Box>

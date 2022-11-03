@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { compareQuizQuestionsArrays } from '../../utils/quizQuestionUtils';
 import { compareQuizzes } from '../../utils/quizUtils';
 import CreatorGridHomeActions from "../Home/CreatorGridHomeActions";
+import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
 import UpdateQuestions from './UpdateQuestions';
 
 const classes = { 
@@ -64,8 +65,11 @@ const questionsColumns = [
     },
     {
         field: 'assignedQuizzes',
-        headerName: 'Quizzes',
-        flex: 1,
+        headerName: 'Assigned Quizzes',
+        flex: 2,
+        renderCell: (cellValues) => {
+            return <AssignedQuizzesCell assignedQuizzes={cellValues.row.assignedQuizzes}/>
+        }
     },
     {
         field: 'actions',
@@ -107,7 +111,8 @@ export default function QuizForm({topicId, quiz, onSubmit}){
     });
     const [questions, setQuestions] = React.useState([]);
     const [quizQuestions, setQuizQuestions] = React.useState([]);
-    const [quizQuestionsData, setQuizQuestionsData] = React.useState([]);
+    const [quizQuestionsData, setQuizQuestionsData] = React.useState();
+    const [resetUpdateQuestions, setResetUpdateQuestions] = React.useState(true);
 
     const [openAddQuestions, setOpenAddQuestions] = React.useState(false);
 
@@ -156,7 +161,8 @@ export default function QuizForm({topicId, quiz, onSubmit}){
                 setErrors([]);
                 //console.log(formData);
                 console.log(quizQuestionsData)
-                onSubmit(quiz, formData, quizQuestions, quizQuestionsData, setErrors);
+                onSubmit(quiz, formData, quizQuestions, quizQuestionsData, setErrors)
+                    .then(setResetUpdateQuestions(true));
             } else {
                 setErrors(errors);
             }
@@ -175,7 +181,7 @@ export default function QuizForm({topicId, quiz, onSubmit}){
     }
 
     React.useEffect(() => {
-        const quizQuestions = quiz.quizQuestions;
+        const quizQuestions = quiz.quizQuestions; // maybe check if undefined
 
         setFormData({
             title: quiz.title,
@@ -295,7 +301,7 @@ export default function QuizForm({topicId, quiz, onSubmit}){
                 />
             </Box>
             {
-                topicId && quizQuestionsData && quizQuestionsData.length > 0 &&
+                topicId && quizQuestionsData &&
                 <UpdateQuestions 
                     open={openAddQuestions} 
                     handleClose={closeAddQuestions}
@@ -304,6 +310,8 @@ export default function QuizForm({topicId, quiz, onSubmit}){
                     topicId={topicId}
                     quizId={quiz.quizId}
                     setUpdatedQuestions={setQuestions}
+                    reset={resetUpdateQuestions}
+                    setReset={setResetUpdateQuestions}
                 />  
             }
         </Box>

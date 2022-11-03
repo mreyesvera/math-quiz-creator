@@ -9,6 +9,10 @@ import QuizForm from '../components/Quiz/QuizForm';
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
 import mathQuizCreatorAPI from '../components/config/mathQuizCreatorAPI.json';
+import { 
+    matchingQuizQuestionId, 
+    removeQuestionOnQuizQuestion
+} from '../utils/quizQuestionUtils';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
@@ -42,6 +46,8 @@ export default function QuizAdd(){
         };
         console.log(newQuiz);
 
+        let errors = []
+
         try {
             await axios.post(`${mathQuizCreatorAPI.baseURL}Quizzes`, newQuiz)
                 .then(response => {
@@ -50,14 +56,43 @@ export default function QuizAdd(){
                     if(response.status === 201){
                         quiz = response.data;
 
-                        navigate(`/quiz/${quiz.quizId}/details`);
+                        //navigate(`/quiz/${quiz.quizId}/details`);
                     } else {
-                        setErrors(["There was a problem saving the data."]);
+                        errors.push("There was a problem saving the data.");
+                    }
+                })
+                .then(async () => {
+                    if(quiz){
+                        if(quizQuestionsData && quizQuestionsData.length > 0){
+                            for(let i=0; i<quizQuestionsData.length; i++){
+                                let addedQuizQuestion = removeQuestionOnQuizQuestion(quizQuestionsData[i]);
+                                
+                                addedQuizQuestion.quizId = quiz.quizId;
+
+                                console.log(addedQuizQuestion);
+                                await axios.post(`${mathQuizCreatorAPI.baseURL}QuizQuestions`, addedQuizQuestion)
+                                    .then(response => {
+                                        console.log(response);
+            
+                                        if(response.status === 201){
+                                            // do something here for valid response
+                                        } else {
+                                            errors.push("Unabel to add question.")
+                                        }
+                                    });
+                            }
+                        }
+                    }
+                })
+                .then(() => {
+                    if(quiz && errors.length === 0){
+                        navigate(`/quiz/${quiz.quizId}/details`);
                     }
                 });
         } catch(error){
-            setErrors(["There was a problem saving the data."]);
+            errors.push("There was a problem saving the data.");
         }
+        setErrors(errors);
     }
     
     React.useEffect(()=>{

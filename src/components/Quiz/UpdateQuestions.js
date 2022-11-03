@@ -17,6 +17,7 @@ import Errors from '../Shared/Errors';
 import CreatorContentGrid from '../Home/CreatorContentGrid';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
 import * as React from 'react';
 import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
@@ -66,8 +67,11 @@ const questionsColumns = [
     },
     {
         field: 'assignedQuizzes',
-        headerName: 'Quizzes',
+        headerName: 'Assigned Quizzes',
         flex: 1,
+        renderCell: (cellValues) => {
+            return <AssignedQuizzesCell assignedQuizzes={cellValues.row.assignedQuizzes}/>
+        }
     },
     {
         field: 'lastModifiedTime',
@@ -86,9 +90,9 @@ function getQuestionRowId(row){
 
 
 export default function UpdateQuestions({open, handleClose, topicId, quizQuestions, quizId, 
-    setUpdatedQuestions, setQuizQuestions}){
+    setUpdatedQuestions, setQuizQuestions, reset, setReset}){
     //console.log(quizQuestions);
-    const [fetchQuestions, setFetchQuestions] = React.useState(true);
+    //const [fetchQuestions, setFetchQuestions] = React.useState(true);
     const [errors, setErrors] = React.useState([]);
     const [questions, setQuestions] = React.useState([]);
 
@@ -150,9 +154,9 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
             }
         }
 
-        if(fetchQuestions){
+        if(reset){
             console.log("fetching questions");
-            setFetchQuestions(false);
+            setReset(false);
             var errors = [];
 
             if(!quizQuestions){
@@ -167,7 +171,7 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
 
             setErrors(errors);
         }
-    }, [topicId, quizQuestions, fetchQuestions]);
+    }, [topicId, quizQuestions, reset]);
 
     function passToRemainingQuestions(){
         const selectedSavedQuestions = questions.filter((question) => selectedSaved.includes(question.questionId));

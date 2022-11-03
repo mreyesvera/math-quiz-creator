@@ -17,14 +17,14 @@ const classes = {
 };
 
 export default function NavTopicList({topic, onItemSelected}){
-    console.log(topic);
+    //console.log(topic);
     const [isOpen, setIsOpen] = React.useState(false);
 
     function toggleIsOpen(){
         setIsOpen((oldIsOpen) => {
             return !oldIsOpen;
         });
-        console.log(isOpen);
+        //console.log(isOpen);
     }
 
     function openTopicList(){

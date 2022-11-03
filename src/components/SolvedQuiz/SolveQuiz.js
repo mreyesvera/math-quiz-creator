@@ -10,7 +10,7 @@ import {
 import * as React from 'react';
 import QuizAnswerable from './QuizAnswerable';
 
-const questions = [
+/*const questions = [
     {
         questionId: 0, 
         title: "Question 1",
@@ -31,7 +31,7 @@ const questions = [
         title: "Question 4",
         description: "Description 4"
     },
-];
+];*/
 
 const classes = {
     quizTitle: {
@@ -42,18 +42,18 @@ const classes = {
     },
 };
 
-export default function SolveQuiz(){
+export default function SolveQuiz({questions}){
     return (
         <Grid 
             container
             direction="column"
         >
-            <Grid item>
+            {/* <Grid item>
                 <h1>Statistics</h1>
                 <Box sx={classes.quizTitle}>
                     <h2>Quiz Title</h2>
                 </Box>
-            </Grid>
+            </Grid> */}
             <Grid 
                 item
                 sx={classes.quizPreview}

@@ -15,11 +15,11 @@ import QuizAdd from './pages/QuizAdd';
 import Question from './pages/Question';
 import QuestionEdit from './components/Question/QuestionEdit';
 import QuestionAdd from './pages/QuestionAdd';
+import TakeQuiz from './components/SolvedQuiz/TakeQuiz';
 import SolveQuiz from './components/SolvedQuiz/SolveQuiz';
 import Account from './pages/Account';
 import { ThemeProvider } from "./shared/Theme";
 import { Box } from '@mui/material';
-import { sampleQuiz, questions } from './components/sample_data';
 
 const classes = {
   root: {
@@ -38,10 +38,6 @@ function App() {
   function toggleIsCreator() {
     setIsCreator((oldIsCreator => !oldIsCreator));
   }
-
-  
-  const currentQuiz = sampleQuiz;
-  const currentQuestions = questions[0];
 
   // function toggleIsAuthenticated(){
   //   setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
@@ -67,13 +63,14 @@ function App() {
                 <Route path="/quiz/:id" element={<Quiz isCreator={isCreator}/>} >
                   <Route path="/quiz/:id/details" element={<QuizDetails isCreator={isCreator}/>} />
                   <Route path="/quiz/:id/edit" element={<QuizEdit isCreator={isCreator} />} />
+                  <Route path="/quiz/:id/solve" element={<TakeQuiz isCreator={isCreator} />} />
                 </Route>
                 <Route path="/quiz/:topicId/add" element={<QuizAdd isCreator={isCreator}/>} />
                 <Route path="/question/:id" element={<Question />} >
                   <Route path="/question/:id/edit" element={<QuestionEdit />} />
                 </Route>
                 <Route path="/question/:topicId/add" element={<QuestionAdd />} />
-                <Route path="/solve-quiz" element={<SolveQuiz />}/>
+                {/* <Route path="/solveQuiz/:quizId" element={<TakeQuiz />}/> */}
                 <Route path="/account" element={<Account />} />
               </Route>
             }

@@ -50,7 +50,6 @@ export default function QuizAnswerable({questions}){
         questionId: 0,
         title: "Question #1",
         description: "Based on the following data set determine the median value:\n4, 6, 8, 10",
-        //answer: "7",
     });
     const [userAnswers, setUserAnswers] = React.useState([]);
 
@@ -92,7 +91,7 @@ export default function QuizAnswerable({questions}){
         setUserAnswers(oldUserAnswers => {
             let newUserAnswers = oldUserAnswers.slice();
 
-            newUserAnswers[selectedQuestion].asnswer = value;
+            newUserAnswers[selectedQuestion].answer = value;
 
             return newUserAnswers;
         });
