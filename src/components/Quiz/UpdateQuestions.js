@@ -19,7 +19,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
 import * as React from 'react';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const classes = {

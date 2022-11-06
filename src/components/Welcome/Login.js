@@ -2,12 +2,30 @@ import {
     Box,
     Link,
 } from '@mui/material';
+import * as React from 'react';
 import WelcomeForm from "./WelcomeForm";
 import WelcomeField from './WelcomeField';
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props){
     const navigate = useNavigate();
+    const [loginData, setLoginData] = React.useState({
+        username: {
+            value: "",
+            error: false,
+            helperText: "Required"
+        },
+        password: {
+            value: "",
+            error: false,
+            helperText: "Required"
+        }
+    });
+
+
+    function login(){
+
+    }
 
     return (
         <WelcomeForm title="Login">

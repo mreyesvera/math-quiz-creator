@@ -78,7 +78,6 @@ export default function Welcome(props){
     //const theme = useTheme();
     const [isRegister] = React.useState(window.location.pathname.includes('/register'));
     const classes = classesFromTheme(isRegister);
-    console.log(classes);
 
     return (
         <Grid 

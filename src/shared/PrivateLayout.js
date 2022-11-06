@@ -6,8 +6,10 @@ import { Outlet } from 'react-router-dom';
 import * as React from 'react';
 import NavDrawer from '../components/Navigation/NavDrawer';
 import MenuAppBar from '../components/Navigation/MenuAppBar';
+import useAuth from '../hooks/useAuth';
 
 export default function PrivateLayout(props) {
+    const { auth } = useAuth();
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {

@@ -13,7 +13,7 @@ import QuestionForm from './QuestionForm';
 import QuestionFeaturesDrawer from './QuestionFeaturesDrawer';
 import Errors from '../Shared/Errors';
 import { useNavigate } from "react-router-dom";
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const classes = { 

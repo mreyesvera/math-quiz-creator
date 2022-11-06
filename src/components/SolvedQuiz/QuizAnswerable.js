@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import QuestionAnswerable from './QuestionAnswerable';
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 
 const classes = {
     root: {
@@ -18,6 +19,22 @@ const classes = {
         padding: 0,
         '&.Mui-selected': {
             backgroundColor: "#f7c965"
+        }
+    },
+    correctListItem: {
+        backgroundColor: 'white',
+        color: '#67a489',
+        '&.Mui-selected': {
+            backgroundColor: '#67a489',
+            color: 'white',
+        }
+    },
+    incorrectListItem: {
+        backgroundColor: 'white',
+        color: '#e60b4e',
+        '&.Mui-selected': {
+            backgroundColor: '#e60b4e',
+            color: 'white',
         }
     },
     navLists: {
@@ -43,7 +60,8 @@ const classes = {
     },
 };
 
-export default function QuizAnswerable({questions}){
+export default function QuizAnswerable({questions, userAnswers, setUserAnswers, graded, gradedQuestions}){
+    const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);
     const [selectedQuestion, setSelectedQuestion] = React.useState(0);
     const [question, setQuestion] = React.useState({
@@ -51,7 +69,6 @@ export default function QuizAnswerable({questions}){
         title: "Question #1",
         description: "Based on the following data set determine the median value:\n4, 6, 8, 10",
     });
-    const [userAnswers, setUserAnswers] = React.useState([]);
 
     React.useEffect(() => {
         
@@ -77,7 +94,7 @@ export default function QuizAnswerable({questions}){
             });
         }
 
-    }, [questions]);
+    }, [questions, setUserAnswers]);
 
     function selectQuestion(question, index){
         setQuestion(question);
@@ -98,7 +115,7 @@ export default function QuizAnswerable({questions}){
     }
 
     function exitQuiz(){
-
+        navigate(-1);
     }
 
     return(
@@ -114,20 +131,47 @@ export default function QuizAnswerable({questions}){
                     sx={classes.questionsList}
                 >
                     {
-                        questions.map((question, index) => (
-                            <ListItem 
-                                key={question.questionId}
-                                sx={classes.listItem}
-                                selected={index === selectedQuestion}
-                            >
-                                <ListItemButton
-                                    onClick={() => selectQuestion(question, index)}
-                                    sx={classes.listItemButton}
+                        questions.map((question, index) => {
+                            let sxListItem = classes.listItem;
+
+                            // sxListItem = {
+                            //     ...sxListItem,
+                            //     ...classes.correctListItem
+                            // } 
+
+                            if(graded && gradedQuestions && gradedQuestions.length){
+                                let gradedQuestion = gradedQuestions[index];
+
+                                if(gradedQuestion && gradedQuestion.graded){
+                                    if(gradedQuestion.correct === true){
+                                        sxListItem = {
+                                            ...sxListItem,
+                                            ...classes.correctListItem
+                                        }
+                                    } else if(gradedQuestion.correct === false){
+                                        sxListItem = {
+                                            ...sxListItem,
+                                            ...classes.incorrectListItem
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            return (
+                                <ListItem 
+                                    key={question.questionId}
+                                    sx={sxListItem}
+                                    selected={index === selectedQuestion}
                                 >
-                                    <ListItemText primary={ question.title } />
-                                </ListItemButton>
-                            </ListItem>
-                        ))
+                                    <ListItemButton
+                                        onClick={() => selectQuestion(question, index)}
+                                        sx={classes.listItemButton}
+                                    >
+                                        <ListItemText primary={ question.title } />
+                                    </ListItemButton>
+                                </ListItem>
+                            )
+                        })
                     }
                 </List>
                 <List>
@@ -153,13 +197,24 @@ export default function QuizAnswerable({questions}){
                 sx={classes.questionPreviewContainer}
             >
                 {
-                    userAnswers && userAnswers.length > 0 && userAnswers[selectedQuestion] &&
+                    userAnswers && userAnswers.length > 0 && userAnswers[selectedQuestion] && 
+                    gradedQuestions && gradedQuestions[selectedQuestion] && 
                     <QuestionAnswerable 
-                        question={question} 
+                        question={question}
+                        gradedQuestion={gradedQuestions[selectedQuestion]} 
                         userAnswer={userAnswers[selectedQuestion].answer}
                         onChange={onUserAnswerChanged}
                         canGrade={false}
                         canReset={false}
+                        /*
+                            When doing this part for the graded, it will be done with an
+                            api call to grade one question
+                            
+                            Based on the response only the unique's question object will 
+                            be updated and therefore only the styles, etc. will change for it
+
+                            Remember when doing this to reset the state when asked to reset.
+                        */
                     />
                 }
             </Grid>

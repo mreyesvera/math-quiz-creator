@@ -10,7 +10,7 @@ import {
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import ConfirmDelete from '../Shared/ConfirmDelete';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 export default function CreatorGridHomeActions(props){

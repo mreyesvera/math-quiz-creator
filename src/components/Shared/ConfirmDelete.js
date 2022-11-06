@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import Errors from './Errors';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

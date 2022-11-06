@@ -8,7 +8,7 @@ import Error from '../components/Shared/Error';
 import QuizForm from '../components/Quiz/QuizForm';
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
-import mathQuizCreatorAPI from '../components/config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import { 
     matchingQuizQuestionId, 
     removeQuestionOnQuizQuestion

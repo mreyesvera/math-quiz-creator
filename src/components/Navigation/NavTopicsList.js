@@ -8,7 +8,7 @@ import {
 import * as React from 'react';
 import NavTopicList from './NavTopicList';
 import Error from '../Shared/Error';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 export default function NavTopicsList(props){

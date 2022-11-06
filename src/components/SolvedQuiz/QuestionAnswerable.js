@@ -35,7 +35,7 @@ const classes = {
     },
 }
 
-export default function QuestionAnswerable({question, userAnswer, onChange, canGrade, canReset}){
+export default function QuestionAnswerable({question, userAnswer, graded, onChange, canGrade, canReset}){
     return(
         <Box
             sx={classes.container}

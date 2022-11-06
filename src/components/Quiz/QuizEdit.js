@@ -9,7 +9,7 @@ import {
     matchingQuizQuestionId, 
     removeQuestionOnQuizQuestion
 } from '../../utils/quizQuestionUtils';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 

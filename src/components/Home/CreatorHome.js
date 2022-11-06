@@ -5,7 +5,7 @@ import {
 import * as React from 'react';
 import CreatorHomeTopic from './CreatorHomeTopic'
 import Error from '../Shared/Error';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const classes = {
@@ -16,7 +16,7 @@ const classes = {
 
 export default function CreatorHome(){
     const [topics, setTopics] = React.useState([]);
-    const [error, setError] = React.useState([]);
+    const [error, setError] = React.useState();
     const [resetTopic, setResetTopic] = React.useState(true);
 
     React.useEffect(() => {
@@ -31,8 +31,9 @@ export default function CreatorHome(){
                         } else {
                             setError("There was a problem retrieving data.");
                         }
-                    });
+                    }).catch(error => setError(error));
                 } catch(error){
+                    console.log("caught");
                     setError(error);
                 }
             }
@@ -42,6 +43,7 @@ export default function CreatorHome(){
         }
     }, [resetTopic]);
 
+    
     return (
         <Box>
             <h2 style={classes.subtitle}>Your Quizzes and Questions</h2>

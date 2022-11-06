@@ -14,7 +14,7 @@ import { sampleQuiz } from '../components/sample_data';
 import { Outlet } from 'react-router-dom';
 import Error from '../components/Shared/Error';
 import * as React from 'react';
-import mathQuizCreatorAPI from '../components/config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const classes = {

@@ -10,8 +10,8 @@ import {
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import { quizzes, questions } from '../sample_data';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
-import appConfig from '../config/appConfig.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
+import appConfig from '../../config/appConfig.json';
 import CreatorContentTable from './CreatorContentTable';
 import CreatorContentGrid from './CreatorContentGrid';
 import DataGridCellClickable from './DataGridCellClickable';

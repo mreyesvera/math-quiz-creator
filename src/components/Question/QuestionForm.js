@@ -13,7 +13,7 @@ import Errors from '../Shared/Errors';
 import QuestionFeaturesDrawer from './QuestionFeaturesDrawer';
 import { useNavigate } from "react-router-dom";
 import CreatorGridQuizEditActions from "../Home/CreatorGridQuizEditActions";
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const classes = { 

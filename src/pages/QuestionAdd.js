@@ -7,7 +7,7 @@ import Error from '../components/Shared/Error';
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
 import QuestionForm from '../components/Question/QuestionForm';
-import mathQuizCreatorAPI from '../components/config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 

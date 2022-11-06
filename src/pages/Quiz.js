@@ -13,7 +13,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import QuizAdd from './QuizAdd';
 import QuizEdit from '../components/Quiz/QuizEdit';
 import QuizDetails from '../components/Quiz/QuizDetails';
-import mathQuizCreatorAPI from '../components/config/mathQuizCreatorAPI.json';
+import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import axios from 'axios';
 
 const classes = {
