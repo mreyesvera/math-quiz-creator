@@ -1,19 +1,14 @@
 import {
     Box, 
     List,
-    // ListItem,
-    // ListItemButton,
-    // ListItemText,
 } from '@mui/material';
 import * as React from 'react';
 import NavTopicList from './NavTopicList';
 import Error from '../Shared/Error';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 export default function NavTopicsList(props){
-    //const [listIsOpen, setListIsOpen] = React.useState(false);
-    //const [openTopic, setOpenTopic] = React.useState();
+    const axiosAuth = useAxiosAuth();
 
     const [topics, setTopics] = React.useState([]);
     const [error, setError] = React.useState([]);
@@ -23,7 +18,7 @@ export default function NavTopicsList(props){
         if(resetTopic){
             async function getTopics(){
                 try {
-                    await axios.get(`${mathQuizCreatorAPI.baseURL}Topics`).then(response => {
+                    await axiosAuth.get(`/Topics`).then(response => {
                         console.log(response.data);
                         if(response.data){
                             setTopics(response.data);
@@ -40,7 +35,7 @@ export default function NavTopicsList(props){
             setResetTopic(false);
             getTopics();
         }
-    }, [resetTopic]);
+    }, [resetTopic, axiosAuth]);
     
     return (
         <Box>

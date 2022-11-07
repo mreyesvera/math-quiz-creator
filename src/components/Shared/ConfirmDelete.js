@@ -1,11 +1,5 @@
 import {
-    Box,
-    FormControl,
-    TextField,
     Button,
-    FormLabel,
-    TextareaAutosize,
-    Grid,
     Dialog,
     DialogActions,
     DialogContent,
@@ -15,8 +9,6 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import Errors from './Errors';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -31,7 +23,7 @@ export default function ConfirmDelete({open, elementTitle, handleClose, onDelete
             setDeleting(false);
             onDelete(setErrors);
         }
-    }, [deleting])
+    }, [deleting, onDelete])
 
     function deleteConfirm(){
         setDeleting(true);

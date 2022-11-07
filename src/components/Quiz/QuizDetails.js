@@ -1,14 +1,9 @@
 import {
     Box, 
 } from '@mui/material';
-import {
-    useParams,
-} from "react-router-dom";
 import * as React from 'react';
 import { useOutletContext } from "react-router-dom";
-import { sampleQuiz } from '../../components/sample_data';
 import QuizInformation from './QuizInformation';
-import QuizEdit from './QuizEdit';
 import QuizAggregates from './QuizAggregates';
 import SolvedQuizzesGrid from './SolvedQuizzesGrid';
 import { solvedQuizzes2 } from '../../components/sample_data';

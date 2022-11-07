@@ -1,11 +1,6 @@
 import {
     Box,
-    List,
     Grid,
-    ListItem,
-    ListItemText,
-    ListItemButton,
-    Divider,
 } from '@mui/material';
 import AccountDetails from '../components/Account/AccountDetails';
 import ResetPassword from '../components/Account/ResetPassword';
@@ -25,7 +20,7 @@ const classes = {
 
 };
 
-export default function Account(props){
+export default function Account(){
     const [error, setError] = React.useState("");
 
     return (

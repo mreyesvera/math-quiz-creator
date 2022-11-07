@@ -5,26 +5,19 @@ import {
     useParams,
 } from "react-router-dom";
 import * as React from 'react';
-import { sampleQuiz } from '../components/sample_data';
 import Error from '../components/Shared/Error';
 import { Outlet } from 'react-router-dom';
-import { quizzes, questions } from '../components/sample_data';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import QuizAdd from './QuizAdd';
-import QuizEdit from '../components/Quiz/QuizEdit';
-import QuizDetails from '../components/Quiz/QuizDetails';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../hooks/useAxiosAuth';
 
 const classes = {
     root: {
         width: 1,
-        //height: '100vh',
     }
 };
 
 
-export default function Quiz(props){
+export default function Quiz(){
+    const axiosAuth = useAxiosAuth();
     const { id } = useParams();
     const idRef = React.useRef(id);
     const [getData, setGetData] = React.useState(true);
@@ -45,7 +38,7 @@ export default function Quiz(props){
 
             async function getQuiz(id){
                 try {
-                    await axios.get(`${mathQuizCreatorAPI.baseURL}QuizzesLearner/${id}`).then(response => {
+                    await axiosAuth.get(`/QuizzesLearner/${id}`).then(response => {
                         console.log(response.data);
                         if(response.data){
                             setQuiz(response.data);
@@ -62,7 +55,7 @@ export default function Quiz(props){
             setGetData(false);
             getQuiz(id);
         }
-    }, [id, getData]);
+    }, [id, getData, axiosAuth]);
 
     console.log(id);
     console.log(quiz);

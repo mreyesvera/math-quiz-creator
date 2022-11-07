@@ -1,18 +1,11 @@
 import {
-    Box, 
-    //List,
     ListItem,
     ListItemButton,
     ListItemText,
     Grid,
-    Button,
 } from '@mui/material';
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
-import { quizzes, questions } from '../sample_data';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import appConfig from '../../config/appConfig.json';
-import CreatorContentTable from './CreatorContentTable';
 import CreatorContentGrid from './CreatorContentGrid';
 import DataGridCellClickable from './DataGridCellClickable';
 import CreatorGridHomeActions from './CreatorGridHomeActions';
@@ -20,7 +13,6 @@ import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
 
 const classes = {
     listItemButton: {
-        //textAlign: 'center'
         background: '#5c3189',
         color: 'white',
         my: 1,
@@ -30,11 +22,6 @@ const classes = {
         borderRadius: '4px',
     },
 };
-
-// const quizzesHeaders = ["Title", "Public", "UM", "Last Modified", "Actions"];
-// const quizzesProperties = ["title", "isPublic", "hasUnlimitedMode", "lastModifiedTime"];
-// const questionsHeaders = ["Title", "Assigned Quizzes", "Last Modified", "Actions"];
-// const questionsProperties = ["title", "quizQuestions.title", "lastModifiedTime"];
 
 const quizzesColumns = [
     {
@@ -123,11 +110,8 @@ function onClickQuestionCell(row){
 }
 
 export default function CreatorHomeTopic({topic, setResetTopic}){
-    //console.log(topic);
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
-    //const topicQuizzes = React.useRef(quizzes[props.topic.topicId]);
-    //const topicQuestions = React.useRef(questions[props.topic.topicId]);
 
     const quizzesTitleActions = [{
         title: 'CREATE NEW',
@@ -177,7 +161,7 @@ export default function CreatorHomeTopic({topic, setResetTopic}){
                         getRowId={getQuizRowId}
                         titleSectionActions={quizzesTitleActions}
                         titleBackgroundColor='#70a489'
-                        onClickCell={() => console.log("clicked")}
+                        onClickCell={onClickQuizCell}
                         toolbar={true}
                     />
                     <CreatorContentGrid 

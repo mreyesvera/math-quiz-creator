@@ -1,22 +1,12 @@
 import {
     Box,
     Button,
-    List,
-    Grid,
-    ListItem,
-    ListItemText,
-    ListItemButton,
-    Divider,
 } from '@mui/material';
-import {
-    useParams,
-} from "react-router-dom";
 import Error from '../Shared/Error';
 import { useOutletContext } from 'react-router-dom';
 import * as React from 'react';
 import SolveQuiz from './SolveQuiz';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 const classes = {
     quizTitle: {
@@ -30,6 +20,7 @@ const classes = {
 };
 
 export default function TakeQuiz(){
+    const axiosAuth = useAxiosAuth();
     const outletContext = useOutletContext();
     const [questions, setQuestions] = React.useState();
     const [error, setError] = React.useState();
@@ -72,7 +63,7 @@ export default function TakeQuiz(){
         }
 
         try {
-            // await axios.post(`${mathQuizCreatorAPI.baseURL}QuizzesLearner`, answeredQuiz)
+            // await axiosAuth.post(`/QuizzesLearner`, answeredQuiz)
             //     .then(response => {
             //         console.log(response);
 

@@ -9,7 +9,6 @@ import MenuAppBar from '../components/Navigation/MenuAppBar';
 import useAuth from '../hooks/useAuth';
 
 export default function PrivateLayout(props) {
-    const { auth } = useAuth();
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {

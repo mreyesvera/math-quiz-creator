@@ -15,7 +15,6 @@ const classes = {
         color: 'white',
     },
     button: {
-        //marginTop: 'min(60px, 5%)',
         marginTop: '60px',
     },
     text: {
@@ -23,37 +22,41 @@ const classes = {
     },
 };
 
-export default function WelcomeField(props){
+export default function WelcomeField({label, fieldType, type, onClick, children, element}){
     return (
         <WelcomeComponent>
             {
-                props.fieldType === "TextField" &&
+                fieldType === "TextField" &&
                 <FormControl sx={classes.field} >
                     <TextField 
-                        id="outlined-basic" 
-                        label={props.label}
+                        label={label}
                         variant="filled" 
                         InputProps={ {sx: classes.formField} }
                         InputLabelProps={ {sx: classes.formField}}
-                        type={props.type}
+                        type={type}
+                        name={element.name}
+                        value={element.value}
+                        error={element.error}
+                        helperText={element.helperText}
+                        onChange={element.onChange}
                     />
                 </FormControl>
             }
             {
-                props.fieldType === "Button" &&
+                fieldType === "Button" &&
                 <Button 
                     sx={{...classes.field, ...classes.button}}
                     color="secondary" 
                     variant="contained"
-                    onClick={props.onClick}
+                    onClick={onClick}
                 >
-                    { props.label }
+                    { label }
                 </Button>
             }
             {
-                props.fieldType === 'Text' &&
+                fieldType === 'Text' &&
                 <Box sx={{...classes.field, ...classes.text}}>
-                   { props.children }
+                   { children }
                 </Box>
             }
         </WelcomeComponent>

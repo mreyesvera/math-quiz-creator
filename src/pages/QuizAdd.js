@@ -1,20 +1,15 @@
 import {
     Box,
-    FormControl,
-    TextField 
 } from '@mui/material';
-import { sampleQuiz } from '../components/sample_data';
 import Error from '../components/Shared/Error';
 import QuizForm from '../components/Quiz/QuizForm';
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
 import { 
-    matchingQuizQuestionId, 
     removeQuestionOnQuizQuestion
 } from '../utils/quizQuestionUtils';
-import axios from 'axios';
 import { useParams } from "react-router-dom";
+import useAxiosAuth from '../hooks/useAxiosAuth';
 
 
 const classes = {
@@ -25,11 +20,13 @@ const classes = {
 };
 
 export default function QuizAdd(){
+    const axiosAuth = useAxiosAuth();
     const navigate = useNavigate();
     const { topicId } = useParams();
     //const [getData, setGetData] = React.useState(true);
     const [ topic, setTopic ] = React.useState();
-    const [ quiz, setQuiz ] = React.useState({
+    // removed setQuiz, if needed can be added later on
+    const [ quiz ] = React.useState({
         title: "",
         description: "",
         isPublic: false,
@@ -49,7 +46,7 @@ export default function QuizAdd(){
         let errors = []
 
         try {
-            await axios.post(`${mathQuizCreatorAPI.baseURL}Quizzes`, newQuiz)
+            await axiosAuth.post(`/Quizzes`, newQuiz)
                 .then(response => {
                     console.log(response);
 
@@ -70,7 +67,7 @@ export default function QuizAdd(){
                                 addedQuizQuestion.quizId = quiz.quizId;
 
                                 console.log(addedQuizQuestion);
-                                await axios.post(`${mathQuizCreatorAPI.baseURL}QuizQuestions`, addedQuizQuestion)
+                                await axiosAuth.post(`/QuizQuestions`, addedQuizQuestion)
                                     .then(response => {
                                         console.log(response);
             
@@ -98,7 +95,7 @@ export default function QuizAdd(){
     React.useEffect(()=>{
         async function getTopic(id){
             try {
-                await axios.get(`${mathQuizCreatorAPI.baseURL}Topics/${id}`).then(response => {
+                await axiosAuth.get(`/Topics/${id}`).then(response => {
                     //console.log(response.data);
                     if(response.data){
                         setTopic(response.data);
@@ -113,7 +110,7 @@ export default function QuizAdd(){
         }
 
         getTopic(topicId);
-    }, [topicId]);
+    }, [topicId, axiosAuth]);
 
 
     return (

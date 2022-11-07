@@ -1,15 +1,10 @@
 import {
     Box,
-    FormControl,
-    TextField,
     Button,
-    FormLabel,
-    TextareaAutosize,
     Grid,
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     Slide,
 } from '@mui/material';
@@ -19,8 +14,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
 import * as React from 'react';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 const classes = {
     arrowButtonsContainer: {
@@ -91,12 +85,10 @@ function getQuestionRowId(row){
 
 export default function UpdateQuestions({open, handleClose, topicId, quizQuestions, quizId, 
     setUpdatedQuestions, setQuizQuestions, reset, setReset}){
-    //console.log(quizQuestions);
-    //const [fetchQuestions, setFetchQuestions] = React.useState(true);
+    const axiosAuth = useAxiosAuth();
+
     const [errors, setErrors] = React.useState([]);
     const [questions, setQuestions] = React.useState([]);
-
-    //const [newQuizQuestions, setNewQuizQuestions] = React.useState([]);
 
     const [savedQuestions, setSavedQuestions] = React.useState([]);
     const [remainingQuestions, setRemainingQuestions] = React.useState([]);
@@ -107,7 +99,7 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
     React.useEffect(() => {
         async function getQuestions(topicId){
             try {
-                await axios.get(`${mathQuizCreatorAPI.baseURL}Questions?topicId=${topicId}`)
+                await axiosAuth.get(`/Questions?topicId=${topicId}`)
                     .then(response => {
                         //console.log(response);
     
@@ -116,9 +108,6 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
                             console.log(response.data);
 
                             return response.data
-
-                            //outletContext.setGetData(true);
-                            //navigate(`/quiz/${quiz.quizId}/details`);
                         } else {
                             setErrors(["There was a problem saving the data."]);
                         }
@@ -171,12 +160,10 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
 
             setErrors(errors);
         }
-    }, [topicId, quizQuestions, reset]);
+    }, [topicId, quizQuestions, reset, setReset, axiosAuth]);
 
     function passToRemainingQuestions(){
         const selectedSavedQuestions = questions.filter((question) => selectedSaved.includes(question.questionId));
-
-        //console.log(selectedSavedQuestions);
 
         setRemainingQuestions(oldRemainingQuestions => {
             return oldRemainingQuestions.concat(selectedSavedQuestions)
@@ -190,8 +177,6 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
 
     function passToSavedQuestions(){
         const selectedRemainingQuestions = questions.filter((question) => selectedRemaining.includes(question.questionId));
-
-        //console.log(selectedRemainingQuestions);
 
         setSavedQuestions(oldSavedQuestions => {
             return oldSavedQuestions.concat(selectedRemainingQuestions);
@@ -223,8 +208,6 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
         let newSavedQuestions = savedQuestions.slice();
         
         for(let i=newSavedQuestions.length-2; i>=0; i--){
-            //console.log(newSavedQuestions[i]);
-            //console.log(newSavedQuestions[i+1]);
             if(selectedSaved.includes(newSavedQuestions[i].questionId)
                 && !selectedSaved.includes(newSavedQuestions[i+1].questionId)){
                 let tempQuestion = newSavedQuestions[i+1];
@@ -283,18 +266,13 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
     }
 
     function submitQuestions(){
-        //console.log(quizQuestions);
-        //console.log(savedQuestions);
-
         let updatedQuestions = setOrder(savedQuestions);
         
         let updatedQuizQuestions = quizQuestions.filter((quizQuestion) => {
             return isInSavedQuestions(savedQuestions, quizQuestion);
         });
-        //console.log(updatedQuizQuestions);
 
         let addedQuizQuestions = createNewQuizQuestions(savedQuestions, quizQuestions);
-        //console.log(addedQuizQuestions);
 
         let newQuizQuestions = updatedQuizQuestions.concat(addedQuizQuestions);
 
@@ -302,26 +280,21 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
             let question = updatedQuestions.find((question) => question.questionId === quizQuestion.questionId);
 
             if(question){
-                //console.log(question.order);
                 return {
                     ...quizQuestion,
                     order: question.order
                 }
             } else {
                 console.log("ERROR IN LOGIC");
+                return {};
             }
         });
-
-        //console.log(updatedQuestions);
-        //console.log(newQuizQuestions);
-
 
         setUpdatedQuestions(updatedQuestions);
         setQuizQuestions(newQuizQuestions);
         handleClose();
     }
 
-    //console.log(savedQuestions);
     return (
         <Dialog
             open={open}

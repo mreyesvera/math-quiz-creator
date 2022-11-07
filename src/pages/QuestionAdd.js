@@ -1,14 +1,11 @@
 import {
     Box,
-    FormControl,
-    TextField 
 } from '@mui/material';
 import Error from '../components/Shared/Error';
 import { useNavigate } from "react-router-dom";
 import * as React from 'react';
 import QuestionForm from '../components/Question/QuestionForm';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../hooks/useAxiosAuth';
 import { useParams } from "react-router-dom";
 
 const classes = {
@@ -19,11 +16,12 @@ const classes = {
 };
 
 export default function QuestionAdd(){
+    const axiosAuth = useAxiosAuth();
     const navigate = useNavigate();
     const { topicId } = useParams();
-    //const [getData, setGetData] = React.useState(true);
     const [ topic, setTopic ] = React.useState();
-    const [ question, setQuestion ] = React.useState({
+    // removed setQuestion, if needed can be added later on
+    const [ question ] = React.useState({
         title: "",
         description: "",
         answer: "",
@@ -39,7 +37,7 @@ export default function QuestionAdd(){
         console.log(newQuestion);
 
         try {
-            await axios.post(`${mathQuizCreatorAPI.baseURL}Questions`, newQuestion)
+            await axiosAuth.post(`/Questions`, newQuestion)
                 .then(response => {
                     console.log(response);
 
@@ -59,7 +57,7 @@ export default function QuestionAdd(){
     React.useEffect(()=>{
         async function getTopic(id){
             try {
-                await axios.get(`${mathQuizCreatorAPI.baseURL}Topics/${id}`).then(response => {
+                await axiosAuth.get(`/Topics/${id}`).then(response => {
                     //console.log(response.data);
                     if(response.data){
                         setTopic(response.data);
@@ -74,7 +72,7 @@ export default function QuestionAdd(){
         }
 
         getTopic(topicId);
-    }, [topicId]);
+    }, [topicId, axiosAuth]);
 
     return (
         <Box sx={classes.root}>

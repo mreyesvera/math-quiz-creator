@@ -1,10 +1,5 @@
 import {
     Box, 
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-    Grid,
 } from '@mui/material';
 import * as React from 'react';
 import DataGridCellClickable from '../Home/DataGridCellClickable';
@@ -55,7 +50,6 @@ function getQuizRowId(row){
 }
 
 export default function NavTopicQuizzesGrid({quizzes, onItemSelected}){
-    console.log(onItemSelected);
     const columns = React.useRef(createColumns(onItemSelected));
 
     return (

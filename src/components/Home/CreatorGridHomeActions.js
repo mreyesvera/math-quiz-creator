@@ -1,24 +1,20 @@
 import {
     Box,
-    FormControl,
-    TextField,
-    Checkbox,
-    FormLabel,
-    TextareaAutosize,
     Button,
 } from '@mui/material';
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import ConfirmDelete from '../Shared/ConfirmDelete';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 export default function CreatorGridHomeActions(props){
+    const axiosAuth = useAxiosAuth();
     const navigate = useNavigate();
 
     const [id, setId] = React.useState('');
     const [baseUrl, setBaseUrl] = React.useState('');
     const [apiBaseUrl, setApiBaseUrl] = React.useState('');
+    const [error, setError] = React.useState(false);
 
     const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
 
@@ -35,15 +31,17 @@ export default function CreatorGridHomeActions(props){
             case "question":
                 setId(props.params.row.questionId);
                 setBaseUrl("/question/");
-                setApiBaseUrl(`${mathQuizCreatorAPI.baseURL}Questions/`);
+                setApiBaseUrl(`/Questions/`);
                 break;
             case "quiz":
                 setId(props.params.row.quizId);
                 setBaseUrl("/quiz/");
-                setApiBaseUrl(`${mathQuizCreatorAPI.baseURL}Quizzes/`);
+                setApiBaseUrl(`/Quizzes/`);
                 break;
+            default:
+                setError(true);
         }
-    }, []);
+    }, [props.type, props.params.row]);
 
     const onEdit = (e) => {
         navigate(`${baseUrl}${id}/edit`);
@@ -56,7 +54,7 @@ export default function CreatorGridHomeActions(props){
     async function deleteElement(setErrors){
         console.log(`${apiBaseUrl}${id}`);
         try {
-            await axios.delete(`${apiBaseUrl}${id}`)
+            await axiosAuth.delete(`${apiBaseUrl}${id}`)
                 .then(response => {
                     console.log(response);
 
@@ -74,16 +72,21 @@ export default function CreatorGridHomeActions(props){
 
     return (
     <Box>
-        <Button onClick={onEdit}>Edit</Button>
-        <Button onClick={onDelete}>Delete</Button>
-        <Button onClick={onEdit}>Preview</Button>
-        <ConfirmDelete 
-            open={openConfirmDelete}
-            handleOpen={handleOpenConfirmDelete}
-            handleClose={handleCloseConfirmDelete}
-            onDelete={deleteElement}
-            elementTitle={props.params.row.title}
-        />
+        {
+            !error &&
+            <Box>
+                <Button onClick={onEdit}>Edit</Button>
+                <Button onClick={onDelete}>Delete</Button>
+                <Button onClick={onEdit}>Preview</Button>
+                <ConfirmDelete 
+                    open={openConfirmDelete}
+                    handleOpen={handleOpenConfirmDelete}
+                    handleClose={handleCloseConfirmDelete}
+                    onDelete={deleteElement}
+                    elementTitle={props.params.row.title}
+                />
+            </Box>
+        }
     </Box>
     )
 }

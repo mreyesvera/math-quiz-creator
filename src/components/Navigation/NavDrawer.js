@@ -20,16 +20,12 @@ const createClasses = (theme) => ({
     navContentBackground: {
         background: theme.palette.darBackgroundOpaque,
         mixBlendMode: 'hard-light',
-        /*height: 'calc(100% - 32px)',
-        height: 1,*/
         minHeight: '100vh',
         height: 'auto',
         textAlign: 'center',
         color: 'white',
     },
     navContent: {
-        //padding: 2,
-        //height: 9/10,
         py: '20px',
         minWidth: '400px',
     },

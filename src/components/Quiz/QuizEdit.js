@@ -3,18 +3,18 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import QuizForm from './QuizForm';
 import { 
     matchingQuizQuestionId, 
     removeQuestionOnQuizQuestion
 } from '../../utils/quizQuestionUtils';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 
 export default function QuizEdit(){
-    const navigate = useNavigate();
+    const axiosAuth = useAxiosAuth();
+    //const navigate = useNavigate();
     const outletContext = useOutletContext();
 
     async function saveQuiz(quiz, formData, quizQuestions, quizQuestionsData, setErrors){
@@ -73,7 +73,7 @@ export default function QuizEdit(){
         let errors = []
 
         try {
-            await axios.put(`${mathQuizCreatorAPI.baseURL}Quizzes/${quiz.quizId}`, modifiedQuiz)
+            await axiosAuth.put(`/Quizzes/${quiz.quizId}`, modifiedQuiz)
                 .then(response => {
                     console.log(response);
 
@@ -91,7 +91,7 @@ export default function QuizEdit(){
                     let deletedQuizQuestion = deletedQuizQuestions[i];
 
                     if(deletedQuizQuestion.quizQuestionId){
-                        await axios.delete(`${mathQuizCreatorAPI.baseURL}QuizQuestions/${deletedQuizQuestion.quizQuestionId}`)
+                        await axiosAuth.delete(`/QuizQuestions/${deletedQuizQuestion.quizQuestionId}`)
                             .then(response => {
                                 console.log(response);
 
@@ -113,7 +113,7 @@ export default function QuizEdit(){
 
                     console.log(modifiedQuizQuestion);
                     if(modifiedQuizQuestion.quizQuestionId){
-                        await axios.put(`${mathQuizCreatorAPI.baseURL}QuizQuestions/${modifiedQuizQuestion.quizQuestionId}`, modifiedQuizQuestion)
+                        await axiosAuth.put(`/QuizQuestions/${modifiedQuizQuestion.quizQuestionId}`, modifiedQuizQuestion)
                             .then(response => {
                                 console.log(response);
 
@@ -134,7 +134,7 @@ export default function QuizEdit(){
                     let addedQuizQuestion = removeQuestionOnQuizQuestion(addedQuizQuestions[i]);
 
                     console.log(addedQuizQuestion);
-                    await axios.post(`${mathQuizCreatorAPI.baseURL}QuizQuestions`, addedQuizQuestion)
+                    await axiosAuth.post(`/QuizQuestions`, addedQuizQuestion)
                         .then(response => {
                             console.log(response);
 

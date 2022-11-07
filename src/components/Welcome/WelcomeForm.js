@@ -5,7 +5,6 @@ import {
 const classes = {
     root: {
         color: 'white',
-        //paddingBottom: '60px',
     },
     title: {
         margin: '0 0 20px 0',

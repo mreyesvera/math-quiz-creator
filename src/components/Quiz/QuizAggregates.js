@@ -3,8 +3,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import Errors from '../Shared/Errors';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 const classes = {
     aggregates: {
@@ -50,28 +49,24 @@ function getAverage(solvedQuizzes){
         sum += solvedQuiz.score;
     })
 
-    //console.log(sum);
-    //console.log(solvedQuizzes.length);
     return (sum / solvedQuizzes.length).toFixed(2);
 }
 
 export default function QuizAggregates({quizId}){
+    const axiosAuth = useAxiosAuth();
     const [errors, setErrors] = React.useState([]);
     const [solvedQuizzes, setSolvedQuizzes] = React.useState([]);
 
     React.useEffect(() => {
         async function getSolvedQuizzes(quizId){
             try {
-                await axios.get(`${mathQuizCreatorAPI.baseURL}SolvedQuizzes?quizId=${quizId}`)
+                await axiosAuth.get(`/SolvedQuizzes?quizId=${quizId}`)
                     .then(response => {
                         //console.log(response);
     
                         if(response.status === 200){
                             setSolvedQuizzes(response.data)
                             console.log(response.data);
-
-                            //outletContext.setGetData(true);
-                            //navigate(`/quiz/${quiz.quizId}/details`);
                         } else {
                             setErrors(["There was a problem saving the data."]);
                         }
@@ -87,9 +82,8 @@ export default function QuizAggregates({quizId}){
             
             setErrors(["Quiz Id can't be empty."]);
         }
-    }, []);
+    }, [quizId, axiosAuth]);
 
-    // ADD THE DISPLAY ERRORS 
     return (
         <Box sx={classes.aggregates}>
             <h3>Aggregate Results</h3>

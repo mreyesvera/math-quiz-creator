@@ -31,8 +31,8 @@ const classes = {
 };
 
 const ROLES = {
-  'Creator': 1,
-  'Learner': 2
+  'Creator': "Creator",
+  'Learner': "Learner"
 };
 
 /**

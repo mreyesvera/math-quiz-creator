@@ -5,8 +5,7 @@ import {
 import * as React from 'react';
 import CreatorHomeTopic from './CreatorHomeTopic'
 import Error from '../Shared/Error';
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 
 const classes = {
     subtitle: {
@@ -15,6 +14,8 @@ const classes = {
 };
 
 export default function CreatorHome(){
+    const axiosAuth = useAxiosAuth();
+
     const [topics, setTopics] = React.useState([]);
     const [error, setError] = React.useState();
     const [resetTopic, setResetTopic] = React.useState(true);
@@ -23,7 +24,7 @@ export default function CreatorHome(){
         if(resetTopic){
             async function getTopics(){
                 try {
-                    await axios.get(`${mathQuizCreatorAPI.baseURL}Topics`).then(response => {
+                    await axiosAuth.get(`/Topics`).then(response => {
                         console.log(response.data);
                         if(response.data){
                             setTopics(response.data);
@@ -41,7 +42,7 @@ export default function CreatorHome(){
             setResetTopic(false);
             getTopics();
         }
-    }, [resetTopic]);
+    }, [resetTopic, axiosAuth]);
 
     
     return (

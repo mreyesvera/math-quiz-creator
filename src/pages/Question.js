@@ -1,11 +1,5 @@
 import {
     Box,
-    FormControl,
-    TextField,
-    Checkbox,
-    FormLabel,
-    TextareaAutosize,
-    Button,
 } from '@mui/material';
 import {
     useParams,
@@ -14,18 +8,16 @@ import { sampleQuiz } from '../components/sample_data';
 import { Outlet } from 'react-router-dom';
 import Error from '../components/Shared/Error';
 import * as React from 'react';
-import mathQuizCreatorAPI from '../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
+import useAxiosAuth from '../hooks/useAxiosAuth';
 
 const classes = {
     root: {
         width: 1,
-        //height: '100vh',
     }
 };
 
 export default function Question(props){
-    console.log("rendered");
+    const axiosAuth = useAxiosAuth();
     const { id } = useParams();
     const [getData, setGetData] = React.useState(true);
     const [ question, setQuestion ] = React.useState({}); 
@@ -40,7 +32,7 @@ export default function Question(props){
         if(getData){
             async function getQuestion(id){
                 try {
-                    await axios.get(`${mathQuizCreatorAPI.baseURL}Questions/${id}`).then(response => {
+                    await axiosAuth.get(`/Questions/${id}`).then(response => {
                         console.log(response.data);
                         if(response.data){
                             setQuestion(response.data);
@@ -57,7 +49,7 @@ export default function Question(props){
             setGetData(false);
             getQuestion(id);
         }
-    }, [id, getData]);
+    }, [id, getData, axiosAuth]);
 
     return (
         <Box sx={classes.root}>

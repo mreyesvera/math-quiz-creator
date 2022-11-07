@@ -2,19 +2,14 @@ import {
     Box,
     FormControl,
     TextField,
-    Checkbox,
     FormLabel,
     TextareaAutosize,
     Button,
 } from '@mui/material';
 import * as React from 'react';
-import CreatorContentGrid from '../Home/CreatorContentGrid';
 import Errors from '../Shared/Errors';
 import QuestionFeaturesDrawer from './QuestionFeaturesDrawer';
 import { useNavigate } from "react-router-dom";
-import CreatorGridQuizEditActions from "../Home/CreatorGridQuizEditActions";
-import mathQuizCreatorAPI from '../../config/mathQuizCreatorAPI.json';
-import axios from 'axios';
 
 const classes = { 
     topRow: {
@@ -129,13 +124,12 @@ export default function QuestionForm({question, onSubmit}){
 
             if(errors.length === 0){
                 setErrors([]);
-                //console.log(formData);
                 onSubmit(question, formData, setErrors);
             } else {
                 setErrors(errors);
             }
         }
-    }, [save, formData, question]);
+    }, [save, formData, question, onSubmit]);
 
     React.useEffect(()=> {
         let changes = formData.title === question.title &&

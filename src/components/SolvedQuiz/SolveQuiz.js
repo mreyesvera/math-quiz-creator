@@ -1,11 +1,5 @@
 import {
-    Box,
-    List,
     Grid,
-    ListItem,
-    ListItemText,
-    ListItemButton,
-    Divider,
 } from '@mui/material';
 import * as React from 'react';
 import QuizAnswerable from './QuizAnswerable';

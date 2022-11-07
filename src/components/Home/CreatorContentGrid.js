@@ -22,8 +22,6 @@ const createClasses = (props) => ({
         marginBottom: 1,
         borderRadius: '4px',
         backgroundColor: props.titleBackgroundColor,
-        //backgroundColor: '#1e839c',
-        //backgroundColor: '#70a489',
     },
     gridSection: {
         height: '350px',
@@ -36,7 +34,6 @@ const createClasses = (props) => ({
 
 export default function CreatorContentGrid(props) {
     const classes = createClasses(props);
-    //console.log(props);
 
     return (
         <Grid 
