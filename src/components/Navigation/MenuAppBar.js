@@ -9,6 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
+import useAuth from '../../hooks/useAuth';
 
 const classes = {
   root: {
@@ -21,6 +22,7 @@ const classes = {
 
 export default function MenuAppBar(props) {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -30,6 +32,12 @@ export default function MenuAppBar(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function logout(){
+    handleClose();
+    navigate("/");
+    setAuth({});
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -92,15 +100,10 @@ export default function MenuAppBar(props) {
                 My Account
               </MenuItem>
               <MenuItem 
-                onClick={() => {
-                  handleClose();
-                  props.setIsAuthenticated(false);
-                  navigate("/");
-                }}
+                onClick={logout}
               >
                 Log Out
               </MenuItem>
-              <MenuItem onClick={props.toggleIsCreator}>Switch Role</MenuItem>
             </Menu>
           </Box>
         </Toolbar>

@@ -40,17 +40,6 @@ const ROLES = {
  * is incorporated.
  */
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [isCreator, setIsCreator] = React.useState(true);
-
-  function toggleIsCreator() {
-    setIsCreator((oldIsCreator => !oldIsCreator));
-  }
-
-  // function toggleIsAuthenticated(){
-  //   setIsAuthenticated((oldIsAuthenticated) => !oldIsAuthenticated);
-  // }
-
   return (
     <Box sx={classes.root}>
       <BrowserRouter>
@@ -58,7 +47,7 @@ function App() {
           <AuthProvider>
             <Routes>
               <Route element={<PublicLayout />}>
-                <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
+                <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/resetPassword" element={<ResetPassword />} />
@@ -66,25 +55,25 @@ function App() {
               </Route>
 
               <Route element={<RequiredAuth allowedRoles={[ROLES.Creator, ROLES.Learner]} />}>
-                <Route element={<PrivateLayout setIsAuthenticated={setIsAuthenticated} toggleIsCreator={toggleIsCreator}/>}>
+                <Route element={<PrivateLayout />}>
                   
-                  <Route path="/home" element={<Home title="Hello user!" isCreator={isCreator}/>} />
+                  <Route path="/home" element={<Home title="Hello user!" />} />
                   
-                  <Route path="/quiz/:id" element={<Quiz isCreator={isCreator}/>} >
-                    <Route path="/quiz/:id/details" element={<QuizDetails isCreator={isCreator}/>} />
+                  <Route path="/quiz/:id" element={<Quiz />} >
+                    <Route path="/quiz/:id/details" element={<QuizDetails />} />
 
                     <Route element={<RequiredAuth allowedRoles={[ROLES.Creator]} />}>
-                      <Route path="/quiz/:id/edit" element={<QuizEdit isCreator={isCreator} />} />
+                      <Route path="/quiz/:id/edit" element={<QuizEdit />} />
                     </Route>
 
                     <Route element={<RequiredAuth allowedRoles={[ROLES.Learner]} />}>
-                      <Route path="/quiz/:id/solve" element={<TakeQuiz isCreator={isCreator} />} />
+                      <Route path="/quiz/:id/solve" element={<TakeQuiz />} />
                     </Route>
 
                   </Route>
                   
                   <Route element={<RequiredAuth allowedRoles={[ROLES.Creator]} />}>
-                    <Route path="/quiz/:topicId/add" element={<QuizAdd isCreator={isCreator}/>} />
+                    <Route path="/quiz/:topicId/add" element={<QuizAdd />} />
                   </Route>
 
                   <Route element={<RequiredAuth allowedRoles={[ROLES.Creator]} />}>

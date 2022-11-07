@@ -20,7 +20,7 @@ function compareQuizQuestions(quizQuestion1, quizQuestion2){
 
 function compareQuizQuestionsArrays(quizQuestions1, quizQuestions2){
     if(!quizQuestions1 || !quizQuestions2 
-        || !(quizQuestions1.length > 0) || !(quizQuestions2.length > 0)
+        || !(quizQuestions1.length >= 0) || !(quizQuestions2.length >= 0)
         || quizQuestions1.length !== quizQuestions2.length){
             return false;
     }

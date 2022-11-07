@@ -7,6 +7,7 @@ import * as React from 'react';
 import QuestionForm from '../components/Question/QuestionForm';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 import { useParams } from "react-router-dom";
+import useAuth from '../hooks/useAuth';
 
 const classes = {
     root: {
@@ -17,6 +18,8 @@ const classes = {
 
 export default function QuestionAdd(){
     const axiosAuth = useAxiosAuth();
+    const { auth } = useAuth();
+
     const navigate = useNavigate();
     const { topicId } = useParams();
     const [ topic, setTopic ] = React.useState();
@@ -31,7 +34,7 @@ export default function QuestionAdd(){
     async function saveQuestion(question, formData, setErrors){
         let newQuestion = {
             topicId: topic.topicId,
-            creatorId: 'a6a1ff7a-9bdd-456a-90e7-08dab507521e',
+            creatorId: auth?.user?.userId,
             ...formData
         };
         console.log(newQuestion);

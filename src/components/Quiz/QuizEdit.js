@@ -154,6 +154,7 @@ export default function QuizEdit(){
         setErrors(errors);
     }
 
+    console.log(outletContext);
     return (
         <Box>
             <QuizForm 

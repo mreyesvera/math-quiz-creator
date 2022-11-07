@@ -59,6 +59,7 @@ export default function Quiz(){
 
     console.log(id);
     console.log(quiz);
+    console.log(contextValue);
     return (
         <Box sx={classes.root}>
             {
@@ -67,7 +68,7 @@ export default function Quiz(){
                 :
                 <Box>
                 {
-                    (quiz && quiz.topic) &&
+                    (quiz && quiz.topic && contextValue) &&
                     <Box>
                         <h1>{quiz.topic.title}</h1>
                         <Outlet context={contextValue}/>

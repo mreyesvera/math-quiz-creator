@@ -8,7 +8,7 @@ import NavDrawer from '../components/Navigation/NavDrawer';
 import MenuAppBar from '../components/Navigation/MenuAppBar';
 import useAuth from '../hooks/useAuth';
 
-export default function PrivateLayout(props) {
+export default function PrivateLayout() {
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -23,8 +23,6 @@ export default function PrivateLayout(props) {
         <Box>
             <MenuAppBar 
                 openDrawer={handleDrawerOpen}
-                setIsAuthenticated={props.setIsAuthenticated}
-                toggleIsCreator={props.toggleIsCreator}
             />
             <NavDrawer
                 open={open}

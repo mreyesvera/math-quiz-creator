@@ -87,10 +87,10 @@ const questionsTitleActions = (addQuestions, createNew) => ([
         title: 'UPDATE QUESTIONS',
         onClick: addQuestions,
     },
-    {
+    /*{
         title: 'CREATE NEW',
         onClick: createNew,
-    },
+    },*/
 ]);
 
 function getQuestionRowId(row){
@@ -170,10 +170,10 @@ export default function QuizForm({topicId, quiz, onSubmit}){
     }, [save, formData, quiz, quizQuestions, quizQuestionsData, onSubmit]);
 
     React.useEffect(()=> {
-        let changes = compareQuizzes(formData, quiz) 
-                    && compareQuizQuestionsArrays(quizQuestionsData, quizQuestions);
+        let changes = !compareQuizzes(formData, quiz) 
+                    || !compareQuizQuestionsArrays(quizQuestionsData, quizQuestions);
 
-        setDisableSave(changes);
+        setDisableSave(!changes);
     }, [formData, quiz, quizQuestionsData, quizQuestions]);
 
     function handleSubmit(event){

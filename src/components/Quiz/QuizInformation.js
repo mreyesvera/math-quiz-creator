@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
+import useAuth from '../../hooks/useAuth';
 
 const classes = {
     root: {
@@ -31,6 +32,7 @@ const classes = {
 };
 
 export default function QuizInformation(props){
+    const { auth } = useAuth();
     const navigate = useNavigate();
     const quiz = props.quiz;
 
@@ -47,7 +49,7 @@ export default function QuizInformation(props){
             <Box sx={classes.titleContainer}>
                 <h1 style={classes.title}>{quiz.title}</h1>
                 {
-                    !props.isCreator &&
+                    auth?.user?.role === "Learner" &&
                     <Button
                         variant="contained"
                         onClick={onTakeQuiz}
@@ -56,7 +58,7 @@ export default function QuizInformation(props){
                     </Button>
                 }
                 {
-                    props.isCreator &&
+                    auth?.user?.role === "Creator" &&
                     <Button
                         variant="contained"
                         onClick={onEdit}
@@ -80,7 +82,7 @@ export default function QuizInformation(props){
                 </Box>
             </Box>
             {
-                !props.isCreator &&
+                auth?.user?.role === "Learner" &&
                 <Box>
                     <Button
                         variant="contained"

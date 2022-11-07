@@ -10,6 +10,7 @@ import {
 } from '../utils/quizQuestionUtils';
 import { useParams } from "react-router-dom";
 import useAxiosAuth from '../hooks/useAxiosAuth';
+import useAuth from '../hooks/useAuth';
 
 
 const classes = {
@@ -21,6 +22,8 @@ const classes = {
 
 export default function QuizAdd(){
     const axiosAuth = useAxiosAuth();
+    const { auth } = useAuth();
+
     const navigate = useNavigate();
     const { topicId } = useParams();
     //const [getData, setGetData] = React.useState(true);
@@ -38,7 +41,7 @@ export default function QuizAdd(){
     async function saveQuiz(quiz, formData, quizQuestions, quizQuestionsData, setErrors){
         let newQuiz = {
             topicId: topic.topicId,
-            creatorId: 'a6a1ff7a-9bdd-456a-90e7-08dab507521e',
+            creatorId: auth?.user?.userId,
             ...formData
         };
         console.log(newQuiz);

@@ -10,9 +10,11 @@ import {
 import * as React from 'react';
 import WelcomeForm from "./WelcomeForm";
 import WelcomeField from './WelcomeField';
+import Error from '../Shared/Error';
 import { useNavigate } from "react-router-dom";
 import Roles from '../../config/roles.json';
 import { emailRegex, passwordRegex } from '../../utils/regex';
+import axios from '../../utils/axios/axios';
 
 const classes = {
     roleFormControl: {
@@ -39,9 +41,10 @@ const classes = {
     }
 }
 
-export default function Register(props){
+export default function Register(){
     const navigate = useNavigate();
 
+    const [doRegister, setDoRegister] = React.useState(false);
     const [registerData, setRegisterData] = React.useState({
         role: {
             name: "role",
@@ -79,6 +82,42 @@ export default function Register(props){
             onChange: handleChange
         }
     });
+    const [error, setError] = React.useState();
+
+    React.useEffect(() => {
+        if(doRegister){
+            async function postRegister(userRegister){
+                console.log("inside register");
+                try {
+                    await axios.post('/Authentication', userRegister)
+                        .then(response => {
+                            console.log(response);
+
+                            if(response.status === 201){
+                                navigate("/");
+                            }
+                        })
+                        .catch(error => {
+                            let displayedError = error;
+                            if(error?.response?.data?.errors){
+                                displayedError = error.response.data.errors[0];
+                            }
+                            setError(displayedError);
+                        })
+                } catch(error){
+                    setError(error)
+                }
+            }
+
+            setDoRegister(false);
+            postRegister({
+                "username": registerData.username.value,
+                "email": registerData.email.value,
+                "role": registerData.role.value,
+                "password": registerData.password.value
+            }); 
+        }
+    }, [doRegister, navigate, registerData])
 
     function handleChange(event){
         const {name, value, type, checked} = event.target;
@@ -167,10 +206,19 @@ export default function Register(props){
     function register(event){
         let valid = validateFields();
         console.log(valid);
+
+        if(valid){
+            setDoRegister(true);
+        }
     }
 
+    console.log("rendering");
     return (
         <WelcomeForm title="Register">
+            {
+                error &&
+                <Error error={error} />
+            }
             <FormControl 
                 sx={classes.roleFormControl}
                 error={registerData.role.error}

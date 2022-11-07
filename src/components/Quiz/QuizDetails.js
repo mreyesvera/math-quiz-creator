@@ -7,6 +7,7 @@ import QuizInformation from './QuizInformation';
 import QuizAggregates from './QuizAggregates';
 import SolvedQuizzesGrid from './SolvedQuizzesGrid';
 import { solvedQuizzes2 } from '../../components/sample_data';
+import useAuth from '../../hooks/useAuth';
 
 
 const solvedQuizzesColumns = [
@@ -50,17 +51,18 @@ function getSolvedQuizRowId(solvedQuiz){
     return solvedQuiz.solvedQuizId;
 }
 
-export default function Quiz(props){
-  const contextValue = useOutletContext();
+export default function Quiz(){
+    const { auth } = useAuth();
+    const contextValue = useOutletContext();
 
     return (
         <Box>
             <Box>
-                <QuizInformation quiz={contextValue.quiz} isCreator={props.isCreator}/>
+                <QuizInformation quiz={contextValue.quiz}/>
             </Box>
             <Box>
                 {
-                    props.isCreator ?
+                    auth?.user?.role === "Creator" ?
                     <QuizAggregates quizId={contextValue.quiz.quizId}/>
                     :
                     <SolvedQuizzesGrid 

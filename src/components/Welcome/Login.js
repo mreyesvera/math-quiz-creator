@@ -53,7 +53,7 @@ export default function Login(){
                             if(error?.response?.data?.errors){
                                 displayedError = error.response.data.errors[0];
                             }
-                            setError(displayedError)
+                            setError(displayedError);
                         });
                 } catch(error){
                     setError(error);
