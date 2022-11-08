@@ -41,7 +41,7 @@ export default function QuizAdd(){
     async function saveQuiz(quiz, formData, quizQuestions, quizQuestionsData, setErrors){
         let newQuiz = {
             topicId: topic.topicId,
-            creatorId: auth?.user?.userId,
+            //creatorId: auth?.user?.userId,
             ...formData
         };
         console.log(newQuiz);

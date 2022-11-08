@@ -28,9 +28,40 @@ const classes = {
     answerActions: {
         textAlign: 'right',
     },
+    successTextField: {
+        '& label.Mui-focused': {
+            color: '#67a489',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#67a489',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: '#67a489',
+            },
+            '&:hover fieldset': {
+                borderColor: '#67a489',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#67a489',
+            },
+        },
+        ".css-11xuzmr-MuiFormLabel-root-MuiInputLabel-root": {
+            color: '#67a489',
+        },
+        ".css-dgdbsq-MuiFormHelperText-root": {
+            color: '#67a489',
+        },
+    }
 }
 
-export default function QuestionAnswerable({question, userAnswer, graded, onChange, canGrade, canReset}){
+export default function QuestionAnswerable({question, gradedQuestion, userAnswer, onChange, canGrade, canReset}){
+    console.log(question);
+
+    function doNothing(){
+
+    }
+
     return(
         <Box
             sx={classes.container}
@@ -60,11 +91,14 @@ export default function QuestionAnswerable({question, userAnswer, graded, onChan
                         <FormControl
                             sx={classes.answerField}
                         >
-                            <TextField 
+                            <TextField
                                 label="Answer"
                                 name="userAnswer"
                                 value={userAnswer}
-                                onChange={onChange}
+                                onChange={gradedQuestion.graded ? doNothing : onChange}
+                                sx={gradedQuestion.graded ? (gradedQuestion.correct ? classes.successTextField : {}) : {}}
+                                error={gradedQuestion.graded ? !gradedQuestion.correct : false}
+                                helperText={gradedQuestion.graded ? (gradedQuestion.correct ? "Correct" : "Correct answer: " + gradedQuestion.correctAnswer) : ""}
                             />
                         </FormControl>
                         {

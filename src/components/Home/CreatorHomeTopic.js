@@ -48,6 +48,8 @@ const quizzesColumns = [
     {
         field: 'lastModifiedTime',
         headerName: 'Last Modified',
+        type: 'date',
+        valueGetter: ({value}) => value && new Date(value),
         flex: 2,
     },
     {
@@ -79,6 +81,8 @@ const questionsColumns = [
     {
         field: 'lastModifiedTime',
         headerName: 'Last Modified',
+        type: 'date',
+        valueGetter: ({value}) => value && new Date(value),
         flex: 2,
     },
     {

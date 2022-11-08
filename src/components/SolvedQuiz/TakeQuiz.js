@@ -63,18 +63,49 @@ export default function TakeQuiz(){
         }
 
         try {
-            // await axiosAuth.post(`/QuizzesLearner`, answeredQuiz)
-            //     .then(response => {
-            //         console.log(response);
+            await axiosAuth.post(`/QuizzesLearner`, answeredQuiz)
+                .then(response => {
+                    console.log(response);
 
-            //         if(response.status === 201){
-            //             setSolvedQuiz(response.data);
+                    if(response.status === 200 && response.data){
+                        let error = "";
+                        let data = response.data;
 
-            //             //navigate(`/quiz/${quiz.quizId}/details`);
-            //         } else {
-            //             setError("There was a problem saving the data.");
-            //         }
-            //     })
+                        setSolvedQuiz(data.solvedQuiz);
+
+                        let answeredQuestionsGraded = data.answeredQuestionsGraded;
+
+                        if(answeredQuestionsGraded && answeredQuestionsGraded.length > 0){
+                            setGradedQuestions(oldGradedQuestions => {
+                                return oldGradedQuestions.map((oldGradedQuestion) => {
+                                    let answeredQuestionGraded = answeredQuestionsGraded.find(aqg => aqg.questionId === oldGradedQuestion.questionId);
+
+                                    if(!answeredQuestionsGraded){
+                                        error = "Error grading quiz."
+                                        return oldGradedQuestion;
+                                    } else {
+                                        return {
+                                            ...oldGradedQuestion,
+                                            graded: true,
+                                            correct: answeredQuestionGraded.correct,
+                                            correctAnswer: answeredQuestionGraded.correctAnswer
+                                        }
+                                    }
+                                });
+                            });
+                        }
+
+                        if(error.length === 0){
+                            setGraded(true);
+                        } else {
+                            setError(error);
+                        }
+
+                        //navigate(`/quiz/${quiz.quizId}/details`);
+                    } else {
+                        setError("There was a problem saving the data.");
+                    }
+                })
         } catch(error){
 
         }
@@ -97,13 +128,16 @@ export default function TakeQuiz(){
                                 sx={classes.quizTitle}
                             >
                                 <h2>{outletContext.quiz.title}</h2>
-                                <Button
-                                    variant="contained"
-                                    sx={classes.quizSubmitButton}
-                                    onClick={onSubmit}
-                                >
-                                    Submit
-                                </Button>
+                                {
+                                    !graded && 
+                                    <Button
+                                        variant="contained"
+                                        sx={classes.quizSubmitButton}
+                                        onClick={onSubmit}
+                                    >
+                                        Submit
+                                    </Button>
+                                }
                             </Box>
                             {
                                 (questions && questions.length > 0) ?
@@ -113,6 +147,7 @@ export default function TakeQuiz(){
                                     setUserAnswers={setUserAnswers}
                                     graded={graded}
                                     gradedQuestions={gradedQuestions}
+                                    solvedQuiz={solvedQuiz}
                                 />
                                 :
                                 <Box>No questions</Box>

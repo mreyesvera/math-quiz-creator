@@ -1,4 +1,5 @@
 import {
+    Box,
     List,
     Grid,
     ListItem,
@@ -9,6 +10,9 @@ import {
 import QuestionAnswerable from './QuestionAnswerable';
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
+import SolvedQuizSummary from './SolvedQuizSummary';
+
+const answeringColor= "#8e5070";
 
 const classes = {
     root: {
@@ -17,8 +21,12 @@ const classes = {
     listItem: {
         padding: 0,
         '&.Mui-selected': {
-            backgroundColor: "#f7c965"
+            backgroundColor: answeringColor,
+            color: 'white',
         }
+    },
+    answeredListItem: {
+        color: answeringColor,
     },
     correctListItem: {
         backgroundColor: 'white',
@@ -59,7 +67,7 @@ const classes = {
     },
 };
 
-export default function QuizAnswerable({questions, userAnswers, setUserAnswers, graded, gradedQuestions}){
+export default function QuizAnswerable({questions, userAnswers, setUserAnswers, graded, solvedQuiz, gradedQuestions}){
     const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);
     const [selectedQuestion, setSelectedQuestion] = React.useState(0);
@@ -95,6 +103,12 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
 
     }, [questions, setUserAnswers]);
 
+    React.useEffect(() => {
+        if(graded){
+            setSelectedQuestion(-1);
+        }
+    }, [graded]);
+
     function selectQuestion(question, index){
         setQuestion(question);
         setSelectedQuestion(index);
@@ -117,6 +131,10 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
         navigate(-1);
     }
 
+    function viewScore(){
+        setSelectedQuestion(-1);
+    }
+
     return(
         <Grid 
             container
@@ -137,6 +155,17 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
                             //     ...sxListItem,
                             //     ...classes.correctListItem
                             // } 
+
+                            if(userAnswers && userAnswers.length){
+                                let userAnswer = userAnswers[index];
+
+                                if(userAnswer && userAnswer.answer?.length > 0){
+                                    sxListItem = {
+                                        ...sxListItem,
+                                        ...classes.answeredListItem
+                                    }
+                                }
+                            }
 
                             if(graded && gradedQuestions && gradedQuestions.length){
                                 let gradedQuestion = gradedQuestions[index];
@@ -174,6 +203,19 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
                     }
                 </List>
                 <List>
+                    {
+                        graded &&
+                        <ListItem
+                            sx={classes.listItem}
+                        >
+                            <ListItemButton
+                                onClick={viewScore}
+                                sx={classes.listItemButton}
+                            >
+                                <ListItemText primary="View Score" />
+                            </ListItemButton>
+                        </ListItem>
+                    }
                     <ListItem
                         sx={classes.listItem}
                     >
@@ -196,25 +238,37 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
                 sx={classes.questionPreviewContainer}
             >
                 {
-                    userAnswers && userAnswers.length > 0 && userAnswers[selectedQuestion] && 
-                    gradedQuestions && gradedQuestions[selectedQuestion] && 
-                    <QuestionAnswerable 
-                        question={question}
-                        gradedQuestion={gradedQuestions[selectedQuestion]} 
-                        userAnswer={userAnswers[selectedQuestion].answer}
-                        onChange={onUserAnswerChanged}
-                        canGrade={false}
-                        canReset={false}
-                        /*
-                            When doing this part for the graded, it will be done with an
-                            api call to grade one question
-                            
-                            Based on the response only the unique's question object will 
-                            be updated and therefore only the styles, etc. will change for it
-
-                            Remember when doing this to reset the state when asked to reset.
-                        */
+                    selectedQuestion === -1 && solvedQuiz?
+                    <SolvedQuizSummary 
+                        correct = {solvedQuiz.correctResponses}
+                        incorrect = {solvedQuiz.incorrectResponses}
+                        score = {solvedQuiz.score}
+                        onExit = {exitQuiz}
                     />
+                    :
+                    <Box>
+                    {
+                        userAnswers && userAnswers.length > 0 && userAnswers[selectedQuestion] && 
+                        gradedQuestions && gradedQuestions[selectedQuestion] && 
+                        <QuestionAnswerable 
+                            question={question}
+                            gradedQuestion={gradedQuestions[selectedQuestion]} 
+                            userAnswer={userAnswers[selectedQuestion].answer}
+                            onChange={onUserAnswerChanged}
+                            canGrade={false}
+                            canReset={false}
+                            
+                                // When doing this part for the graded, it will be done with an
+                                // api call to grade one question
+                                
+                                // Based on the response only the unique's question object will 
+                                // be updated and therefore only the styles, etc. will change for it
+
+                                // Remember when doing this to reset the state when asked to reset.
+                            
+                        />
+                    }
+                    </Box>
                 }
             </Grid>
         </Grid>

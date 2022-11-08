@@ -3,13 +3,14 @@ import {
     FormControl,
     TextField,
     Button,
+    Divider,
     FormLabel,
     TextareaAutosize,
     Grid,
     autocompleteClasses,
 } from '@mui/material';
-import { flexbox } from '@mui/system';
 import * as React from 'react';
+import ParamDataControl from './ParamDataControl';
 
 const classes = {  
     content: {
@@ -18,6 +19,7 @@ const classes = {
         marginRight: 4,
     },
     topRow: {
+        marginBottom: 4,
         display: 'flex',
         justifyContent: 'space-between',
     },
@@ -51,6 +53,10 @@ export default function QuestionParametrization(props){
                     >
                         Add
                     </Button>
+                </Box>
+                <Divider />
+                <Box>
+                    <ParamDataControl />
                 </Box>
             </Box>
         </Box>

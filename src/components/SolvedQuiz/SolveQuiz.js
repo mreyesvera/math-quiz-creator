@@ -13,7 +13,7 @@ const classes = {
     },
 };
 
-export default function SolveQuiz({questions, userAnswers, setUserAnswers, graded, gradedQuestions}){
+export default function SolveQuiz({questions, userAnswers, setUserAnswers, graded, solvedQuiz, gradedQuestions}){
     return (
         <Grid 
             container
@@ -29,6 +29,7 @@ export default function SolveQuiz({questions, userAnswers, setUserAnswers, grade
                     setUserAnswers={setUserAnswers}
                     graded={graded}
                     gradedQuestions={gradedQuestions}
+                    solvedQuiz={solvedQuiz}
                 />
             </Grid>
         </Grid>

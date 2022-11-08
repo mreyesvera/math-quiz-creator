@@ -34,7 +34,7 @@ export default function QuestionAdd(){
     async function saveQuestion(question, formData, setErrors){
         let newQuestion = {
             topicId: topic.topicId,
-            creatorId: auth?.user?.userId,
+            //creatorId: auth?.user?.userId,
             ...formData
         };
         console.log(newQuestion);
@@ -47,7 +47,8 @@ export default function QuestionAdd(){
                     if(response.status === 201){
                         question = response.data;
 
-                        navigate(`/home`);
+                        navigate(-1);
+                        //navigate(`/home`);
                     } else {
                         setErrors(["There was a problem saving the data."]);
                     }
