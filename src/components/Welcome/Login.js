@@ -32,6 +32,7 @@ export default function Login(){
             onChange: handleChange
         }
     });
+    const [disableLogin, setDisableLogin] = React.useState(false);
     const [error, setError] = React.useState();
 
 
@@ -58,8 +59,10 @@ export default function Login(){
                 } catch(error){
                     setError(error);
                 }
+                setDisableLogin(false);
             }
 
+            setDisableLogin(true);
             setDoLogin(false);
             postLogin({
                 "email": loginData.email.value, 
@@ -154,6 +157,7 @@ export default function Login(){
                 label="LOG IN" 
                 fieldType="Button" 
                 onClick={login}
+                disabled={disableLogin}
             />
             <Box>
                 <Box>

@@ -82,6 +82,7 @@ export default function Register(){
             onChange: handleChange
         }
     });
+    const [disableRegister, setDisableRegister] = React.useState(false);
     const [error, setError] = React.useState();
 
     React.useEffect(() => {
@@ -107,8 +108,10 @@ export default function Register(){
                 } catch(error){
                     setError(error)
                 }
+                setDisableRegister(false);
             }
 
+            setDisableRegister(true);
             setDoRegister(false);
             postRegister({
                 "username": registerData.username.value,
@@ -273,6 +276,7 @@ export default function Register(){
                 label="REGISTER" 
                 fieldType="Button"
                 onClick={register}
+                disabled={disableRegister}
             />
             <Box>
                 <Box>

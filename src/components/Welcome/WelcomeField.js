@@ -22,7 +22,7 @@ const classes = {
     },
 };
 
-export default function WelcomeField({label, fieldType, type, onClick, children, element}){
+export default function WelcomeField({label, fieldType, type, onClick, children, element, disabled}){
     return (
         <WelcomeComponent>
             {
@@ -49,6 +49,7 @@ export default function WelcomeField({label, fieldType, type, onClick, children,
                     color="secondary" 
                     variant="contained"
                     onClick={onClick}
+                    disabled={disabled}
                 >
                     { label }
                 </Button>

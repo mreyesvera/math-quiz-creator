@@ -30,10 +30,8 @@ export default function Quiz(){
     };
 
     React.useEffect(()=>{
-        console.log("test");
         if(getData || id !== idRef.current){
             
-        console.log("test 2");
             idRef.current = id;
 
             async function getQuiz(id){
@@ -57,9 +55,6 @@ export default function Quiz(){
         }
     }, [id, getData, axiosAuth]);
 
-    console.log(id);
-    console.log(quiz);
-    console.log(contextValue);
     return (
         <Box sx={classes.root}>
             {
