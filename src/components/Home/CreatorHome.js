@@ -29,7 +29,7 @@ export default function CreatorHome(){
         if(resetTopic){
             async function getTopics(){
                 try {
-                    await axiosAuth.get(`/Topics`).then(response => {
+                    await axiosAuth.get(`/Topics?owner=${true}`).then(response => {
                         console.log(response.data);
                         if(response.data){
                             setTopics(response.data);

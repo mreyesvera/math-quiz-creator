@@ -21,8 +21,15 @@ export default function Quiz(){
             </Box>
             <Box>
                 {
-                    auth?.user?.role === "Creator" ?
-                    <QuizAggregates quizId={contextValue.quiz.quizId}/>
+                    (auth?.user?.role === "Creator" ) ?
+                    <Box>
+                    {
+                        auth?.user?.userId == contextValue?.quiz?.creator?.userId ?
+                        <QuizAggregates quizId={contextValue.quiz.quizId}/>
+                        :
+                        <Box></Box>
+                    }
+                    </Box>
                     :
                     <SolvedQuizzesGrid 
                         quizId={contextValue.quiz.quizId}

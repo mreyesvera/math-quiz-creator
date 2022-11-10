@@ -58,7 +58,8 @@ export default function QuizInformation(props){
                     </Button>
                 }
                 {
-                    auth?.user?.role === "Creator" &&
+                    (auth?.user?.role === "Creator" 
+                        && auth?.user?.userId == quiz?.creator?.userId) &&
                     <Button
                         variant="contained"
                         onClick={onEdit}
@@ -72,7 +73,7 @@ export default function QuizInformation(props){
             </Box>
             <Box sx={classes.editingDetails}>
                 <Box>
-                    Created By: {quiz.creator.username}
+                    Created By: {quiz.creator.userName}
                 </Box>
                 <Box>
                     Last Modified: {quiz.lastModifiedTime}
