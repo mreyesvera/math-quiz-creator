@@ -10,6 +10,7 @@ import CreatorContentGrid from './CreatorContentGrid';
 import DataGridCellClickable from './DataGridCellClickable';
 import CreatorGridHomeActions from './CreatorGridHomeActions';
 import AssignedQuizzesCell from '../Question/AssignedQuizzesCell';
+import { ELEMENT } from '../../utils/models';
 
 const classes = {
     listItemButton: {
@@ -23,7 +24,7 @@ const classes = {
     },
 };
 
-const quizzesColumns = [
+const createQuizzesColumns = (openPreview) => [
     {
         field: 'title',
         headerName: 'Title',
@@ -58,13 +59,13 @@ const quizzesColumns = [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            return <CreatorGridHomeActions params={params} type="quiz" />;
+            return <CreatorGridHomeActions params={params} type={ELEMENT.QUIZ} openPreview={openPreview}/>;
         }
 
     }
 ];
 
-const questionsColumns = [
+const createQuestionsColumns = (openPreview) => [
     {
         field: 'title',
         headerName: 'Title',
@@ -91,7 +92,7 @@ const questionsColumns = [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            return <CreatorGridHomeActions params={params} type="question" />;
+            return <CreatorGridHomeActions params={params} type={ELEMENT.QUESTION} openPreview={openPreview}/>;
         }
 
     }
@@ -113,9 +114,12 @@ function onClickQuestionCell(row){
     console.log(row);
 }
 
-export default function CreatorHomeTopic({topic, setResetTopic}){
+export default function CreatorHomeTopic({topic, setResetTopic, openPreview}){
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
+
+    const quizzesColumns = createQuizzesColumns(openPreview);
+    const questionsColumns = createQuestionsColumns(openPreview);
 
     const quizzesTitleActions = [{
         title: 'CREATE NEW',

@@ -6,8 +6,10 @@ import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import ConfirmDelete from '../Shared/ConfirmDelete';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
+import { ELEMENT } from '../../utils/models';
+import Preview from '../SolvedQuiz/Preview';
 
-export default function CreatorGridHomeActions(props){
+export default function CreatorGridHomeActions({type, params, openPreview}){
     const axiosAuth = useAxiosAuth();
     const navigate = useNavigate();
 
@@ -27,21 +29,21 @@ export default function CreatorGridHomeActions(props){
     };
 
     React.useEffect(()=> {
-        switch(props.type){
-            case "question":
-                setId(props.params.row.questionId);
+        switch(type){
+            case ELEMENT.QUESTION:
+                setId(params.row.questionId);
                 setBaseUrl("/question/");
                 setApiBaseUrl(`/Questions/`);
                 break;
-            case "quiz":
-                setId(props.params.row.quizId);
+            case ELEMENT.QUIZ:
+                setId(params.row.quizId);
                 setBaseUrl("/quiz/");
                 setApiBaseUrl(`/Quizzes/`);
                 break;
             default:
                 setError(true);
         }
-    }, [props.type, props.params.row]);
+    }, [type, params.row]);
 
     const onEdit = (e) => {
         navigate(`${baseUrl}${id}/edit`);
@@ -77,13 +79,13 @@ export default function CreatorGridHomeActions(props){
             <Box>
                 <Button onClick={onEdit}>Edit</Button>
                 <Button onClick={onDelete}>Delete</Button>
-                <Button onClick={onEdit}>Preview</Button>
+                <Button onClick={() => openPreview(type, id)}>Preview</Button>
                 <ConfirmDelete 
                     open={openConfirmDelete}
                     handleOpen={handleOpenConfirmDelete}
                     handleClose={handleCloseConfirmDelete}
                     onDelete={deleteElement}
-                    elementTitle={props.params.row.title}
+                    elementTitle={params.row.title}
                 />
             </Box>
         }
