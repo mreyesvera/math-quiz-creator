@@ -5,6 +5,8 @@ import {
     Button,
 } from '@mui/material';
 import * as React from 'react';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
+import Error from '../Shared/Error';
 
 const classes = {
     container: {
@@ -55,11 +57,78 @@ const classes = {
     }
 }
 
-export default function QuestionAnswerable({question, gradedQuestion, userAnswer, onChange, canGrade, canReset}){
-    console.log(question);
+export default function QuestionAnswerable({question, gradedQuestion, userAnswer, onChange, 
+    canGrade, canReset, updateGradedQuestion, quizId}){
+    const axiosAuth = useAxiosAuth();
 
-    function doNothing(){
+    const [error, setError] = React.useState();
+    const [grade, setGrade] = React.useState(false);
 
+    React.useEffect(() => {
+        setError();
+    }, [question]);
+
+    React.useEffect(() => {
+        if(grade){
+            async function gradeQuestion() {
+                let answeredQuestion = {
+                    questionId: question.questionId,
+                    answer: userAnswer
+                }
+                console.log(quizId);
+                console.log(answeredQuestion);
+        
+                try {
+                    await axiosAuth.post(`/QuizzesLearner/GradeQuestion?quizId=${quizId}`, answeredQuestion)
+                        .then(response => {
+                            console.log(response);
+        
+                            if(response.status === 200 && response.data){
+                                let error = "";
+                                let data = response.data;
+        
+                                if(data){
+                                    updateGradedQuestion(question.questionId, true, data)
+                                } else {
+                                    error="There was a problem grading question.";
+                                }
+        
+                                if(error.length === 0){
+                                    setError();
+                                } else {
+                                    setError(error);
+                                }
+                            } else {
+                                setError("There was a problem grading question.");
+                            }
+                        })
+                } catch(error){
+                    setError("There was a problem grading question.");
+                }
+            }
+
+            setGrade(false);
+            gradeQuestion();
+        }
+    }, [grade]);
+
+    function onGrade(){
+        setGrade(true);
+    }
+
+    function onReset(){
+        let resetedGradedQuestion = {
+            ...gradedQuestion,
+            correct: undefined,
+            correctAnswer: undefined,
+        };
+        
+        updateGradedQuestion(question.questionId, false, resetedGradedQuestion);
+        onChange({
+            target: {
+                value: ""
+            }
+        });
     }
 
     return(
@@ -73,46 +142,59 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
                     {question.title}
                 </h4>
             </Box>
-            <Box
-                sx={classes.questionContent}
-            >
+            {
+                error ?
+                <Error error={error} />
+                :
                 <Box
-                    sx={classes.questionDescription}
+                    sx={classes.questionContent}
                 >
-                    <Box>
-                        {question.description}
+                    <Box
+                        sx={classes.questionDescription}
+                    >
+                        <Box>
+                            {question.description}
+                        </Box>
+                        <Box>
+                            {/* Visualizations */}
+                        </Box>
                     </Box>
                     <Box>
-                        {/* Visualizations */}
-                    </Box>
-                </Box>
-                <Box>
-                    <Box>
-                        <FormControl
-                            sx={classes.answerField}
-                        >
-                            <TextField
-                                label="Answer"
-                                name="userAnswer"
-                                value={userAnswer}
-                                onChange={gradedQuestion.graded ? doNothing : onChange}
-                                sx={gradedQuestion.graded ? (gradedQuestion.correct ? classes.successTextField : {}) : {}}
-                                error={gradedQuestion.graded ? !gradedQuestion.correct : false}
-                                helperText={gradedQuestion.graded ? (gradedQuestion.correct ? "Correct" : "Correct answer: " + gradedQuestion.correctAnswer) : ""}
-                            />
-                        </FormControl>
-                        {
-                            (canGrade || canReset) &&
-                            <Box
-                                sx={classes.answerActions}
+                        <Box>
+                            <FormControl
+                                sx={classes.answerField}
                             >
-                                <Button>Reset</Button>
-                                <Button>Grade</Button>
-                            </Box>
-                        }
+                                <TextField
+                                    label="Answer"
+                                    name="userAnswer"
+                                    value={userAnswer}
+                                    onChange={gradedQuestion.graded ? () => {} : onChange}
+                                    sx={gradedQuestion.graded ? (gradedQuestion.correct ? classes.successTextField : {}) : {}}
+                                    error={gradedQuestion.graded ? !gradedQuestion.correct : false}
+                                    helperText={gradedQuestion.graded ? (gradedQuestion.correct ? "Correct" : "Correct answer: " + gradedQuestion.correctAnswer) : ""}
+                                />
+                            </FormControl>
+                            {
+                                (canGrade || canReset) &&
+                                <Box
+                                    sx={classes.answerActions}
+                                >
+                                    <Button
+                                        onClick={onReset}
+                                    >
+                                        Reset
+                                    </Button>
+                                    <Button
+                                        onClick={onGrade}
+                                    >
+                                        Grade
+                                    </Button>
+                                </Box>
+                            }
+                        </Box>
                     </Box>
                 </Box>
-            </Box>
+            }
         </Box>
     );
 }

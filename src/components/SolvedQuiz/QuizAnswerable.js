@@ -67,7 +67,8 @@ const classes = {
     },
 };
 
-export default function QuizAnswerable({questions, userAnswers, setUserAnswers, graded, solvedQuiz, gradedQuestions}){
+export default function QuizAnswerable({quizId, questions, userAnswers, setUserAnswers, graded, solvedQuiz, 
+    gradedQuestions, updateGradedQuestion, unlimitedMode}){
     const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);
     const [selectedQuestion, setSelectedQuestion] = React.useState(0);
@@ -76,9 +77,15 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
         title: "Question #1",
         description: "Based on the following data set determine the median value:\n4, 6, 8, 10",
     });
+    const [grade, setGrade] = React.useState(false);
 
     React.useEffect(() => {
-        
+        if(graded){
+
+        }
+    }, [graded]);
+
+    React.useEffect(() => {
         if(questions && questions.length > 0){
             let userAnswers = [];
             questions.forEach((question) => {
@@ -115,9 +122,9 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
     }
 
     function onUserAnswerChanged(event){
-        console.log(event);
         const value = event.target.value;
 
+        console.log(value);
         setUserAnswers(oldUserAnswers => {
             let newUserAnswers = oldUserAnswers.slice();
 
@@ -150,11 +157,6 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
                     {
                         questions.map((question, index) => {
                             let sxListItem = classes.listItem;
-
-                            // sxListItem = {
-                            //     ...sxListItem,
-                            //     ...classes.correctListItem
-                            // } 
 
                             if(userAnswers && userAnswers.length){
                                 let userAnswer = userAnswers[index];
@@ -251,12 +253,14 @@ export default function QuizAnswerable({questions, userAnswers, setUserAnswers, 
                         userAnswers && userAnswers.length > 0 && userAnswers[selectedQuestion] && 
                         gradedQuestions && gradedQuestions[selectedQuestion] && 
                         <QuestionAnswerable 
+                            quizId={quizId}
                             question={question}
                             gradedQuestion={gradedQuestions[selectedQuestion]} 
                             userAnswer={userAnswers[selectedQuestion].answer}
                             onChange={onUserAnswerChanged}
-                            canGrade={false}
-                            canReset={false}
+                            updateGradedQuestion={updateGradedQuestion}
+                            canGrade={unlimitedMode}
+                            canReset={unlimitedMode}
                             
                                 // When doing this part for the graded, it will be done with an
                                 // api call to grade one question

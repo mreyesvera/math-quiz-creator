@@ -67,7 +67,7 @@ function App() {
                     </Route>
 
                     <Route element={<RequiredAuth allowedRoles={[ROLES.Learner]} />}>
-                      <Route path="/quiz/:id/solve" element={<TakeQuiz />} />
+                      <Route path="/quiz/:id/solve/:unlimited" element={<TakeQuiz />} />
                     </Route>
 
                   </Route>

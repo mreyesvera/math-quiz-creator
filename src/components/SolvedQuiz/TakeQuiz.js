@@ -2,6 +2,9 @@ import {
     Box,
     Button,
 } from '@mui/material';
+import {
+    useParams,
+} from "react-router-dom";
 import Error from '../Shared/Error';
 import { useOutletContext } from 'react-router-dom';
 import * as React from 'react';
@@ -17,10 +20,15 @@ const classes = {
     quizSubmitButton: {
         margin: '20px',
     },
+    unlimited: {
+        color: "#8e5070",
+    },
 };
 
 export default function TakeQuiz(){
     const axiosAuth = useAxiosAuth();
+    const {unlimited} = useParams();
+    const [unlimitedMode, setUnlimitedMode] = React.useState(false);
     const outletContext = useOutletContext();
     const [questions, setQuestions] = React.useState();
     const [error, setError] = React.useState();
@@ -29,6 +37,14 @@ export default function TakeQuiz(){
     const [graded, setGraded] = React.useState(false);
     const [solvedQuiz, setSolvedQuiz] = React.useState();
     const [gradedQuestions, setGradedQuestions] = React.useState();
+
+    React.useEffect(() => {
+        if(unlimited === "true"){
+            setUnlimitedMode(true);
+        } else{
+            setUnlimitedMode(false);
+        }
+    }, [unlimited])
 
     React.useEffect(() => {
         let questions = outletContext.quiz.quizQuestions.map((quizQuestion) => {
@@ -54,6 +70,37 @@ export default function TakeQuiz(){
         setGradedQuestions(gradedQuestions);
     }, [outletContext.quiz.quizQuestions]);
 
+    function updateGradedQuestion(questionId, graded, answeredQuestionGraded){
+        let updated = false;
+        console.log(questionId);
+        console.log(graded);
+        console.log(answeredQuestionGraded);
+
+        if(questionId && answeredQuestionGraded){
+            setGradedQuestions(oldGradedQuestions => {
+                return oldGradedQuestions.map((oldGradedQuestion) => {
+                    if(oldGradedQuestion.questionId !== questionId){
+                        return oldGradedQuestion
+                    } else {
+                        console.log("found");
+                        updated = true;
+                        return {
+                            ...oldGradedQuestion,
+                            graded: graded,
+                            correct: answeredQuestionGraded.correct,
+                            correctAnswer: answeredQuestionGraded.correctAnswer
+                        }
+                    }
+                });
+            });
+        }
+
+        if(!updated){
+            setError("Error grading question.");
+        }
+    }
+
+    console.log(gradedQuestions);
     async function onSubmit(e) {
         e.preventDefault();
 
@@ -80,7 +127,7 @@ export default function TakeQuiz(){
                                 return oldGradedQuestions.map((oldGradedQuestion) => {
                                     let answeredQuestionGraded = answeredQuestionsGraded.find(aqg => aqg.questionId === oldGradedQuestion.questionId);
 
-                                    if(!answeredQuestionsGraded){
+                                    if(!answeredQuestionGraded){
                                         error = "Error grading quiz."
                                         return oldGradedQuestion;
                                     } else {
@@ -100,14 +147,12 @@ export default function TakeQuiz(){
                         } else {
                             setError(error);
                         }
-
-                        //navigate(`/quiz/${quiz.quizId}/details`);
                     } else {
                         setError("There was a problem saving the data.");
                     }
                 })
         } catch(error){
-
+            setError("There was a problem saving the data.");
         }
 
         console.log(answeredQuiz);
@@ -127,9 +172,9 @@ export default function TakeQuiz(){
                             <Box
                                 sx={classes.quizTitle}
                             >
-                                <h2>{outletContext.quiz.title}</h2>
+                                <h2>{outletContext.quiz.title} <span style={classes.unlimited}>{unlimitedMode ? "- UNLIMITED MODE" : ""}</span></h2>
                                 {
-                                    !graded && 
+                                    !unlimitedMode && !graded && 
                                     <Button
                                         variant="contained"
                                         sx={classes.quizSubmitButton}
@@ -142,12 +187,15 @@ export default function TakeQuiz(){
                             {
                                 (questions && questions.length > 0) ?
                                 <SolveQuiz 
+                                    quizId={outletContext.quiz.quizId}
                                     questions={questions}
                                     userAnswers={userAnswers}
                                     setUserAnswers={setUserAnswers}
                                     graded={graded}
                                     gradedQuestions={gradedQuestions}
                                     solvedQuiz={solvedQuiz}
+                                    updateGradedQuestion={updateGradedQuestion}
+                                    unlimitedMode={unlimitedMode}
                                 />
                                 :
                                 <Box>No questions</Box>

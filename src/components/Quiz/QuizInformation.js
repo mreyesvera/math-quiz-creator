@@ -40,8 +40,8 @@ export default function QuizInformation(props){
         navigate(`/quiz/${quiz.quizId}/edit`);
     }
 
-    const onTakeQuiz = (e) => {
-        navigate(`/quiz/${quiz.quizId}/solve`);
+    const onTakeQuiz = (unlimited) => {
+        navigate(`/quiz/${quiz.quizId}/solve/${unlimited}`);
     }
 
     return (
@@ -52,7 +52,7 @@ export default function QuizInformation(props){
                     auth?.user?.role === "Learner" &&
                     <Button
                         variant="contained"
-                        onClick={onTakeQuiz}
+                        onClick={() => onTakeQuiz(false)}
                     >
                         Take Quiz
                     </Button>
@@ -83,11 +83,12 @@ export default function QuizInformation(props){
                 </Box>
             </Box>
             {
-                auth?.user?.role === "Learner" &&
+                (auth?.user?.role === "Learner" && quiz.hasUnlimitedMode) && 
                 <Box>
                     <Button
                         variant="contained"
                         sx={classes.practiceButton}
+                        onClick={() => onTakeQuiz(true)}
                     >
                         Practice in Unlimited Mode
                     </Button>
