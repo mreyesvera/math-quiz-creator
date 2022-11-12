@@ -68,22 +68,22 @@ const classes = {
 };
 
 export default function QuizAnswerable({quizId, questions, userAnswers, setUserAnswers, graded, solvedQuiz, 
-    gradedQuestions, updateGradedQuestion, unlimitedMode}){
+    gradedQuestions, updateGradedQuestion, unlimitedMode, exit}){
     const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);
     const [selectedQuestion, setSelectedQuestion] = React.useState(0);
     const [question, setQuestion] = React.useState({
         questionId: 0,
-        title: "Question #1",
-        description: "Based on the following data set determine the median value:\n4, 6, 8, 10",
+        title: "",
+        description: "",
     });
-    const [grade, setGrade] = React.useState(false);
+    // const [grade, setGrade] = React.useState(false);
 
-    React.useEffect(() => {
-        if(graded){
+    // React.useEffect(() => {
+    //     if(graded){
 
-        }
-    }, [graded]);
+    //     }
+    // }, [graded]);
 
     React.useEffect(() => {
         if(questions && questions.length > 0){
@@ -218,16 +218,19 @@ export default function QuizAnswerable({quizId, questions, userAnswers, setUserA
                             </ListItemButton>
                         </ListItem>
                     }
-                    <ListItem
-                        sx={classes.listItem}
-                    >
-                        <ListItemButton
-                            onClick={exitQuiz}
-                            sx={classes.listItemButton}
+                    {
+                        exit &&
+                        <ListItem
+                            sx={classes.listItem}
                         >
-                            <ListItemText primary="Exit Quiz" />
-                        </ListItemButton>
-                    </ListItem>
+                            <ListItemButton
+                                onClick={exitQuiz}
+                                sx={classes.listItemButton}
+                            >
+                                <ListItemText primary="Exit Quiz" />
+                            </ListItemButton>
+                        </ListItem>
+                    }
                 </List>
             </Grid>
             <Divider 

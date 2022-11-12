@@ -63,6 +63,7 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
 
     const [error, setError] = React.useState();
     const [grade, setGrade] = React.useState(false);
+    const [disableGrade, setDisableGrade] = React.useState(false);
 
     React.useEffect(() => {
         setError();
@@ -79,7 +80,7 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
                 console.log(answeredQuestion);
         
                 try {
-                    await axiosAuth.post(`/QuizzesLearner/GradeQuestion?quizId=${quizId}`, answeredQuestion)
+                    await axiosAuth.post(`/QuizzesLearner/GradeQuestion?quizId=${quizId ? quizId : ""}`, answeredQuestion)
                         .then(response => {
                             console.log(response);
         
@@ -88,7 +89,7 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
                                 let data = response.data;
         
                                 if(data){
-                                    updateGradedQuestion(question.questionId, true, data)
+                                    updateGradedQuestion(question.questionId, true, data, setError)
                                 } else {
                                     error="There was a problem grading question.";
                                 }
@@ -112,6 +113,10 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
         }
     }, [grade]);
 
+    React.useEffect(() => {
+        setDisableGrade(!canGrade || !userAnswer || userAnswer.length === 0);
+    }, [userAnswer]);
+
     function onGrade(){
         setGrade(true);
     }
@@ -123,7 +128,7 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
             correctAnswer: undefined,
         };
         
-        updateGradedQuestion(question.questionId, false, resetedGradedQuestion);
+        updateGradedQuestion(question.questionId, false, resetedGradedQuestion, setError);
         onChange({
             target: {
                 value: ""
@@ -186,6 +191,7 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
                                     </Button>
                                     <Button
                                         onClick={onGrade}
+                                        disabled={disableGrade}
                                     >
                                         Grade
                                     </Button>

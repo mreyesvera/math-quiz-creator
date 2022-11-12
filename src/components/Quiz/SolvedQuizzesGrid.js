@@ -20,26 +20,32 @@ const solvedQuizzesColumns = [
     {
         field: 'creationTime',
         headerName: 'Date Taken',
+        type: 'date',
+        valueGetter: ({value}) => value && new Date(value),
         flex: 1,
     },
     {
         field: 'correctResponses',
         headerName: 'Correct',
+        type: 'number',
         flex: 1,
     },
     {
         field: 'incorrectResponses',
         headerName: 'Incorrect',
+        type: 'number',
         flex: 1,
     },
     {
         field: 'totalQuestions',
         headerName: 'Total',
+        type: 'number',
         flex: 1,
     },
     {
         field: 'score',
         headerName: 'Score',
+        type: 'number',
         valueGetter: ({value}) => Math.round(value*100*100, 2)/100,
         flex: 1,
     },
@@ -77,7 +83,7 @@ export default function SolvedQuizzesGrid({quizId}){
         }
     }, [quizId]);
 
-
+    console.log(solvedQuizzes);
     return (
         <Box sx={classes.gridSection}>
             {

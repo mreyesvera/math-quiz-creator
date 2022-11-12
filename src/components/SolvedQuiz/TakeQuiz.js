@@ -70,7 +70,7 @@ export default function TakeQuiz(){
         setGradedQuestions(gradedQuestions);
     }, [outletContext.quiz.quizQuestions]);
 
-    function updateGradedQuestion(questionId, graded, answeredQuestionGraded){
+    function updateGradedQuestion(questionId, graded, answeredQuestionGraded, externalSetError){
         let updated = false;
         console.log(questionId);
         console.log(graded);
@@ -96,7 +96,7 @@ export default function TakeQuiz(){
         }
 
         if(!updated){
-            setError("Error grading question.");
+            externalSetError("Error grading question.");
         }
     }
 
@@ -196,6 +196,7 @@ export default function TakeQuiz(){
                                     solvedQuiz={solvedQuiz}
                                     updateGradedQuestion={updateGradedQuestion}
                                     unlimitedMode={unlimitedMode}
+                                    exit={true}
                                 />
                                 :
                                 <Box>No questions</Box>
