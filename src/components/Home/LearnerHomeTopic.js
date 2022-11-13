@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import LearnerHomeTopicQuiz from './LearnerHomeTopicQuiz'
+import { getHighestScore } from '../../utils/solvedQuizUtils';
 
 const classes = {
     quizzesContainer: {
@@ -11,15 +12,21 @@ const classes = {
     },
 };
 
-export default function LearnerHomeTopic(props){
+export default function LearnerHomeTopic({title, quizzes}){
     return (
         <Box>
-            <h3>{props.title}</h3>
+            <h3>{title}</h3>
             <Box sx={classes.quizzesContainer}>
                 {
-                    props.solvedQuizzes.length > 0 ?
-                        props.solvedQuizzes.map((solvedQuiz) => (
-                            <LearnerHomeTopicQuiz key={solvedQuiz.solvedQuizId} solvedQuiz={solvedQuiz} solved={true}/>
+                    quizzes.length > 0 ?
+                        quizzes.map((quiz) => (
+                            <LearnerHomeTopicQuiz 
+                                key={quiz.quizId} 
+                                quizId={quiz.quizId}
+                                title={quiz.title} 
+                                highestScore={getHighestScore(quiz.solvedQuizzes)}
+                                solved={true}
+                            />
                         ))
                     :
                     <LearnerHomeTopicQuiz solved={false}/>

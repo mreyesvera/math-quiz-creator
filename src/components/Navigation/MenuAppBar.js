@@ -56,7 +56,7 @@ export default function MenuAppBar(props) {
           <Typography 
             variant="h6" 
             component="div" 
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, '&:hover': { cursor: 'pointer'} }}
             onClick={() => navigate("/home")}
           >
             MathVI

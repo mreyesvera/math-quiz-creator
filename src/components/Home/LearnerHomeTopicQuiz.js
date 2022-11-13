@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 
 const createClasses = (theme, solved) => {
     const backgroundColor = solved ? theme.palette.existingQuiz : theme.palette.nonExistantElement;
@@ -19,22 +20,29 @@ const createClasses = (theme, solved) => {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
+            '&:hover': {
+                cursor: 'pointer',
+            }
         },
     }
 }
 
-export default function LearnerHomeTopicQuiz(props) {
+export default function LearnerHomeTopicQuiz({quizId, solved, title, highestScore}) {
     const theme = useTheme();
-    const classes = createClasses(theme, props.solved);
+    const classes = createClasses(theme, solved);
+    const navigate = useNavigate();
 
     return (
-        <Box sx={classes.root}>
+        <Box 
+            sx={classes.root}
+            onClick={quizId ? () => navigate(`/quiz/${quizId}/details`) : () => {}}
+        >
             {
-                props.solved ?
+                solved ?
                 <Box>
-                    {props.solvedQuiz.title}
+                    {title}
                     <br/>
-                    HIGHEST SCORE: {props.solvedQuiz.score}
+                    HIGHEST SCORE: {highestScore}
                 </Box>
                 :
                 <Box>

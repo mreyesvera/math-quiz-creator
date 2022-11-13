@@ -16,13 +16,27 @@ export default function Home(props){
 
     return (
         <Box sx={classes.root}>
-            <h1>{props.title}</h1>
+            <h1>{auth?.user?.userName ? `Hello ${auth?.user?.userName}!` : ""}</h1>
             <Box>
                 {
-                    auth?.user?.role === "Creator" ?
-                    <CreatorHome />
-                    :
-                    <LearnerHome />
+                    auth?.user?.role ?
+                        <Box>
+                        {
+                            auth.user.role === "Creator" ?
+                            <CreatorHome />
+                            :
+                            <Box>
+                                {
+                                    auth.user.role === "Learner" ?
+                                    <LearnerHome />
+                                    :
+                                    <Box></Box>
+                                }
+                            </Box>
+                        }
+                        </Box>
+                        :
+                    <Box>Invalid Request</Box>
                 }
             </Box>
         </Box>

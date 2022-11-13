@@ -57,7 +57,7 @@ function App() {
               <Route element={<RequiredAuth allowedRoles={[ROLES.Creator, ROLES.Learner]} />}>
                 <Route element={<PrivateLayout />}>
                   
-                  <Route path="/home" element={<Home title="Hello user!" />} />
+                  <Route path="/home" element={<Home />} />
                   
                   <Route path="/quiz/:id" element={<Quiz />} >
                     <Route path="/quiz/:id/details" element={<QuizDetails />} />
