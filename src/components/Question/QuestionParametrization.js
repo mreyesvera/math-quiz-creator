@@ -13,6 +13,9 @@ import * as React from 'react';
 import ParamDataControl from './ParamDataControl';
 
 const classes = {  
+    root: {
+        width: 1,
+    },
     content: {
         width: 9/10,
         margin: '0 auto',
@@ -27,11 +30,16 @@ const classes = {
         width: '100%',
         marginRight: 2,
     },
+    paramDataControlContainer: {
+        width: 1,
+    }
 };
 
-export default function QuestionParametrization(props){
+export default function QuestionParametrization({paramsColumns, paramsData}){
     return (
-        <Box>
+        <Box
+            sx={classes.root}
+        >
             <h3>
                 Parameters
             </h3>
@@ -53,10 +61,24 @@ export default function QuestionParametrization(props){
                     >
                         Add
                     </Button>
+                    <Button
+                        variant="contained"
+                        sx={{ml:1}}
+                    >
+                        Delete
+                    </Button>
                 </Box>
                 <Divider />
-                <Box>
-                    <ParamDataControl />
+                <Box
+                    sx={classes.paramDataControlContainer}
+                >
+                    {
+                        paramsColumns && paramsData &&
+                        <ParamDataControl 
+                            paramsColumns={paramsColumns}
+                            paramsData={paramsData}
+                        />
+                    }
                 </Box>
             </Box>
         </Box>

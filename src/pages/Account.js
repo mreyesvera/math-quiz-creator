@@ -12,10 +12,12 @@ const classes = {
         
     },
     accountDetailsContainer: {
-        p: '8%',
+        px: '8%',
+        py: '20px',
     },
     resetPasswordContainer: {
-        p: '8%',
+        px: '8%',
+        py: '20px',
     }
 
 };

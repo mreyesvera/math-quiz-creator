@@ -10,6 +10,7 @@ import * as React from 'react';
 import Errors from '../Shared/Errors';
 import QuestionFeaturesDrawer from './QuestionFeaturesDrawer';
 import { useNavigate } from "react-router-dom";
+import { formatParamsColumns, formatParamsData } from '../../utils/questionUtils';
 
 const classes = { 
     topRow: {
@@ -84,6 +85,8 @@ export default function QuestionForm({question, onSubmit}){
         description: "",
         answer: "",
     });
+    const [paramsColumns, setParamsColumns] = React.useState();
+    const [paramsData, setParamsData] = React.useState();
 
     const navigateBack = (e) => {
         navigate(-1);
@@ -149,9 +152,21 @@ export default function QuestionForm({question, onSubmit}){
             description: question.description,
             answer: question.answer
         });
+
+        let paramsColumns = undefined;
+        let paramsData = undefined;
+        if(question.parameters){
+            paramsColumns = formatParamsColumns(question.parameters);
+            paramsData = formatParamsData(question.parameters, paramsColumns);
+        }
+
+        setParamsColumns(paramsColumns);
+        setParamsData(paramsData);
     }, [question]);
 
 
+    console.log(paramsColumns);
+    console.log(paramsData);
     return (
         <Box sx={{ display: 'flex' }}>
             <Box sx={{ flexGrow: 1, p: 3 }}>
@@ -254,6 +269,8 @@ export default function QuestionForm({question, onSubmit}){
                 setSelectedItem={setSelectedItem}
                 openParametrization={openParametrization}
                 openVisualizations={openVisualizations}
+                paramsColumns={paramsColumns}
+                paramsData={paramsData}
             />
         </Box>
     );

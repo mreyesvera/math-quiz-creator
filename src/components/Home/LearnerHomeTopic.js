@@ -12,14 +12,23 @@ const classes = {
     },
 };
 
-export default function LearnerHomeTopic({title, quizzes}){
+export default function LearnerHomeTopic({title, quizzes, searchInput}){
     return (
         <Box>
             <h3>{title}</h3>
             <Box sx={classes.quizzesContainer}>
                 {
                     quizzes.length > 0 ?
-                        quizzes.map((quiz) => (
+                        quizzes.filter((quiz) => {
+                            if(searchInput && searchInput.length > 0){
+                                if(quiz.title.includes(searchInput)){
+                                    return true;
+                                }
+
+                                return false;
+                            }
+                            return true;
+                        }).map((quiz) => (
                             <LearnerHomeTopicQuiz 
                                 key={quiz.quizId} 
                                 quizId={quiz.quizId}
@@ -29,7 +38,14 @@ export default function LearnerHomeTopic({title, quizzes}){
                             />
                         ))
                     :
-                    <LearnerHomeTopicQuiz solved={false}/>
+                    <Box>
+                        {
+                            (!searchInput || searchInput.length === 0) ?
+                            <LearnerHomeTopicQuiz solved={false}/>
+                            :
+                            <Box></Box>
+                        }
+                    </Box>
                 }
             </Box>
         </Box>

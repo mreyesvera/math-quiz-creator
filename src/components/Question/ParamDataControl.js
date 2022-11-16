@@ -7,14 +7,18 @@ import * as React from 'react';
 
 const classes = {
     root: {
-        my: 4
+        my: 4,
+        width: 1,
     },
     addRowButtonContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
         textAlign: 'right',
         marginBottom: 2,
     },
     gridContainer: {
         height: '400px',
+        width: 1,
     }
 };
 
@@ -22,54 +26,7 @@ function getRowId(row){
     return row.order;
 }
 
-export default function ParamDataControl(){
-    const [paramColumns, setParamColumns] = React.useState([
-        {
-            field: 'X',
-            headerName: 'X',
-            flex: 1,
-            editable: true,
-        },
-        {
-            field: 'Y',
-            headerName: 'Y',
-            flex: 1,
-            editable: true,
-        },
-        {
-            field: 'Z',
-            headerName: 'Z',
-            flex: 1,
-            editable: true,
-        }
-    ]);
-    const [paramsValues, setParamsValues] = React.useState([
-        {
-            order: 1,
-            X: 1,
-            Y: 1,
-            Z: 1,
-        },
-        {
-            order: 2,
-            X: 2,
-            Y: 2,
-            Z: 2,
-        },
-        {
-            order: 3,
-            X: 3,
-            Y: 3,
-            Z: 3,
-        },
-        {
-            order: 4,
-            X: 4,
-            Y: 4,
-            Z: 4,
-        },
-    ]);
-
+export default function ParamDataControl({paramsColumns, paramsData}){
     return (
         <Box
             sx={classes.root}
@@ -80,6 +37,11 @@ export default function ParamDataControl(){
                 <Button
                     variant='contained'
                 >
+                    Delete Row
+                </Button>
+                <Button
+                    variant='contained'
+                >
                     Add Row
                 </Button>
             </Box>
@@ -87,8 +49,8 @@ export default function ParamDataControl(){
                 sx={classes.gridContainer}
             >
                 <ParamDataGrid 
-                    data={paramsValues}
-                    columns={paramColumns}
+                    data={paramsData}
+                    columns={paramsColumns}
                     getRowId={getRowId}
                 />
             </Box>

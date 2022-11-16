@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const createClasses = (theme, solved) => {
     const backgroundColor = solved ? theme.palette.existingQuiz : theme.palette.nonExistantElement;
+    const hoverCursor = solved ? 'pointer' : 'auto';
 
     return {
         root: {
@@ -21,7 +22,7 @@ const createClasses = (theme, solved) => {
             justifyContent: 'center',
             textAlign: 'center',
             '&:hover': {
-                cursor: 'pointer',
+                cursor: hoverCursor,
             }
         },
     }

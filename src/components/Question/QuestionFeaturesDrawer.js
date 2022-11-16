@@ -115,17 +115,10 @@ const createClasses = (open) => ({
   },
 });
 
-export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, openParametrization, openVisualizations}){
+export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, openParametrization, openVisualizations,
+              paramsColumns, paramsData}){
     const theme = useTheme();
     const classes = createClasses(open);
-
-    /*const handleDrawerOpen = () => {
-        setOpen(true);
-      };*/
-    
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
 
     const handleDrawerToggle = () => {
       setOpen(oldOpen => !oldOpen)
@@ -186,39 +179,16 @@ export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, ope
             { open && 
               (
                 selectedItem === "Parametrization" ?
-                <QuestionParametrization />
+                <QuestionParametrization 
+                  paramsColumns={paramsColumns}
+                  paramsData={paramsData}
+                />
                 :
                 <QuestionVisualizations />
               )
             }
           </Grid>
         </Grid>
-
-        {/* <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-                onClick={handleDrawerOpen}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
     </Drawer>
     );
 }

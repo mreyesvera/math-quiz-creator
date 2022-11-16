@@ -53,36 +53,45 @@ export default function ResetPassword(props){
             <Errors errors={errors} />
             :
             <Box>
-                <Box>
-                    <FormControl sx={classes.field} >
-                        <TextField 
-                            label="New Password"
-                            variant="filled" 
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                        />
-                    </FormControl>
-                    <FormControl sx={classes.field} >
-                        <TextField 
-                            label="Confirm Password"
-                            variant="filled" 
-                            type="password"
-                            name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                        />
-                    </FormControl>
-                    <Button 
-                        sx={{...classes.field, ...classes.button}}
-                        color="secondary" 
-                        variant="contained"
-                        onClick={props.onClick}
-                    >
-                        Submit
-                    </Button>
-                </Box>
+                <Grid 
+                    container
+                    direction="column"
+                >
+                    <Grid item>
+                        <FormControl sx={classes.field} >
+                            <TextField 
+                                label="New Password"
+                                variant="filled" 
+                                type="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item>
+                        <FormControl sx={classes.field} >
+                            <TextField 
+                                label="Confirm Password"
+                                variant="filled" 
+                                type="password"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item>
+                        <Button 
+                            sx={{...classes.field, ...classes.button}}
+                            color="secondary" 
+                            variant="contained"
+                            onClick={props.onClick}
+                        >
+                            Submit
+                        </Button>
+                    </Grid>
+                </Grid>
             </Box>
             }
         </Box>
