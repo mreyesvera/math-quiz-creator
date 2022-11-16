@@ -21,7 +21,7 @@ export default function LearnerHomeTopic({title, quizzes, searchInput}){
                     quizzes.length > 0 ?
                         quizzes.filter((quiz) => {
                             if(searchInput && searchInput.length > 0){
-                                if(quiz.title.includes(searchInput)){
+                                if(quiz.title.toLowerCase().includes(searchInput.toLowerCase())){
                                     return true;
                                 }
 

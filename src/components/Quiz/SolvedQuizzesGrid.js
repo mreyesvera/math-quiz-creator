@@ -21,7 +21,7 @@ const solvedQuizzesColumns = [
         field: 'creationTime',
         headerName: 'Date Taken',
         type: 'date',
-        valueGetter: ({value}) => value && new Date(value),
+        valueGetter: ({value}) => value && new Date(value + "T00:00:00"),
         flex: 1,
     },
     {
@@ -65,7 +65,7 @@ export default function SolvedQuizzesGrid({quizId}){
         if(quizId){
             async function getSolvedQuizzes(id){
                 try {
-                    await axiosAuth.get(`/SolvedQuizzes`, id).then(response => {
+                    await axiosAuth.get(`/SolvedQuizzes?quizId=${id}`).then(response => {
                         console.log(response.data);
                         if(response.data){
                             setSolvedQuizzes(response.data);
@@ -81,7 +81,7 @@ export default function SolvedQuizzesGrid({quizId}){
 
             getSolvedQuizzes(quizId);
         }
-    }, [quizId]);
+    }, [quizId, axiosAuth]);
 
     console.log(solvedQuizzes);
     return (
@@ -94,7 +94,7 @@ export default function SolvedQuizzesGrid({quizId}){
                     sx={classes.gridContainer}
                 >
                     <Box>
-                        Highest Score: {getHighestScore(solvedQuizzes)}%
+                        Highest Score: {(solvedQuizzes && solvedQuizzes.length > 0) ? getHighestScore(solvedQuizzes) + "%" : "No Data"}
                     </Box>
                     <DataGrid 
                         rows={solvedQuizzes} 

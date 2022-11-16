@@ -40,7 +40,7 @@ export default function ConfirmDelete({open, elementTitle, handleClose, onDelete
           >
             <DialogTitle>{"Confirm Delete"}</DialogTitle>
             {
-                (errors && errors.length > 0) ??
+                (errors && errors.length > 0) &&
                 <Errors errors={errors} />
             }
             <DialogContent>

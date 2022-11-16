@@ -7,7 +7,6 @@ import CreatorHomeTopic from './CreatorHomeTopic'
 import Error from '../Shared/Error';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 import Preview from '../SolvedQuiz/Preview';
-import { ELEMENT } from '../../utils/models';
 
 const classes = {
     subtitle: {
@@ -20,13 +19,13 @@ export default function CreatorHome(){
 
     const [topics, setTopics] = React.useState([]);
     const [error, setError] = React.useState();
-    const [resetTopic, setResetTopic] = React.useState(true);
+    const [resetTopics, setResetTopics] = React.useState(true);
     
     const [openPreview, setOpenPreview] = React.useState(false);
     const [element, setElement] = React.useState();
 
     React.useEffect(() => {
-        if(resetTopic){
+        if(resetTopics){
             async function getTopics(){
                 try {
                     await axiosAuth.get(`/Topics?owner=${true}`).then(response => {
@@ -44,10 +43,10 @@ export default function CreatorHome(){
                 }
             }
 
-            setResetTopic(false);
+            setResetTopics(false);
             getTopics();
         }
-    }, [resetTopic, axiosAuth]);
+    }, [resetTopics, axiosAuth]);
 
     function createPreview(type, elementId){
         setOpenPreview(true);
@@ -73,7 +72,7 @@ export default function CreatorHome(){
                             <CreatorHomeTopic 
                                 key={topic.topicId} 
                                 topic={topic} 
-                                setResetTopic={setResetTopic}
+                                setResetTopics={setResetTopics}
                                 openPreview={createPreview}
                             />
                         ))

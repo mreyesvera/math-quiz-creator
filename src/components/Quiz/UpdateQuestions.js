@@ -307,7 +307,7 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
         >
             <DialogTitle>Update Questions</DialogTitle>
             {
-                (errors && errors.length > 0) ??
+                (errors && errors.length > 0) &&
                 <Errors errors={errors} />
             }
             <DialogContent>

@@ -9,7 +9,7 @@ import useAxiosAuth from '../../hooks/useAxiosAuth';
 import { ELEMENT } from '../../utils/models';
 import Preview from '../SolvedQuiz/Preview';
 
-export default function CreatorGridHomeActions({type, params, openPreview}){
+export default function CreatorGridHomeActions({type, params, openPreview, setResetTopics}){
     const axiosAuth = useAxiosAuth();
     const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ export default function CreatorGridHomeActions({type, params, openPreview}){
 
                     if(response.status === 204){
                         setOpenConfirmDelete(false);
-                        //navigate(`/home`);
+                        setResetTopics(true);
                     } else {
                         setErrors(["There was a problem deleting the value."]);
                     }

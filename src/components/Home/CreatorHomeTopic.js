@@ -24,7 +24,7 @@ const classes = {
     },
 };
 
-const createQuizzesColumns = (openPreview) => [
+const createQuizzesColumns = (openPreview, setResetTopics) => [
     {
         field: 'title',
         headerName: 'Title',
@@ -50,7 +50,7 @@ const createQuizzesColumns = (openPreview) => [
         field: 'lastModifiedTime',
         headerName: 'Last Modified',
         type: 'date',
-        valueGetter: ({value}) => value && new Date(value),
+        valueGetter: ({value}) => value && new Date(value + "T00:00:00"),
         flex: 2,
     },
     {
@@ -59,13 +59,18 @@ const createQuizzesColumns = (openPreview) => [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            return <CreatorGridHomeActions params={params} type={ELEMENT.QUIZ} openPreview={openPreview}/>;
+            return <CreatorGridHomeActions 
+                        params={params} 
+                        type={ELEMENT.QUIZ} 
+                        openPreview={openPreview}
+                        setResetTopics={setResetTopics}
+                    />;
         }
 
     }
 ];
 
-const createQuestionsColumns = (openPreview) => [
+const createQuestionsColumns = (openPreview, setResetTopics) => [
     {
         field: 'title',
         headerName: 'Title',
@@ -83,7 +88,7 @@ const createQuestionsColumns = (openPreview) => [
         field: 'lastModifiedTime',
         headerName: 'Last Modified',
         type: 'date',
-        valueGetter: ({value}) => value && new Date(value),
+        valueGetter: ({value}) => value && new Date(value + "T00:00:00"),
         flex: 2,
     },
     {
@@ -92,7 +97,12 @@ const createQuestionsColumns = (openPreview) => [
         flex: 3,
         sortable: false,
         renderCell: (params) => {
-            return <CreatorGridHomeActions params={params} type={ELEMENT.QUESTION} openPreview={openPreview}/>;
+            return <CreatorGridHomeActions 
+                        params={params} 
+                        type={ELEMENT.QUESTION} 
+                        openPreview={openPreview}
+                        setResetTopics={setResetTopics}
+                    />;
         }
 
     }
@@ -114,12 +124,12 @@ function onClickQuestionCell(row){
     console.log(row);
 }
 
-export default function CreatorHomeTopic({topic, setResetTopic, openPreview}){
+export default function CreatorHomeTopic({topic, setResetTopics, openPreview}){
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
 
-    const quizzesColumns = createQuizzesColumns(openPreview);
-    const questionsColumns = createQuestionsColumns(openPreview);
+    const quizzesColumns = createQuizzesColumns(openPreview, setResetTopics);
+    const questionsColumns = createQuestionsColumns(openPreview, setResetTopics);
 
     const quizzesTitleActions = [{
         title: 'CREATE NEW',
