@@ -153,8 +153,8 @@ export default function QuestionForm({question, onSubmit}){
             answer: question.answer
         });
 
-        let paramsColumns = undefined;
-        let paramsData = undefined;
+        let paramsColumns = [];
+        let paramsData = [];
         if(question.parameters){
             paramsColumns = formatParamsColumns(question.parameters);
             paramsData = formatParamsData(question.parameters, paramsColumns);
@@ -162,11 +162,13 @@ export default function QuestionForm({question, onSubmit}){
 
         setParamsColumns(paramsColumns);
         setParamsData(paramsData);
+
     }, [question]);
 
 
+    /*console.log(question);
     console.log(paramsColumns);
-    console.log(paramsData);
+    console.log(paramsData);*/
     return (
         <Box sx={{ display: 'flex' }}>
             <Box sx={{ flexGrow: 1, p: 3 }}>
@@ -270,7 +272,9 @@ export default function QuestionForm({question, onSubmit}){
                 openParametrization={openParametrization}
                 openVisualizations={openVisualizations}
                 paramsColumns={paramsColumns}
+                setParamsColumns={setParamsColumns}
                 paramsData={paramsData}
+                setParamsData={setParamsData}
             />
         </Box>
     );

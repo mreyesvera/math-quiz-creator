@@ -11,7 +11,7 @@ const classes = {
     }
 }
 
-export default function ParamDataGrid({data, columns, getRowId}){
+export default function ParamDataGrid({data, columns, getRowId, onCellEdit}){
     return (
         <Box
             sx={classes.gridContainer}
@@ -21,7 +21,8 @@ export default function ParamDataGrid({data, columns, getRowId}){
                 columns={columns} 
                 getRowId={getRowId}
                 disableColumnMenu
-                experimentalFeatures={{ newEditingApi: true }}
+                //experimentalFeatures={{ newEditingApi: true }}
+                onCellEditCommit={onCellEdit}
                 //components={{ Toolbar: GridToolbar }}
             />
         </Box>

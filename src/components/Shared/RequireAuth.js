@@ -13,7 +13,7 @@ export default function RequiredAuth({allowedRoles}){
     const location = useLocation();
     const outletContext = useOutletContext();
 
-    // console.log(auth);
+     console.log(auth);
     // console.log(auth && allowedRoles);
     // console.log(allowedRoles.includes(auth.user.role))
     // console.log(location);

@@ -72,7 +72,7 @@ export default function CreatorGridHomeActions({type, params, openPreview, setRe
         }
     }
 
-    console.log(params.row)
+    //console.log(params.row)
     return (
     <Box>
         {

@@ -18,7 +18,7 @@ const classes = {
     },
     gridContainer: {
         height: '400px',
-        width: 1,
+        width: '350px',
     }
 };
 
@@ -26,7 +26,7 @@ function getRowId(row){
     return row.order;
 }
 
-export default function ParamDataControl({paramsColumns, paramsData}){
+export default function ParamDataControl({paramsColumns, paramsData, onAddRow, onDeleteRow, onCellEdit, disableButtons}){
     return (
         <Box
             sx={classes.root}
@@ -36,11 +36,15 @@ export default function ParamDataControl({paramsColumns, paramsData}){
             >
                 <Button
                     variant='contained'
+                    onClick={onDeleteRow}
+                    disabled={disableButtons}
                 >
                     Delete Row
                 </Button>
                 <Button
                     variant='contained'
+                    onClick={onAddRow}
+                    disabled={disableButtons}
                 >
                     Add Row
                 </Button>
@@ -52,6 +56,7 @@ export default function ParamDataControl({paramsColumns, paramsData}){
                     data={paramsData}
                     columns={paramsColumns}
                     getRowId={getRowId}
+                    onCellEdit={onCellEdit}
                 />
             </Box>
         </Box>

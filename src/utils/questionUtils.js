@@ -18,36 +18,47 @@ function formatParamsColumns(parameters){
 
 function formatParamsData(parameters, paramsColumns){
     let paramData = [];
-    
 
-    let order = 1;
+    let count = 1;
     let proceed = true;
 
-    while(proceed){
-        let paramDataRow = {};
+    if(paramsColumns && paramsColumns.length > 0){
+        while(proceed){
+            let paramDataRow = {};
 
-        for(let i=0; i<paramsColumns.length; i++){
-            let paramColumn = paramsColumns[i].name;
+            for(let i=0; i<paramsColumns.length; i++){
+                let paramColumn = paramsColumns[i].name;
+                let order = count;
 
-            let foundParam = parameters.find(param => param.order === order && param.name === paramColumn)
+                let foundParam = parameters.find(param => param.order === order 
+                    && param.name === paramColumn)
 
-            paramDataRow.order = order;
-            if(foundParam){
-                paramDataRow[paramColumn] = foundParam.value;
-                paramDataRow[paramColumn + "_" + order + "_id"] = foundParam.parameterId
-            } else {
-                proceed = false;
+                paramDataRow.order = count;
+                if(foundParam){
+                    paramDataRow[paramColumn] = foundParam.value;
+                    paramDataRow[paramColumn + "_" + order + "_id"] = foundParam.parameterId
+                } else {
+                    proceed = false;
+                }
             }
-        }
 
-        if(proceed){
-            paramData.push(paramDataRow);
-            order++;
+            if(proceed){
+                paramData.push(paramDataRow);
+                count++;
+            }
         }
     }
 
     return paramData;
 }
+
+/*let maxOrder = 1;
+
+for(let i=0; i<paramsData.length; i++){
+    if(paramsData[i].order > maxOrder){
+        maxOrder = paramsData[i].order
+    }
+}*/
 
 export {
     formatParamsColumns,

@@ -116,7 +116,7 @@ const createClasses = (open) => ({
 });
 
 export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, openParametrization, openVisualizations,
-              paramsColumns, paramsData}){
+              paramsColumns, paramsData, setParamsColumns, setParamsData}){
     const theme = useTheme();
     const classes = createClasses(open);
 
@@ -124,6 +124,7 @@ export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, ope
       setOpen(oldOpen => !oldOpen)
     };
     
+    console.log(open);
     return (
     <Drawer 
       variant="permanent" 
@@ -181,7 +182,9 @@ export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, ope
                 selectedItem === "Parametrization" ?
                 <QuestionParametrization 
                   paramsColumns={paramsColumns}
+                  setParamsColumns={setParamsColumns}
                   paramsData={paramsData}
+                  setParamsData={setParamsData}
                 />
                 :
                 <QuestionVisualizations />
