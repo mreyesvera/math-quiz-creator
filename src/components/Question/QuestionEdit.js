@@ -13,7 +13,7 @@ export default function QuestionEdit(){
     const navigate = useNavigate();
     const outletContext = useOutletContext();
 
-    async function saveQuestion(question, parameters, formData, setErrors){
+    async function saveQuestion(question, parameters, formData, setErrors, setDisableSave){
         let modifiedQuestion = {
             questionId: question.questionId,
             ...formData
@@ -151,6 +151,7 @@ export default function QuestionEdit(){
 
                     if(response.status === 204){
                         outletContext.setGetData(true);
+                        setDisableSave(false);
                         navigate(-1);
                     } else {
                         errors.push("There was a problem saving the data.");

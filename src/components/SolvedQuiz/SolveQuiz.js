@@ -14,7 +14,7 @@ const classes = {
 };
 
 export default function SolveQuiz({questions, userAnswers, setUserAnswers, graded, solvedQuiz, gradedQuestions, 
-    updateGradedQuestion, unlimitedMode, quizId, exit}){
+    updateGradedQuestion, unlimitedMode, quizId, exit, setGetData}){
     return (
         <Grid 
             container
@@ -35,6 +35,7 @@ export default function SolveQuiz({questions, userAnswers, setUserAnswers, grade
                     updateGradedQuestion={updateGradedQuestion}
                     unlimitedMode={unlimitedMode}
                     exit={exit}
+                    setGetData={setGetData}
                 />
             </Grid>
         </Grid>

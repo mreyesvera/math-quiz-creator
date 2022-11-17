@@ -31,7 +31,7 @@ export default function QuestionAdd(){
     }); 
     const [error, setError] = React.useState([]);
 
-    async function saveQuestion(question, parameters, formData, setErrors){
+    async function saveQuestion(question, parameters, formData, setErrors, setDisableSave){
         let newQuestion = {
             topicId: topic.topicId,
             //creatorId: auth?.user?.userId,
@@ -76,6 +76,7 @@ export default function QuestionAdd(){
                 })
                 .then(() => {
                     if(question && errors.length === 0){
+                        setDisableSave(false);
                         navigate(-1);
                     }
                 });

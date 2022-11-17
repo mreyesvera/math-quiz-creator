@@ -116,14 +116,6 @@ function getQuestionRowId(row){
     return row.questionId;
 }
 
-function onClickQuizCell(row){
-    console.log(row);
-}
-
-function onClickQuestionCell(row){
-    console.log(row);
-}
-
 export default function CreatorHomeTopic({topic, setResetTopics, openPreview}){
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();
@@ -179,7 +171,6 @@ export default function CreatorHomeTopic({topic, setResetTopics, openPreview}){
                         getRowId={getQuizRowId}
                         titleSectionActions={quizzesTitleActions}
                         titleBackgroundColor='#70a489'
-                        onClickCell={onClickQuizCell}
                         toolbar={true}
                     />
                     <CreatorContentGrid 
@@ -189,7 +180,6 @@ export default function CreatorHomeTopic({topic, setResetTopics, openPreview}){
                         getRowId={getQuestionRowId}
                         titleSectionActions={questionsTitleActions}
                         titleBackgroundColor='#1e839c'
-                        onClickCell={onClickQuestionCell}
                         toolbar={true}
                     />
                 </Grid>

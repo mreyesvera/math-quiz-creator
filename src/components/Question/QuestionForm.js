@@ -137,8 +137,9 @@ export default function QuestionForm({question, onSubmit}){
             let errors = validateValues()
 
             if(errors.length === 0){
+                setDisableSave(true);
                 setErrors([]);
-                onSubmit(question, parameters, formData, setErrors);
+                onSubmit(question, parameters, formData, setErrors, setDisableSave);
             } else {
                 setErrors(errors);
             }

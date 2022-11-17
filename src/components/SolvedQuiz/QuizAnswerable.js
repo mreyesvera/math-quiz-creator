@@ -68,7 +68,7 @@ const classes = {
 };
 
 export default function QuizAnswerable({quizId, questions, userAnswers, setUserAnswers, graded, solvedQuiz, 
-    gradedQuestions, updateGradedQuestion, unlimitedMode, exit}){
+    gradedQuestions, updateGradedQuestion, unlimitedMode, exit, setGetData}){
     const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);
     const [selectedQuestion, setSelectedQuestion] = React.useState(0);
@@ -92,6 +92,7 @@ export default function QuizAnswerable({quizId, questions, userAnswers, setUserA
                 userAnswers.push(
                     { 
                         questionId: question.questionId,
+                        parameters: question.parameters,
                         answer: "",
                     }
                 );
@@ -135,6 +136,7 @@ export default function QuizAnswerable({quizId, questions, userAnswers, setUserA
     }
 
     function exitQuiz(){
+        setGetData(true);
         navigate(-1);
     }
 

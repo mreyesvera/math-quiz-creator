@@ -54,11 +54,10 @@ export default function CreatorGridHomeActions({type, params, openPreview, setRe
     }
 
     async function deleteElement(setErrors){
-        console.log(`${apiBaseUrl}${id}`);
         try {
             await axiosAuth.delete(`${apiBaseUrl}${id}`)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     if(response.status === 204){
                         setOpenConfirmDelete(false);
@@ -72,7 +71,6 @@ export default function CreatorGridHomeActions({type, params, openPreview, setRe
         }
     }
 
-    //console.log(params.row)
     return (
     <Box>
         {

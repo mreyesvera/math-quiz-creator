@@ -34,9 +34,6 @@ export default function ResetPassword(props){
     });
 
     function handleChange(event){
-        console.log("changed");
-        //console.log(event);
-
         const {name, value, type, checked} = event.target;
 
         setFormData(prevFormData => ({

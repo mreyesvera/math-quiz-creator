@@ -18,7 +18,7 @@ export default function QuestionPreview({questionId}){
 
         async function getQuestion(){
             try {
-                await axiosAuth.get(`/Questions/${questionId}`)
+                await axiosAuth.get(`/Questions/Parametrized/${questionId}`)
                 .then(response => {
                     console.log(response);
 

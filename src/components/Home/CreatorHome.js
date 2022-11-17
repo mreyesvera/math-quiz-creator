@@ -29,7 +29,8 @@ export default function CreatorHome(){
             async function getTopics(){
                 try {
                     await axiosAuth.get(`/Topics?owner=${true}`).then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
+
                         if(response.data){
                             setTopics(response.data);
                             setError(null);
@@ -38,8 +39,7 @@ export default function CreatorHome(){
                         }
                     }).catch(error => setError(error));
                 } catch(error){
-                    console.log("caught");
-                    setError(error);
+                    setError("There was a problem retrieving data.");
                 }
             }
 

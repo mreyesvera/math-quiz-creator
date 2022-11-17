@@ -74,7 +74,8 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
             async function gradeQuestion() {
                 let answeredQuestion = {
                     questionId: question.questionId,
-                    answer: userAnswer
+                    answer: userAnswer,
+                    parameters: question.parameters
                 }
                 console.log(quizId);
                 console.log(answeredQuestion);

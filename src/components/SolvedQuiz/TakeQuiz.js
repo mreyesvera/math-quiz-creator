@@ -102,7 +102,7 @@ export default function TakeQuiz(){
         }
     }
 
-    console.log(gradedQuestions);
+    console.log(outletContext.quiz);
     async function onSubmit(e) {
         e.preventDefault();
 
@@ -198,6 +198,7 @@ export default function TakeQuiz(){
                                     solvedQuiz={solvedQuiz}
                                     updateGradedQuestion={updateGradedQuestion}
                                     unlimitedMode={unlimitedMode}
+                                    setGetData={outletContext.setGetData}
                                     exit={true}
                                 />
                                 :
