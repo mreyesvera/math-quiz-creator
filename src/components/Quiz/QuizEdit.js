@@ -73,18 +73,6 @@ export default function QuizEdit(){
         let errors = []
 
         try {
-            await axiosAuth.put(`/Quizzes/${quiz.quizId}`, modifiedQuiz)
-                .then(response => {
-                    console.log(response);
-
-                    if(response.status === 204){
-                        outletContext.setGetData(true);
-                        //navigate(`/quiz/${quiz.quizId}/details`);
-                        //navigate(-1); FIGURE OUT WHERE TO PLACE THIS LATER ON
-                    } else {
-                        errors.push("There was a problem saving the quiz data.");
-                    }
-                });
             
             if(deletedQuizQuestions && deletedQuizQuestions.length > 0){
                 for(let i=0; i<deletedQuizQuestions.length; i++){
@@ -111,7 +99,6 @@ export default function QuizEdit(){
                 for(let i=0; i<modifiedQuizQuestions.length; i++){
                     let modifiedQuizQuestion = removeQuestionOnQuizQuestion(modifiedQuizQuestions[i]);
 
-                    console.log(modifiedQuizQuestion);
                     if(modifiedQuizQuestion.quizQuestionId){
                         await axiosAuth.put(`/QuizQuestions/${modifiedQuizQuestion.quizQuestionId}`, modifiedQuizQuestion)
                             .then(response => {
@@ -146,6 +133,19 @@ export default function QuizEdit(){
                         });
                 }
             }
+            
+            await axiosAuth.put(`/Quizzes/${quiz.quizId}`, modifiedQuiz)
+                .then(response => {
+                    console.log(response);
+
+                    if(response.status === 204){
+                        outletContext.setGetData(true);
+                        //navigate(`/quiz/${quiz.quizId}/details`);
+                        //navigate(-1); FIGURE OUT WHERE TO PLACE THIS LATER ON
+                    } else {
+                        errors.push("There was a problem saving the quiz data.");
+                    }
+                });
 
         } catch(error){
             errors.push("There was a problem saving the data.");

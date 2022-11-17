@@ -35,13 +35,15 @@ const classes = {
     }
 };
 
-export default function QuestionParametrization({paramsColumns, paramsData, setParamsColumns, setParamsData}){
+export default function QuestionParametrization({paramsColumns, paramsData, setParamsColumns, setParamsData, parameters, setParameters}){
     const [paramInput, setParamInput] = React.useState({
         value: "",
         error: false,
         helperText: "",
     });
     const [paramDataGridActionsDisabled, setParamDataGridActionsDisabled] = React.useState(false);
+
+    console.log(parameters);
 
     React.useEffect(() => {
         if(paramsColumns && paramsColumns.length > 0){
@@ -68,6 +70,20 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
 
             console.log(foundParam);
             if(!foundParam){
+                let paramsToAdd = [];
+                for(let i=0; i<paramsData.length; i++){
+                    let param = paramsData[i];
+
+                    paramsToAdd.push({
+                        name: paramInput.value,
+                        order: param.order,
+                        value: ""
+                    });
+                }
+
+                setParameters(oldParameters => {
+                    return oldParameters.concat(paramsToAdd);
+                });
 
                 setParamsColumns(oldParamsColumns => {
                     var newParamsColumns = oldParamsColumns.slice();
@@ -121,6 +137,12 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
 
             console.log(foundParam);
             if(foundParam){
+                setParameters(oldParameters => {
+                    return oldParameters.filter(param => {
+                        return param.name !== paramInput.value;
+                    })
+                });
+
                 setParamsColumns(oldParamsColumns => {
                     return oldParamsColumns.filter(paramColumn => {
                         return paramColumn.name !== paramInput.value
@@ -159,13 +181,28 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
     }
 
     function onAddRow(){
-        let maxOrder = 1;
+        let maxOrder = 0;
 
         for(let i=0; i<paramsData.length; i++){
             if(paramsData[i].order > maxOrder){
                 maxOrder = paramsData[i].order
             }
         }
+
+        let paramsToAdd = [];
+        for(let i=0; i<paramsColumns.length; i++){
+            let paramColumn = paramsColumns[i];
+
+            paramsToAdd.push({
+                name: paramColumn.name,
+                order: maxOrder + 1,
+                value: ""
+            });
+        }
+
+        setParameters(oldParameters => {
+            return oldParameters.concat(paramsToAdd);
+        });
 
         setParamsData(oldParamsData => {
             let newParamsData = oldParamsData.slice();
@@ -190,8 +227,26 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
         });
     }
 
+    React.useEffect(() => {
+        console.log(parameters);
+    }, [parameters]);
+
     function onDeleteRow(){
         if(paramsData && paramsData.length > 0){
+            let maxOrder = 0;
+
+            for(let i=0; i<paramsData.length; i++){
+                if(paramsData[i].order > maxOrder){
+                    maxOrder = paramsData[i].order
+                }
+            }
+
+            setParameters(oldParameters => {
+                return oldParameters.filter(param => {
+                    return param.order !== maxOrder;
+                })
+            });
+
             setParamsData(oldParamsData => {
                 return oldParamsData.slice(0, -1);
             });
@@ -212,10 +267,22 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
                     return param;
                 }
             });
+        });
+
+        setParameters(oldParameters => {
+            return oldParameters.map(param => {
+                if(param.order === id && param.name === field){
+                    return {
+                        ...param,
+                        value: value
+                    };
+                } else {
+                    return param;
+                }
+            })
         })
     }
 
-    console.log(paramsData);
     return (
         <Box
             sx={classes.root}

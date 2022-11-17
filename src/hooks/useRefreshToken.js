@@ -2,20 +2,26 @@ import axios from "../utils/axios/axios";
 import useAuth from "./useAuth";
 
 export default function useRefreshToken(){
-    const { setAuth } = useAuth();
+    const { auth, setAuth } = useAuth();
 
     async function refresh(){
         try{
-            await axios.get('/Authentication/RefreshToken', {
-                withCredentials: true
+            let response = await axios.post('/Authentication/RefreshToken', {
+                accessToken: auth?.accessToken,
+                refreshToken: auth?.refreshToken
             }).then(response => {
                 setAuth(oldAuth => {
                     return {
                         ...oldAuth,
-                        accessToken: response.data.accessToken
+                        accessToken: response.data.accessToken,
+                        refreshToken: response.data.refreshToken
                     }
                 });
+
+                return response;
             });
+
+            return response.data.accessToken;
         } catch(e){
             console.log(e);
         }

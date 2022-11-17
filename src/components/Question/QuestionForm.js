@@ -10,7 +10,13 @@ import * as React from 'react';
 import Errors from '../Shared/Errors';
 import QuestionFeaturesDrawer from './QuestionFeaturesDrawer';
 import { useNavigate } from "react-router-dom";
-import { formatParamsColumns, formatParamsData } from '../../utils/questionUtils';
+import { 
+    formatParamsColumns, 
+    formatParamsData,  
+    validateParams,
+    paramsChanged,
+    questionModified
+} from '../../utils/questionUtils';
 
 const classes = { 
     topRow: {
@@ -85,6 +91,7 @@ export default function QuestionForm({question, onSubmit}){
         description: "",
         answer: "",
     });
+    const [parameters, setParameters] = React.useState();
     const [paramsColumns, setParamsColumns] = React.useState();
     const [paramsData, setParamsData] = React.useState();
 
@@ -105,6 +112,10 @@ export default function QuestionForm({question, onSubmit}){
     React.useEffect(() => {
         function validateValues(){
             let errors = [];
+
+            if(!validateParams(parameters)){
+                errors.push("Invalid parameters.");
+            }
 
             if(!formData.title || formData.title.length > 20){
                 errors.push("Title is invalid. It should contain a value between 1 and 20 characters.");
@@ -127,20 +138,34 @@ export default function QuestionForm({question, onSubmit}){
 
             if(errors.length === 0){
                 setErrors([]);
-                onSubmit(question, formData, setErrors);
+                onSubmit(question, parameters, formData, setErrors);
             } else {
                 setErrors(errors);
             }
         }
-    }, [save, formData, question, onSubmit]);
+    }, [save, formData, question, parameters, onSubmit]);
 
     React.useEffect(()=> {
-        let changes = formData.title === question.title &&
-                        formData.description === question.description &&
-                        formData.answer === question.answer;
+        console.log("Changing disabled thing");
 
-        setDisableSave(changes);
-    }, [formData, question]);
+        let oldParameters = [];
+        if(question.parameters){
+            oldParameters = question.parameters;
+        }
+
+        let newParameters = []; 
+        if(parameters){
+            newParameters = parameters
+        }
+
+        //console.log(oldParameters);
+        //console.log(newParameters);
+
+        let changes = paramsChanged(oldParameters, newParameters) 
+                || questionModified(question, formData);
+
+        setDisableSave(!changes);
+    }, [formData, question, parameters]);
 
     function handleSubmit(event){
         setSave(true);
@@ -155,13 +180,17 @@ export default function QuestionForm({question, onSubmit}){
 
         let paramsColumns = [];
         let paramsData = [];
+        let parameters = [];
+
         if(question.parameters){
             paramsColumns = formatParamsColumns(question.parameters);
             paramsData = formatParamsData(question.parameters, paramsColumns);
+            parameters = question.parameters;
         }
 
         setParamsColumns(paramsColumns);
         setParamsData(paramsData);
+        setParameters(parameters);
 
     }, [question]);
 
@@ -256,12 +285,12 @@ export default function QuestionForm({question, onSubmit}){
                 <Box
                     sx={classes.rowWithMarginTop}
                 >
-                    <Button
+                    {/* <Button
                         variant="contained"
                         sx={{...classes.fullWidth,...classes.previewButton}}
                     >
                         Preview
-                    </Button>
+                    </Button> */}
                 </Box>
             </Box>
             <QuestionFeaturesDrawer 
@@ -275,6 +304,8 @@ export default function QuestionForm({question, onSubmit}){
                 setParamsColumns={setParamsColumns}
                 paramsData={paramsData}
                 setParamsData={setParamsData}
+                parameters={parameters}
+                setParameters={setParameters}
             />
         </Box>
     );

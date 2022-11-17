@@ -31,13 +31,15 @@ export default function QuestionAdd(){
     }); 
     const [error, setError] = React.useState([]);
 
-    async function saveQuestion(question, formData, setErrors){
+    async function saveQuestion(question, parameters, formData, setErrors){
         let newQuestion = {
             topicId: topic.topicId,
             //creatorId: auth?.user?.userId,
             ...formData
         };
         console.log(newQuestion);
+
+        let errors = [];
 
         try {
             await axiosAuth.post(`/Questions`, newQuestion)
@@ -46,16 +48,42 @@ export default function QuestionAdd(){
 
                     if(response.status === 201){
                         question = response.data;
-
-                        navigate(-1);
-                        //navigate(`/home`);
                     } else {
                         setErrors(["There was a problem saving the data."]);
                     }
+                })
+                .then(async () => {
+                    if(question){
+                        if(parameters && parameters.length > 0){
+                            for(let i=0; i<parameters.length; i++){
+                                let addedParam = parameters[i];
+                                
+                                addedParam.questionId = question.questionId;
+
+                                await axiosAuth.post(`/Parameters`, addedParam)
+                                    .then(response => {
+                                        console.log(response);
+            
+                                        if(response.status === 201){
+                                            // do something here for valid response
+                                        } else {
+                                            errors.push("Unabel to add parameter.")
+                                        }
+                                    });
+                            }
+                        }
+                    }
+                })
+                .then(() => {
+                    if(question && errors.length === 0){
+                        navigate(-1);
+                    }
                 });
         } catch(error){
-            setErrors(["There was a problem saving the data."]);
+            errors.push("There was a problem saving the data.");
         }
+
+        setErrors(errors);
     }
     
     React.useEffect(()=>{

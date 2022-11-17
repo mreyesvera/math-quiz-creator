@@ -52,6 +52,52 @@ function formatParamsData(parameters, paramsColumns){
     return paramData;
 }
 
+function validateParams(parameters){
+    let valid = true;
+    parameters.forEach(param => {
+        if(param.value && param.value.length > 0){
+
+        } else {
+            valid = false;
+        }
+    });
+
+    return valid;
+}
+
+function paramsChanged(oldParameters, parameters){
+    let changedParams = []
+
+    let deletedParams = oldParameters.filter(oldParam => {
+        let param = parameters.filter(param => param.order === oldParam.order && param.name === oldParam.name);
+
+        if(param[0]){
+            // could check if modified, but already do it in following concat, so not doing it here to avoid repetition
+            return false
+        }
+
+        return true;
+    });
+
+    let addedOrModifiedParams = parameters.filter(param => {
+        let oldParam = oldParameters.filter(oldParam => oldParam.order === param.order && oldParam.name === param.name);
+
+        if(oldParam[0]){
+            return oldParam[0].value !== param.value;
+        }   
+
+        return true;
+    });
+
+    return deletedParams.length > 0 || addedOrModifiedParams.length > 0;
+}
+
+function questionModified(oldQuestion, question){
+    return oldQuestion.title !== question.title ||
+            oldQuestion.description !== question.description ||
+            oldQuestion.answer !== question.answer
+}
+
 /*let maxOrder = 1;
 
 for(let i=0; i<paramsData.length; i++){
@@ -62,5 +108,8 @@ for(let i=0; i<paramsData.length; i++){
 
 export {
     formatParamsColumns,
-    formatParamsData
+    formatParamsData,
+    validateParams,
+    paramsChanged,
+    questionModified
 };

@@ -71,7 +71,7 @@ const questionsColumns = [
             return <AssignedQuizzesCell assignedQuizzes={cellValues.row.assignedQuizzes}/>
         }
     },
-    {
+    /*{
         field: 'actions',
         headerName: 'Actions',
         flex: 3,
@@ -79,7 +79,7 @@ const questionsColumns = [
         renderCell: (params) => {
             return <CreatorGridHomeActions params={params}  type="question"/>
         }
-    }
+    }*/
 ];
 
 const questionsTitleActions = (addQuestions, createNew) => ([
