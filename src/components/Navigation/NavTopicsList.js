@@ -19,7 +19,8 @@ export default function NavTopicsList(props){
             async function getTopics(){
                 try {
                     await axiosAuth.get(`/Topics`).then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
+                        
                         if(response.data){
                             setTopics(response.data);
                             setError(null);

@@ -74,9 +74,6 @@ export default function TakeQuiz(){
 
     function updateGradedQuestion(questionId, graded, answeredQuestionGraded, externalSetError){
         let updated = false;
-        console.log(questionId);
-        console.log(graded);
-        console.log(answeredQuestionGraded);
 
         if(questionId && answeredQuestionGraded){
             setGradedQuestions(oldGradedQuestions => {
@@ -84,7 +81,6 @@ export default function TakeQuiz(){
                     if(oldGradedQuestion.questionId !== questionId){
                         return oldGradedQuestion
                     } else {
-                        console.log("found");
                         updated = true;
                         return {
                             ...oldGradedQuestion,
@@ -102,7 +98,6 @@ export default function TakeQuiz(){
         }
     }
 
-    console.log(outletContext.quiz);
     async function onSubmit(e) {
         e.preventDefault();
 
@@ -114,7 +109,7 @@ export default function TakeQuiz(){
         try {
             await axiosAuth.post(`/QuizzesLearner`, answeredQuiz)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     if(response.status === 200 && response.data){
                         let error = "";
@@ -156,11 +151,8 @@ export default function TakeQuiz(){
         } catch(error){
             setError("There was a problem saving the data.");
         }
-
-        console.log(answeredQuiz);
     } 
 
-    console.log(outletContext.quiz);
     return (
         <Box>
             {

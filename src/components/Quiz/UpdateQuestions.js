@@ -104,15 +104,13 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
                         //console.log(response);
     
                         if(response.status === 200){
-                            setQuestions(response.data)
-                            console.log(response.data);
+                            setQuestions(response.data);
 
                             return response.data
                         } else {
                             setErrors(["There was a problem saving the data."]);
                         }
                     }).then((questions) => {
-                        console.log("setting values");
                         let savedQuestionsTemp = [];
                         let remainingQuestionsTemp = [];
 
@@ -126,15 +124,6 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
                             }
                         });
 
-                        console.log("quiz questions");
-                        console.log(quizQuestions);
-
-                        console.log("questions");
-                        console.log(questions);
-
-                        console.log("save temp questions");
-                        console.log(savedQuestionsTemp);
-
                         setSavedQuestions(savedQuestionsTemp);
                         setRemainingQuestions(remainingQuestionsTemp);
                     });
@@ -144,7 +133,6 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
         }
 
         if(reset){
-            console.log("fetching questions");
             setReset(false);
             var errors = [];
 
@@ -285,7 +273,7 @@ export default function UpdateQuestions({open, handleClose, topicId, quizQuestio
                     order: question.order
                 }
             } else {
-                console.log("ERROR IN LOGIC");
+                // error in logic
                 return {};
             }
         });

@@ -43,8 +43,6 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
     });
     const [paramDataGridActionsDisabled, setParamDataGridActionsDisabled] = React.useState(false);
 
-    console.log(parameters);
-
     React.useEffect(() => {
         if(paramsColumns && paramsColumns.length > 0){
             setParamDataGridActionsDisabled(false);
@@ -62,13 +60,11 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
     }
 
     function onAddParam(){
-        console.log(paramsData);
         if(paramInput.value && paramInput.value.length > 0 ){
             let foundParam = paramsColumns.find(paramColumn => {
                 return paramColumn.name === paramInput.value
             });
 
-            console.log(foundParam);
             if(!foundParam){
                 let paramsToAdd = [];
                 for(let i=0; i<paramsData.length; i++){
@@ -135,7 +131,6 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
                 return paramColumn.name === paramInput.value
             });
 
-            console.log(foundParam);
             if(foundParam){
                 setParameters(oldParameters => {
                     return oldParameters.filter(param => {
@@ -226,10 +221,6 @@ export default function QuestionParametrization({paramsColumns, paramsData, setP
             return newParamsData;
         });
     }
-
-    React.useEffect(() => {
-        console.log(parameters);
-    }, [parameters]);
 
     function onDeleteRow(){
         if(paramsData && paramsData.length > 0){

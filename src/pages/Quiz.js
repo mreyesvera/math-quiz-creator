@@ -37,7 +37,8 @@ export default function Quiz(){
             async function getQuiz(id){
                 try {
                     await axiosAuth.get(`/QuizzesLearner/${id}`).then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
+                        
                         if(response.data){
                             setQuiz(response.data);
                             setError(null);

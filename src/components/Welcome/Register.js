@@ -88,11 +88,10 @@ export default function Register(){
     React.useEffect(() => {
         if(doRegister){
             async function postRegister(userRegister){
-                console.log("inside register");
                 try {
                     await axios.post('/Authentication', userRegister)
                         .then(response => {
-                            console.log(response);
+                            //console.log(response);
 
                             if(response.status === 201){
                                 navigate("/");
@@ -208,14 +207,12 @@ export default function Register(){
 
     function register(event){
         let valid = validateFields();
-        console.log(valid);
 
         if(valid){
             setDoRegister(true);
         }
     }
 
-    console.log("rendering");
     return (
         <WelcomeForm title="Register">
             {

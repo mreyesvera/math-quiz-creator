@@ -20,7 +20,7 @@ export default function QuestionPreview({questionId}){
             try {
                 await axiosAuth.get(`/Questions/Parametrized/${questionId}`)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     let data = response.data;
 
@@ -58,7 +58,6 @@ export default function QuestionPreview({questionId}){
     function onUserAnswerChanged(event){
         const value = event.target.value;
 
-        console.log(value);
         setUserAnswer(oldUserAnswer => ({
                 ...oldUserAnswer,
                 answer: value
@@ -68,9 +67,6 @@ export default function QuestionPreview({questionId}){
 
     function updateGradedQuestion(questionId, graded, answeredQuestionGraded, externalSetError){
         let updated = false;
-        console.log(questionId);
-        console.log(graded);
-        console.log(answeredQuestionGraded);
 
         if(questionId && answeredQuestionGraded){
             updated = true;

@@ -21,7 +21,7 @@ export default function QuizPreview({quizId}){
         async function getQuiz(id){
             try {
                 await axiosAuth.get(`/QuizzesLearner/${id}`).then(response => {
-                    console.log(response.data);
+                    //console.log(response.data);
 
                     let data = response.data;
                     if(data){

@@ -22,12 +22,6 @@ export default function QuizEdit(){
             quizId: quiz.quizId,
             ...formData
         };
-
-        console.log("Quiz Edit quizQuestions");
-        console.log(quizQuestions);
-
-        console.log("Quiz Edit quizQuestionsData");
-        console.log(quizQuestionsData);
         
         let deletedQuizQuestions = quizQuestions.filter((quizQuestion) => {
             let quizQuestionInData = quizQuestionsData.find((quizQuestionData) => matchingQuizQuestionId(quizQuestionData, quizQuestion));
@@ -58,17 +52,6 @@ export default function QuizEdit(){
 
             return false;
         });
-
-
-
-        console.log("deleted quiz questions");
-        console.log(deletedQuizQuestions);
-
-        console.log("modified quiz questions");
-        console.log(modifiedQuizQuestions);
-
-        console.log("added quiz questions");
-        console.log(addedQuizQuestions);
         
         let errors = []
 
@@ -81,7 +64,7 @@ export default function QuizEdit(){
                     if(deletedQuizQuestion.quizQuestionId){
                         await axiosAuth.delete(`/QuizQuestions/${deletedQuizQuestion.quizQuestionId}`)
                             .then(response => {
-                                console.log(response);
+                                //console.log(response);
 
                                 if(response.status === 204){
                                     // do something here for valid response
@@ -102,7 +85,7 @@ export default function QuizEdit(){
                     if(modifiedQuizQuestion.quizQuestionId){
                         await axiosAuth.put(`/QuizQuestions/${modifiedQuizQuestion.quizQuestionId}`, modifiedQuizQuestion)
                             .then(response => {
-                                console.log(response);
+                                //console.log(response);
 
                                 if(response.status === 204){
                                     // do something here for valid repsonse
@@ -120,10 +103,9 @@ export default function QuizEdit(){
                 for(let i=0; i<addedQuizQuestions.length; i++){
                     let addedQuizQuestion = removeQuestionOnQuizQuestion(addedQuizQuestions[i]);
 
-                    console.log(addedQuizQuestion);
                     await axiosAuth.post(`/QuizQuestions`, addedQuizQuestion)
                         .then(response => {
-                            console.log(response);
+                            //console.log(response);
 
                             if(response.status === 201){
                                 // do something here for valid response
@@ -136,12 +118,11 @@ export default function QuizEdit(){
             
             await axiosAuth.put(`/Quizzes/${quiz.quizId}`, modifiedQuiz)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     if(response.status === 204){
                         outletContext.setGetData(true);
                         //navigate(`/quiz/${quiz.quizId}/details`);
-                        //navigate(-1); FIGURE OUT WHERE TO PLACE THIS LATER ON
                     } else {
                         errors.push("There was a problem saving the quiz data.");
                     }
@@ -154,7 +135,6 @@ export default function QuizEdit(){
         setErrors(errors);
     }
 
-    console.log(outletContext);
     return (
         <Box>
             <QuizForm 

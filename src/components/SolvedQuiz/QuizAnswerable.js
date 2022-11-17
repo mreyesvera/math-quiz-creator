@@ -125,7 +125,6 @@ export default function QuizAnswerable({quizId, questions, userAnswers, setUserA
     function onUserAnswerChanged(event){
         const value = event.target.value;
 
-        console.log(value);
         setUserAnswers(oldUserAnswers => {
             let newUserAnswers = oldUserAnswers.slice();
 

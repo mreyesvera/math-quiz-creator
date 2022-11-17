@@ -124,7 +124,6 @@ export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, ope
       setOpen(oldOpen => !oldOpen)
     };
     
-    console.log(open);
     return (
     <Drawer 
       variant="permanent" 

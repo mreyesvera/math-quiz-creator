@@ -40,7 +40,7 @@ export default function LearnerHome(){
             async function getTopicQuizQuestions(){
                 try {
                     await axiosAuth.get(`/Topics/SolvedQuizzes`).then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
                         
                         if(response.data){
                             setTopicsSolvedQuizzes(response.data);
@@ -50,7 +50,6 @@ export default function LearnerHome(){
                         }
                     }).catch(error => setError(error));
                 } catch(error){
-                    //setError(error);
                     setError("There was a problem retrieving data.");
                 }
             }

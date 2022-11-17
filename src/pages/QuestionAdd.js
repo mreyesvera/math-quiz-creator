@@ -37,14 +37,13 @@ export default function QuestionAdd(){
             //creatorId: auth?.user?.userId,
             ...formData
         };
-        console.log(newQuestion);
 
         let errors = [];
 
         try {
             await axiosAuth.post(`/Questions`, newQuestion)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     if(response.status === 201){
                         question = response.data;
@@ -62,7 +61,7 @@ export default function QuestionAdd(){
 
                                 await axiosAuth.post(`/Parameters`, addedParam)
                                     .then(response => {
-                                        console.log(response);
+                                        //console.log(response);
             
                                         if(response.status === 201){
                                             // do something here for valid response

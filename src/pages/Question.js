@@ -33,7 +33,8 @@ export default function Question(props){
             async function getQuestion(id){
                 try {
                     await axiosAuth.get(`/Questions/${id}`).then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
+                        
                         if(response.data){
                             setQuestion(response.data);
                             setError(null);

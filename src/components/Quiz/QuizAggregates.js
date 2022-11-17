@@ -66,7 +66,6 @@ export default function QuizAggregates({quizId}){
     
                         if(response.status === 200){
                             setSolvedQuizzes(response.data)
-                            console.log(response.data);
                         } else {
                             setErrors(["There was a problem saving the data."]);
                         }

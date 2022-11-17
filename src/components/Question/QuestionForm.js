@@ -100,7 +100,6 @@ export default function QuestionForm({question, onSubmit}){
     }
 
     function handleChange(event){
-        console.log("changed");
         const {name, value, type, checked} = event.target;
 
         setFormData(prevFormData => ({
@@ -147,7 +146,6 @@ export default function QuestionForm({question, onSubmit}){
     }, [save, formData, question, parameters, onSubmit]);
 
     React.useEffect(()=> {
-        console.log("Changing disabled thing");
 
         let oldParameters = [];
         if(question.parameters){
@@ -158,9 +156,6 @@ export default function QuestionForm({question, onSubmit}){
         if(parameters){
             newParameters = parameters
         }
-
-        //console.log(oldParameters);
-        //console.log(newParameters);
 
         let changes = paramsChanged(oldParameters, newParameters) 
                 || questionModified(question, formData);
@@ -195,10 +190,6 @@ export default function QuestionForm({question, onSubmit}){
 
     }, [question]);
 
-
-    /*console.log(question);
-    console.log(paramsColumns);
-    console.log(paramsData);*/
     return (
         <Box sx={{ display: 'flex' }}>
             <Box sx={{ flexGrow: 1, p: 3 }}>

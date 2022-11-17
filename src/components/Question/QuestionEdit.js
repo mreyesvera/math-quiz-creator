@@ -19,8 +19,6 @@ export default function QuestionEdit(){
             ...formData
         };
 
-        console.log(parameters);
-
         let oldParameters = outletContext?.question?.parameters;
 
         if(!oldParameters){
@@ -72,15 +70,6 @@ export default function QuestionEdit(){
             questionId: outletContext.question.questionId
         }));
 
-        console.log("deleted parameters");
-        console.log(deletedParameters);
-
-        console.log("modified parameters");
-        console.log(modifiedParameters);
-
-        console.log("added parameters");
-        console.log(addedParameters);
-
         let errors = [];
 
         try {
@@ -91,7 +80,7 @@ export default function QuestionEdit(){
                     if(deletedParam.parameterId){
                         await axiosAuth.delete(`/Parameters/${deletedParam.parameterId}`)
                             .then(response => {
-                                console.log(response);
+                                //console.log(response);
 
                                 if(response.status === 204){
                                     // do something here for valid response
@@ -112,7 +101,7 @@ export default function QuestionEdit(){
                     if(modifiedParameter.parameterId){
                         await axiosAuth.put(`/Parameters/${modifiedParameter.parameterId}`, modifiedParameter)
                             .then(response => {
-                                console.log(response);
+                                //console.log(response);
 
                                 if(response.status === 204){
                                     // do something here for valid repsonse
@@ -130,10 +119,9 @@ export default function QuestionEdit(){
                 for(let i=0; i<addedParameters.length; i++){
                     let addedParameter = addedParameters[i];
 
-                    console.log(addedParameter);
                     await axiosAuth.post(`/Parameters`, addedParameter)
                         .then(response => {
-                            console.log(response);
+                            //console.log(response);
 
                             if(response.status === 201){
                                 // do something here for valid response
@@ -147,7 +135,7 @@ export default function QuestionEdit(){
 
             await axiosAuth.put(`/Questions/${outletContext.question.questionId}`, modifiedQuestion)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     if(response.status === 204){
                         outletContext.setGetData(true);

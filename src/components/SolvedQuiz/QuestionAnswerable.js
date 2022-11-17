@@ -77,13 +77,11 @@ export default function QuestionAnswerable({question, gradedQuestion, userAnswer
                     answer: userAnswer,
                     parameters: question.parameters
                 }
-                console.log(quizId);
-                console.log(answeredQuestion);
         
                 try {
                     await axiosAuth.post(`/QuizzesLearner/GradeQuestion?quizId=${quizId ? quizId : ""}`, answeredQuestion)
                         .then(response => {
-                            console.log(response);
+                            //console.log(response);
         
                             if(response.status === 200 && response.data){
                                 let error = "";

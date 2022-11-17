@@ -42,7 +42,7 @@ export default function Login(){
                 try {
                     await axios.post('/Authentication/Login', userLogin)
                         .then(response => {
-                            console.log(response);
+                            //console.log(response);
 
                             if(response.status === 200){
                                 setAuth(response.data);
@@ -72,7 +72,6 @@ export default function Login(){
     }, [doLogin, loginData, navigate, setAuth])
 
     function handleChange(event){
-        //console.log("changed");
         const {name, value, type, checked} = event.target;
 
         setLoginData(prevLoginData => ({
@@ -118,7 +117,6 @@ export default function Login(){
 
     function login(){
         let valid = validateFields();
-        console.log(valid);
 
         if(valid){
             setDoLogin(true);

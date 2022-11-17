@@ -121,7 +121,6 @@ export default function QuizForm({topicId, quiz, onSubmit}){
     }
 
     function handleChange(event){
-        //console.log("changed");
         const {name, value, type, checked} = event.target;
 
         setFormData(prevFormData => ({
@@ -159,8 +158,6 @@ export default function QuizForm({topicId, quiz, onSubmit}){
 
             if(errors.length === 0){
                 setErrors([]);
-                //console.log(formData);
-                console.log(quizQuestionsData)
                 onSubmit(quiz, formData, quizQuestions, quizQuestionsData, setErrors)
                     .then(setResetUpdateQuestions(true));
             } else {
@@ -210,11 +207,6 @@ export default function QuizForm({topicId, quiz, onSubmit}){
         setOpenAddQuestions(false);
     }
 
-    //console.log(errors && errors.length);
-    //console.log(quiz);
-    //console.log(questions);
-    //console.log("quiz questions data");
-    //console.log(quizQuestionsData);
     return (
         <Box>
             <Box sx={classes.saveChangesContainer}>

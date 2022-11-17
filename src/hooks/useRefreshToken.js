@@ -23,7 +23,7 @@ export default function useRefreshToken(){
 
             return response.data.accessToken;
         } catch(e){
-            console.log(e);
+            //console.log(e);
         }
     }
 

@@ -44,14 +44,13 @@ export default function QuizAdd(){
             //creatorId: auth?.user?.userId,
             ...formData
         };
-        console.log(newQuiz);
 
         let errors = []
 
         try {
             await axiosAuth.post(`/Quizzes`, newQuiz)
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
 
                     if(response.status === 201){
                         quiz = response.data;
@@ -69,10 +68,9 @@ export default function QuizAdd(){
                                 
                                 addedQuizQuestion.quizId = quiz.quizId;
 
-                                console.log(addedQuizQuestion);
                                 await axiosAuth.post(`/QuizQuestions`, addedQuizQuestion)
                                     .then(response => {
-                                        console.log(response);
+                                        //console.log(response);
             
                                         if(response.status === 201){
                                             // do something here for valid response
@@ -100,6 +98,7 @@ export default function QuizAdd(){
             try {
                 await axiosAuth.get(`/Topics/${id}`).then(response => {
                     //console.log(response.data);
+                    
                     if(response.data){
                         setTopic(response.data);
                         setError(null);

@@ -20,7 +20,6 @@ export default function DataGridCellClickable(props){
     function onButtonClick(){
         navigate(props.navigateUrl)
 
-        console.log(props.afterNavigate);
         if(props.afterNavigate){
             props.afterNavigate();
         }

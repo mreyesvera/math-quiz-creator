@@ -140,12 +140,9 @@ export default function CreatorHomeTopic({topic, setResetTopics, openPreview}){
         setIsOpen((oldIsOpen) => {
             return !oldIsOpen;
         });
-        console.log(isOpen);
     }
 
     function openTopicList(){
-        // later this might be a filter where it looks for the matching topicId
-        //console.log(topicQuizzes.current);
         toggleIsOpen();
 
     }

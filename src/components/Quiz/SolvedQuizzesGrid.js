@@ -66,7 +66,7 @@ export default function SolvedQuizzesGrid({quizId}){
             async function getSolvedQuizzes(id){
                 try {
                     await axiosAuth.get(`/SolvedQuizzes?quizId=${id}`).then(response => {
-                        console.log(response.data);
+                        //console.log(response.data);
                         if(response.data){
                             setSolvedQuizzes(response.data);
                             setError(null);
@@ -83,7 +83,6 @@ export default function SolvedQuizzesGrid({quizId}){
         }
     }, [quizId, axiosAuth]);
 
-    console.log(solvedQuizzes);
     return (
         <Box sx={classes.gridSection}>
             {
