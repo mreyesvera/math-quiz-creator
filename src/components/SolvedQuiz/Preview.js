@@ -22,6 +22,20 @@ const style = {
     borderRadius: '20px',
   };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Displays a modal that previews a quiz or question (specified element).
+ * 
+ * @param {Object} param0 
+ *      - open: Whether the modal is open or not
+ *      - handleClose: function to close the modal
+ *      - element: Quiz or Question object to use for the preview
+ * @returns {React.ReactElement} Preview Modal for quizzes and questions
+ */
 export default function Preview({open, handleClose, element}){
     return (
         <Modal

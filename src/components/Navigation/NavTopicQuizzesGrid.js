@@ -49,6 +49,20 @@ function getQuizRowId(row){
     return row.quizId;
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays an mui grid of quizzes. 
+ * Used in the NavTopicList to display a specific topic's quizzes.
+ * 
+ * @param {Object} param0 
+ *      - quizzes: Quizzes to display as data rows
+ *      - onItemSelected: function to handle the selection of a quiz
+ * @returns 
+ */
 export default function NavTopicQuizzesGrid({quizzes, onItemSelected}){
     const columns = React.useRef(createColumns(onItemSelected));
 

@@ -26,6 +26,24 @@ function getRowId(row){
     return row.order;
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Used to display and manage the questions' parameters when 
+ * editing or adding a question.
+ * 
+ * @param {Object} param0 
+ *      - paramsColumns: MUI Data Grid columns
+ *      - parmsData: MUI Data Grid rows 
+ *      - onAddRow: function to handle adding a row in the parameters grid
+ *      - onDeleteRow: function to handle deletion of a row in the parameters grid
+ *      - onCellEdit: function to handle mui data grid cell edited
+ *      - disableButtons: Whether to disable the add and delete row buttons
+ * @returns {React.ReactElement} MUI Data Grid of parameters with buttons to add/delete rows
+ */
 export default function ParamDataControl({paramsColumns, paramsData, onAddRow, onDeleteRow, onCellEdit, disableButtons}){
     return (
         <Box

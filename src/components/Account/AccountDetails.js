@@ -23,6 +23,15 @@ const classes = {
     }
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Shows user account details for Account page. 
+ * @returns {React.ReactElement} User Account Details
+ */
 export default function AccountDetails(){
     const { auth } = useAuth();
 

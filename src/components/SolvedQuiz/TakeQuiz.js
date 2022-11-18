@@ -26,6 +26,17 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages the retrieval and saving of data when a learner takes a quiz. 
+ * Also holds the components used to display the quiz. 
+ * 
+ * @returns  {React.ReactElement} Learner's Take Quiz
+ */
 export default function TakeQuiz(){
     const navigate = useNavigate();
     const axiosAuth = useAxiosAuth();

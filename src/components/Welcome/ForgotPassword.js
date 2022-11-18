@@ -7,6 +7,17 @@ import WelcomeForm from "./WelcomeForm";
 import WelcomeField from './WelcomeField';
 import { useNavigate } from "react-router-dom";
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays a forgot password form accessible from
+ * the welcome page. 
+ * 
+ * @returns {React.ReactElement} Forgot Password Form
+ */
 export default function ForgotPassword(){
     const navigate = useNavigate();
 

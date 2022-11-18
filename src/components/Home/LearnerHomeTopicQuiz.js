@@ -28,6 +28,22 @@ const createClasses = (theme, solved) => {
     }
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Used in the Learner's home to display a specific topic's quiz
+ * results based on user's solved quizzes.  
+ * 
+ * @param {Object} param0 
+ *      - quizId: quiz id of the quiz being represented 
+ *      - solved: Whether this is a display for a solved quizzes, or just to display message to solve quizzes
+ *      - title: quiz title of the quiz being represented
+ *      - highestScore: user's highest score 
+ * @returns {React.ReactElement} - Learner's Home Topic Quiz 
+ */
 export default function LearnerHomeTopicQuiz({quizId, solved, title, highestScore}) {
     const theme = useTheme();
     const classes = createClasses(theme, solved);

@@ -12,6 +12,21 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays a learner home topic list of quizzes 
+ * that have been solved. 
+ *  
+ * @param {Object} param0 
+ *      - title: topic title
+ *      - quizzes: topic quizzes
+ *      - searchInput: user's search input
+ * @returns {React.ReactElement} Learner Home Topic
+ */
 export default function LearnerHomeTopic({title, quizzes, searchInput}){
     return (
         <Box>

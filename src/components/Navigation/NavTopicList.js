@@ -13,6 +13,19 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays the list of quizzes for a specified topic.
+ * 
+ * @param {Object} param0 
+ *      - topic: Topic object to display the navigation list for
+ *      - onItemSelected: function to handle a quiz being selected
+ * @returns {React.ReactElement} Navigation Drawer Topic List
+ */
 export default function NavTopicList({topic, onItemSelected}){
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -23,9 +36,7 @@ export default function NavTopicList({topic, onItemSelected}){
     }
 
     function openTopicList(){
-        // later this might be a filter where it looks for the matching topicId
         toggleIsOpen();
-
     }
 
     return (

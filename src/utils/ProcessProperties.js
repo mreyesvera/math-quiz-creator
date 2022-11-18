@@ -1,3 +1,13 @@
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Provides utility functions that allow to manipulate properties
+ * in objects and arrays. 
+ */
+
 export function nestedValues(element, properties, index, value){
     let currentValue = element[properties[index]];
     if(Array.isArray(currentValue)){

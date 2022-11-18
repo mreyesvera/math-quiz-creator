@@ -35,6 +35,23 @@ const classes = {
     }
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays the parametrization feature for a question.
+ * 
+ * @param {Object} param0 
+ *      - paramsColumns: MUI Data Grid parameters' columns
+ *      - paramsData: MUI Data Grid parameters' rows
+ *      - setParamsColumns: function to set the parameters' columns
+ *      - setParamsData: function to set the parameters' rows
+ *      - parameters: Question's parameters
+ *      - setParameters: function to set the question's parameters
+ * @returns {React.ReactElement} Question's Parametrization Feature
+ */
 export default function QuestionParametrization({paramsColumns, paramsData, setParamsColumns, setParamsData, parameters, setParameters}){
     const [paramInput, setParamInput] = React.useState({
         value: "",

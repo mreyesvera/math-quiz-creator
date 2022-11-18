@@ -9,6 +9,18 @@ const classes = {
     }
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays a single error.
+ * 
+ * @param {Object} props
+ *      - error: error to display, either an error instance or the actual message 
+ * @returns {React.ReactElement} Error Display
+ */
 export default function Error(props){
     const [error, setError] = React.useState();
 

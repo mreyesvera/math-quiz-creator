@@ -97,6 +97,20 @@ function getQuestionRowId(row){
     return row.questionId;
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles the quiz form used to add or edit quizzes.
+ * 
+ * @param {Object} param0 
+ *      - topicId: topicId of the edited or added quiz
+ *      - question: Quiz to edit or starting question
+ *      - onSubmit: function to call once the form is submitted
+ * @returns {React.ReactElement} Quiz's Form
+ */
 export default function QuizForm({topicId, quiz, onSubmit}){
     const navigate = useNavigate();
     const [errors, setErrors] = React.useState([]);

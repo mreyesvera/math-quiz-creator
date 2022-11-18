@@ -9,6 +9,18 @@ import Error from '../Shared/Error';
 import * as React from 'react';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays a quiz on preview. 
+ * 
+ * @param {Object} param0 
+ *      - quizId: Quiz id of the quiz to preview
+ * @returns {React.ReactElement} Quiz's Preview
+ */
 export default function QuizPreview({quizId}){
     const axiosAuth = useAxiosAuth();
     const [error, setError] = React.useState();

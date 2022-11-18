@@ -4,8 +4,29 @@ import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth";
 
 /**
- * https://github.com/gitdagray/react_jwt_auth/
- * @returns 
+ * This file is part of a modified implementation of JWT, refresh tokens and axios
+ * that was learned through Dave Gray's course on 
+ * 'React Login Authentication with JWT Access, Refresh Tokens, Cookies and Axios'
+ * (https://www.youtube.com/watch?v=nI8PYZNFtac). 
+ * Github reference (https://github.com/gitdagray/react_jwt_auth/).
+ * 
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * This is a React hook that is used to authenticate axios calls
+ * to the backend api. 
+ * 
+ * It adds the bearer access token to the authentication header
+ * before sending the request and if receiving an unauthorized
+ * response in the case of my api (401) it tries to refresh the token
+ * and manage the request. 
+ * 
+ * There may be a problem refreshing the token at the moment, 
+ * but I didn't end up being able to troubleshoot it to make sure it was solved.
+ * 
+ * @returns React hook used to do authenticated axios calls
  */
 export default function useAxiosAuth(){
     const refresh = useRefreshToken();

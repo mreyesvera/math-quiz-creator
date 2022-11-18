@@ -11,7 +11,17 @@ import {
 } from '../../utils/quizQuestionUtils';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 
-
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Main component used to manage and display the view to 
+ * edit an existing quiz.
+ * 
+ * @returns {React.ReactElement} Quiz Edit main component
+ */
 export default function QuizEdit(){
     const axiosAuth = useAxiosAuth();
     //const navigate = useNavigate();

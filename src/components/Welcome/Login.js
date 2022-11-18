@@ -11,6 +11,16 @@ import { emailRegex } from '../../utils/regex';
 import Error from '../Shared/Error';
 import axios from '../../utils/axios/axios';
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays a login form in the welcome page.
+ * 
+ * @returns {React.ReactElement} Login Form
+ */
 export default function Login(){
     const navigate = useNavigate();
     // Removed auth but can be readded if needed

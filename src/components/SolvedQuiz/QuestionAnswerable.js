@@ -57,6 +57,25 @@ const classes = {
     }
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Displays a question that is answerable. 
+ * 
+ * @param {Object} param0 
+ *      - question: Question to display
+ *      - gradedQuestion: object to manage graded question data
+ *      - userAnswer: object to keep track of user answer
+ *      - onChange: function to handle change of user answer
+ *      - canGrade: whether the question can be graded or not
+ *      - canReset: whether the question can be reset or not
+ *      - updateGradedQuestion: function to update the graded question
+ *      - quizId: quiz id that the question belongs to
+ * @returns {React.ReactElement} Question Answerable display
+ */
 export default function QuestionAnswerable({question, gradedQuestion, userAnswer, onChange, 
     canGrade, canReset, updateGradedQuestion, quizId}){
     const axiosAuth = useAxiosAuth();

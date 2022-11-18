@@ -52,6 +52,18 @@ function getAverage(solvedQuizzes){
     return (sum / solvedQuizzes.length).toFixed(2);
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays quiz aggregates for a creator and a specified quiz.
+ * 
+ * @param {Object} param0 
+ *      - quizId: Quiz id used to filter the returned solved quizzes
+ * @returns {React.ReactElement} Creator's Quiz Aggregates
+ */
 export default function QuizAggregates({quizId}){
     const axiosAuth = useAxiosAuth();
     const [errors, setErrors] = React.useState([]);

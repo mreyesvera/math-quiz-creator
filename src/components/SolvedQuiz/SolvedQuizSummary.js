@@ -18,6 +18,21 @@ const classes = {
     }
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Displays the summary of results from a solved quiz. 
+ * 
+ * @param {Object} param0 
+ *      - correct: Amount of correct answers
+ *      - incorrect: Amount of incorrect answers
+ *      - score: Total Score
+ *      - onExit:  function to handle exiting the quiz
+ * @returns {React.ReactElement} Solved Quiz Summary
+ */
 export default function SolvedQuizSummary({correct, incorrect, score, onExit}){
     return (
         <Box

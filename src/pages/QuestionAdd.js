@@ -16,6 +16,16 @@ const classes = {
     }
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Main container to display Question Add Page. 
+ * 
+ * @returns {React.ReactElement} Question Add Page
+ */
 export default function QuestionAdd(){
     const axiosAuth = useAxiosAuth();
     const { auth } = useAuth();

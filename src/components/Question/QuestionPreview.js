@@ -6,6 +6,18 @@ import QuestionAnswerable from '../SolvedQuiz/QuestionAnswerable';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 import Error from '../Shared/Error';
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays a question on preview. 
+ * 
+ * @param {Object} param0 
+ *      - questionId: Question id of the question to preview
+ * @returns {React.ReactElement} Question's Preview
+ */
 export default function QuestionPreview({questionId}){
     const axiosAuth = useAxiosAuth();
     const [gradedQuestion, setGradedQuestion] = React.useState();

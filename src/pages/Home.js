@@ -11,7 +11,17 @@ const classes = {
     }
 };
 
-export default function Home(props){
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Main container to display Home Page. 
+ * 
+ * @returns {React.ReactElement} Home Page
+ */
+export default function Home(){
     const { auth } = useAuth();
 
     return (

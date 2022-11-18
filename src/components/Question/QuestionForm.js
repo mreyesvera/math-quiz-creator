@@ -67,6 +67,19 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles the question form used to add or edit questions.
+ * 
+ * @param {Object} param0 
+ *      - question: Question to edit or starting question
+ *      - onSubmit: function to call once the form is submitted
+ * @returns {React.ReactElement} Question's Form
+ */
 export default function QuestionForm({question, onSubmit}){
     const [open, setOpen] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState("Parametrization");

@@ -56,7 +56,16 @@ const classesFromTheme = (isRegister) => {
     }
 };
 
-
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Main container to display Welcome Page. 
+ * 
+ * @returns {React.ReactElement} Welcome Page
+ */
 export default function Welcome(props){
     const [isRegister] = React.useState(window.location.pathname.includes('/register'));
     const classes = classesFromTheme(isRegister);

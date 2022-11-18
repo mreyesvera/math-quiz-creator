@@ -31,6 +31,18 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles displaying quiz's information and actions. 
+ * 
+ * @param {Object} props 
+ *      - quiz: Quiz object to show the information for
+ * @returns {React.ReactElement} Quiz's Information
+ */
 export default function QuizInformation(props){
     const { auth } = useAuth();
     const navigate = useNavigate();

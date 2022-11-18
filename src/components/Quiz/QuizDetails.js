@@ -9,7 +9,16 @@ import SolvedQuizzesGrid from './SolvedQuizzesGrid';
 import { solvedQuizzes2 } from '../../components/sample_data';
 import useAuth from '../../hooks/useAuth';
 
-
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles the display of the quiz details. 
+ * 
+ * @returns {React.ReactElement} Quiz Details
+ */
 export default function Quiz(){
     const { auth } = useAuth();
     const contextValue = useOutletContext();

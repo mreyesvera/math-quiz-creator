@@ -67,6 +67,28 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Displays a quiz that is answerable. 
+ * 
+ * @param {Object} param0 
+ *      - quizId: Quiz id of the quiz to display
+ *      - questions: Quiz questions
+ *      - userAnswers: list of objects to hold the user answers per question
+ *      - setUserAnswers: function to set the userAnswers
+ *      - graded: whether the quiz is graded or not
+ *      - solvedQuiz: the returned solved quiz once graded
+ *      - gradedQuestions: object to manage graded questions data
+ *      - updateGradedQuestion: function to update the graded questions
+ *      - unlimitedMode: whether the quiz should be shown in unlimited mode or not
+ *      - exit: whether the exit button is available
+ *      - setGetData: function to reretrieve the quiz data
+ * @returns {React.ReactElement} Quiz Answerable display
+ */
 export default function QuizAnswerable({quizId, questions, userAnswers, setUserAnswers, graded, solvedQuiz, 
     gradedQuestions, updateGradedQuestion, unlimitedMode, exit, setGetData}){
     const navigate = useNavigate();

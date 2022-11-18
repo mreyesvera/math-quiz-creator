@@ -55,6 +55,18 @@ function getSolvedQuizRowId(solvedQuiz){
     return solvedQuiz.solvedQuizId;
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays a MUI Data Grid of solved quizzes from the learner for a specified quiz.
+ * 
+ * @param {Object} param0 
+ *      - quizId: Quiz id to show the solved quizzes for
+ * @returns {React.ReactElement} Learner's Solved Quizzes Grid
+ */
 export default function SolvedQuizzesGrid({quizId}){
     const axiosAuth = useAxiosAuth();
 

@@ -9,6 +9,22 @@ import useAxiosAuth from '../../hooks/useAxiosAuth';
 import { ELEMENT } from '../../utils/models';
 import Preview from '../SolvedQuiz/Preview';
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Used throughout the application to display and manage the actions
+ * for rows in questions and quizzes data grids.  
+ *  
+ * @param {Object} param0 
+ *      - type: string of 'question' or 'quiz' depending on type being displayed
+ *      - params: MUI Data Grid row params
+ *      - openPreview: function to be able to open the preview for the quiz or question
+ *      - setResetTopics: function to be able to re-fetch data after a database change
+ * @returns {React.ReactElement} Displays a set of actions for questions and quizzes data grids
+ */
 export default function CreatorGridHomeActions({type, params, openPreview, setResetTopics}){
     const axiosAuth = useAxiosAuth();
     const navigate = useNavigate();

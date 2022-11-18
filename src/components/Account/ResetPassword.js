@@ -26,6 +26,17 @@ const classes = {
     },
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages user password reset from the Account page. 
+ * Not functional at the moment. 
+ *  
+ * @returns {React.ReactElement} Reset Password form
+ */
 export default function ResetPassword(props){
     const [errors, setErrors] = React.useState([]);
     const [formData, setFormData] = React.useState({

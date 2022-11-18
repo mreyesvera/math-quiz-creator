@@ -36,8 +36,15 @@ const ROLES = {
 };
 
 /**
- * TO DO: Modify the passing of the authentication functions once full authentication
- * is incorporated.
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays the single page application (root of SPA). 
+ * The application's routes are defined here. 
+ * 
+ * @returns {React.ReactElement} App
  */
 function App() {
   return (

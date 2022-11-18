@@ -20,6 +20,19 @@ const classes = {
   }
 };
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Displays the application's top bar that allows navigation to the
+ * nav drawer and to the account and logout. 
+ * 
+ * @param {Object} props 
+ *      - openDrawer: Function to open the nav drawer
+ * @returns {React.ReactElement} Menu App Bar
+ */
 export default function MenuAppBar(props) {
   const navigate = useNavigate();
   const { setAuth } = useAuth();

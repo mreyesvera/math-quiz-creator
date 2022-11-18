@@ -7,6 +7,18 @@ import NavTopicList from './NavTopicList';
 import Error from '../Shared/Error';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays the list of topics' quizzes lists.
+ * 
+ * @param {Object} props 
+ *      - onItemSelected: Handles the selection of an item on the list
+ * @returns {React.ReactElement} Navigation Drawer Topics List
+ */
 export default function NavTopicsList(props){
     const axiosAuth = useAxiosAuth();
 

@@ -116,6 +116,20 @@ function getQuestionRowId(row){
     return row.questionId;
 }
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays a creator home topic drop down selection. 
+ *  
+ * @param {Object} param0 
+ *      - topic: Topic object to use
+ *      - setResetTopics: function to refetch data in case of database update
+ *      - openPreview: function to open preview for quizzes and questions
+ * @returns {React.ReactElement} Creator Home Topic
+ */
 export default function CreatorHomeTopic({topic, setResetTopics, openPreview}){
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();

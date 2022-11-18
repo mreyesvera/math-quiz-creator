@@ -32,6 +32,30 @@ const createClasses = (props) => ({
     }
 });
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Used throughout the application to display mui grids particularly
+ * for questions, quizzes and solved quizzes. 
+ * 
+ * @param {Object} props 
+ *      - titleBackgroundColor: Color of title's background
+ *      - titleSectionActions: Actions at title level
+ *          - title: Action button text
+ *          - onClick: onClick button action
+ *      - data: MUI Data Grid data
+ *      - columns: MUI Data Grid columns
+ *      - getRowId: MUI Data Grid getRowId
+ *      - toolbar: whether MUI Data Grid toolbar is enabled or not
+ *      - checkBoxSelection: MUI Data Grid checkBoxSelection
+ *      - selectionModel: MUI Data Grid selectionModel
+ *      - onSelectionModelChange: MUI Data Grid onSelectionModelChanged
+ *      - initialState: MUI Data Grid initialState
+ * @returns {React.ReactElement} Displays an MUI Grid with a title and title level actions
+ */
 export default function CreatorContentGrid(props) {
     const classes = createClasses(props);
 

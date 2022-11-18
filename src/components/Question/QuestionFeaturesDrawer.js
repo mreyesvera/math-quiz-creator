@@ -56,24 +56,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -115,6 +97,36 @@ const createClasses = (open) => ({
   },
 });
 
+/**
+ * This component is a modified version of one of the
+ * example Nav Drawers shown by MUI: 
+ * https://mui.com/material-ui/react-drawer/#mini-variant-drawer
+ * (particularly the methods to style the components and do any
+ * transitions)
+ * 
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles the drawer for a question's feature drawer. 
+ * The features at the moment include Parametrization and Visualizations,
+ * however, visualizations is not working. 
+ * 
+ * @param {Object} param0 
+ *    - open: Whether the drawer is open or not
+ *    - setOpen: Function to set whether the drawer is open or not
+ *    - selectedItem: Whether "Parametrization" or "Visualizations" is selected
+ *    - openParametrization: Whether the parametrizations view is open
+ *    - openVisualizations: Whether the visualizations view is open
+ *    - paramsColumns: MUI Data Grid parameters' columns
+ *    - paramsData: MUI Data Grid parameters' rows
+ *    - setParamsColumns: Allows to set the parameters' columns
+ *    - setParamsData: Allows to set the parameters' rows
+ *    - parameters: questions' parameters
+ *    - setParameters: Function to set the questions' parameters
+ * @returns {React.ReactElement} Question's Features Drawer
+ */
 export default function QuestionFeaturesDrawer({open, setOpen, selectedItem, openParametrization, openVisualizations,
               paramsColumns, paramsData, setParamsColumns, setParamsData, parameters, setParameters}){
     const theme = useTheme();

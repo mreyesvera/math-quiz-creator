@@ -8,6 +8,17 @@ import NavDrawer from '../components/Navigation/NavDrawer';
 import MenuAppBar from '../components/Navigation/MenuAppBar';
 import useAuth from '../hooks/useAuth';
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Wraps the application content when a user is logged in. 
+ * It helps display the menu app bar and the navigation drawer. 
+ * 
+ * @returns {React.ReactElement} Private Layout Wrapper
+ */
 export default function PrivateLayout() {
     const [open, setOpen] = React.useState(false);
 

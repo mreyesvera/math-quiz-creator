@@ -14,6 +14,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays a dialog to be able to delete a quiz or question.
+ * 
+ * @param {Object} param0 
+ *      - open: Whether the delete dialog is open or not
+ *      - elementTitle: What is the element being deleted's title
+ *      - handleClose: function to handle closing the dialog
+ *      - onDelete: function to handle the delete operation
+ * @returns {React.ReactElement} Confirm Delete Dialog
+ */
 export default function ConfirmDelete({open, elementTitle, handleClose, onDelete}){
     const [errors, setErrors] = React.useState([]);
     const [deleting, setDeleting] = React.useState(false);

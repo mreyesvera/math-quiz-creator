@@ -82,7 +82,26 @@ function getQuestionRowId(row){
     return row.questionId;
 }
 
-
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Handles and displays a dialog to be able to edit a quiz's questions (quiz questions).
+ * 
+ * @param {Object} param0 
+ *      - open: Whether the update questions dialog is open or not
+ *      - handleClose: Handles closing the update questions dialog
+ *      - topicId: Topic id of the quiz where the dialog shows up
+ *      - quizQuestions: Quiz's questions 
+ *      - quizId: Quiz id of the quiz where the dialog shows up
+ *      - setUpdatedQuestions: function to update quiz's questions
+ *      - setQuizQuestions: function to update quiz's quiz questions
+ *      - reset: Whether to reset the retrieved questions
+ *      - setReset: function to set reset
+ * @returns {React.ReactElement} Quiz's Update Questions
+ */
 export default function UpdateQuestions({open, handleClose, topicId, quizQuestions, quizId, 
     setUpdatedQuestions, setQuizQuestions, reset, setReset}){
     const axiosAuth = useAxiosAuth();

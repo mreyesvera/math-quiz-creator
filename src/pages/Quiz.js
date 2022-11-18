@@ -15,7 +15,16 @@ const classes = {
     }
 };
 
-
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Main container to display Quiz Page. 
+ * 
+ * @returns {React.ReactElement} Quiz Page
+ */
 export default function Quiz(){
     const axiosAuth = useAxiosAuth();
     const { id } = useParams();

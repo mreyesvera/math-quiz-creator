@@ -34,6 +34,20 @@ const createClasses = (theme) => ({
     }
 });
 
+/**
+ * I, Silvia Mariana Reyesvera Quijano, student number 000813686, 
+ * certify that this material is my original work. 
+ * No other person's work has been used without due acknowledgement 
+ * and I have not made my work available to anyone else.
+ * 
+ * Manages and displays the application's navigation drawer, 
+ * which allows users to browse the different quizzes.
+ * 
+ * @param {Object} props 
+ *      - open: whether the nav drawer is open or not
+ *      - handleClose: function to close the nav drawer
+ * @returns {React.ReactElement} Navigation Drawer
+ */
 export default function NavDrawer(props){
     const theme = useTheme();
     const classes = createClasses(theme);
